@@ -1,0 +1,234 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <!--suppress HtmlUnknownTarget -->
+    <link rel="stylesheet" href="styles/main.css" />
+    <!-- endbuild -->
+    <!-- build:css({.tmp,app}) styles/openmind.css -->
+    <!--suppress HtmlUnknownTarget -->
+    <link rel="stylesheet" href="styles/openmind.css" />
+    <link rel="stylesheet" href="styles/width-full.css" />
+    <!-- endbuild -->
+
+</head>
+<body>
+
+<a name="top"></a>
+
+<div class="boxed animated fadeIn animation-delay-5">
+<header id="header" class="hidden-xs">
+    <div class="container">
+        <div id="header-title">
+            <img src="/images/wikibus-logo.png" alt="WikiBus">
+
+            <p class="animated fadeInLeft" translate>{{ 'HEADLINE' }}</p>
+        </div>
+
+        <div id="social-header" class="hidden-xs">
+            <a class="social-icon soc-twitter animated fadeInDown animation-delay-1"><i class="fa fa-twitter"></i></a>
+            <a class="social-icon soc-google-plus animated fadeInDown animation-delay-2"><i class="fa fa-google-plus"></i></a>
+            <a href="http://facebook.com/wikibus" class="social-icon soc-facebook animated fadeInDown animation-delay-3"><i class="fa fa-facebook"></i></a>
+            <a class="social-icon soc-instagram animated fadeInDown animation-delay-4"><i class="fa fa-instagram"></i></a>
+            <a class="social-icon soc-pinterest animated fadeInDown animation-delay-5"><i class="fa fa-pinterest"></i></a>
+            <a class="social-icon soc-linkedin animated fadeInDown animation-delay-6"><i class="fa fa-linkedin"></i></a>
+            <a href="https://github.com/wikibus/website" class="social-icon soc-github animated fadeInDown animation-delay-7"><i class="fa fa-github"></i></a>
+        </div>
+
+        <div id="search-header" class="hidden-xs animated bounceInRight">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                            </span>
+            </div> <!-- /input-group -->
+        </div>
+    </div> <!-- container -->
+</header> <!-- header -->
+
+<nav class="navbar navbar-static-top navbar-mind" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand visible-xs" href="/#">Wiki<span>Bus</span></a>
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-mind-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="fa fa-bars fa-inverse"></i>
+            </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-mind-collapse">
+            <ul class="nav navbar-nav">
+                <li ng-class="{active: $routeSegment.startsWith('home')}">
+                    <a href="#/"><span translate>{{ 'MENUS.HOME_PAGE' }}</span></a>
+                </li> <!-- dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <span translate>{{ 'MENUS.PRODUCER' }}</span> <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/companies"><span translate>{{ 'MENUS.COMPANY' }}</span></a></li>
+                        <li><a href="#/brands"><span translate>{{ 'MENUS.BRAND' }}</span></a></li>
+                    </ul>
+                </li> <!-- dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><span translate>{{ 'MENUS.VEHICLE' }}</span> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/buses"><span class="bus-bus-front"></span><span translate>{{ 'MENUS.BUS' }}</span></a></li>
+                        <li><a href="#/trams"><span class="bus-tram-front"></span><span translate>{{ 'MENUS.TRAM' }}</span></a></li>
+                        <li><a href="#/trolleys"><span class="bus-trolley-front"></span><span translate>{{ 'MENUS.TROLLEY' }}</span></a></li>
+                    </ul>
+                </li> <!-- dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><span translate>{{ 'MENUS.SOURCE' }}</span> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/books"><span translate>{{ 'MENUS.BOOK' }}</span></a></li>
+                        <li><a href="#/brochures"><span translate>{{ 'MENUS.BROCHURE' }}</span></a></li>
+                        <li><a href="#/mags"><span translate>{{ 'MENUS.MAGAZINE' }}</span></a></li>
+                        <li><a href="#/links"><span translate>{{ 'MENUS.LINK' }}</span></a></li>
+                    </ul>
+                </li> <!-- dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"><span translate>{{ 'MENUS.TECH' }}</span></a>
+                </li> <!-- dropdown -->
+                <li class="dropdown">
+                    <a href="#/images" class="dropdown-toggle" data-toggle="dropdown"><span translate>{{ 'MENUS.IMAGE' }}</span></a>
+                </li> <!-- dropdown -->
+                <li class="dropdown">
+                    <a href="#/blog" class="dropdown-toggle" data-toggle="dropdown"><span translate>{{ 'MENUS.BLOG' }}</span></a>
+                </li> <!-- dropdown -->
+            </ul> <!-- nav nabvar-nav -->
+        </div> <!-- navbar-collapse -->
+    </div> <!-- container -->
+</nav> <!-- navbar navbar-default -->
+
+<header class="wrap-title" ng-show="!$routeSegment.startsWith('home')" ng-cloak>
+    <div class="container">
+        <h1 class="page-title">CSS Elements</h1>
+
+        <ol class="breadcrumb hidden-xs">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">UI Elements</a></li>
+            <li class="active">CSS</li>
+        </ol>
+    </div>
+</header>
+
+<div id="main" app-view-segment="0"></div>
+
+<aside id="footer-widgets">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h3 class="footer-widget-title" translate>{{ 'FOOTER.SITEMAP' }}</h3>
+                <ul class="list-unstyled three_cols">
+                    <li><a href="#/" translate>{{ 'MENUS.HOME_PAGE' }}</a></li>
+                    <li><a href="#/blog" translate>{{ 'MENUS.BLOG' }}</a></li>
+                    <li><a href="#/images" translate>{{ 'MENUS.IMAGE' }}</a></li>
+                    <li><a href="#/buses" translate>{{ 'MENUS.BUS' }}</a></li>
+                    <li><a href="#/trams" translate>{{ 'MENUS.TRAM' }}</a></li>
+                    <li><a href="#/trolleys" translate>{{ 'MENUS.TROLLEY' }}</a></li>
+                    <li><a href="#/books" translate>{{ 'MENUS.BOOK' }}</a></li>
+                    <li><a href="#/brochures" translate>{{ 'MENUS.BROCHURE' }}</a></li>
+                    <li><a href="#/mags" translate>{{ 'MENUS.MAGAZINE' }}</a></li>
+                    <li><a href="#/links" translate>{{ 'MENUS.LINK' }}</a></li>
+                    <li><a href="#" translate>Login</a></li>
+                    <li><a href="#" translate>Contact</a></li>
+                </ul>
+                <h3 class="footer-widget-title">Subscribe</h3>
+
+                <p>Lorem ipsum Amet fugiat elit nisi anim mollit in labore ut esse Duis ullamco ad dolor veniam
+                    velit lorem ipsum dolor sit amet, consectetur adipisicing..</p>
+
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Email Adress">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="button">Subscribe</button>
+                            </span>
+                </div> <!-- /input-group -->
+            </div>
+            <div class="col-md-4">
+                <div class="footer-widget">
+                    <h3 class="footer-widget-title">Recent Post</h3>
+
+                    <div class="media">
+                        <a class="pull-left" href="#"><img class="media-object" src="images/m2.jpg" width="75"
+                                                           height="75" alt="image"></a>
+
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="#">Lorem ipsum Duis quis occaecat minim lorem ipsum
+                                tempor officia labor</a></h4>
+                            <small>August 18, 2013</small>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <a class="pull-left" href="#"><img class="media-object" src="images/m11.jpg" width="75"
+                                                           height="75" alt="image"></a>
+
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="#">Lorem ipsum dolor excepteur sunt in lorem ipsum
+                                cillum tempor</a></h4>
+                            <small>September 14, 2013</small>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <a class="pull-left" href="#"><img class="media-object" src="images/m4.jpg" width="75"
+                                                           height="75" alt="image"></a>
+
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="#">Lorem ipsum Dolor cupidatat adipisicing et
+                                fugiat</a></h4>
+                            <small>October 9, 2013</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="footer-widget">
+                    <h3 class="footer-widget-title">Recent Works</h3>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-3 col-xs-6">
+                            <a href="#" class="thumbnail"><img src="images/wf1.jpg" class="img-responsive"
+                                                               alt="Image"></a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-3 col-xs-6">
+                            <a href="#" class="thumbnail"><img src="images/wf2.jpg" class="img-responsive"
+                                                               alt="Image"></a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-3 col-xs-6">
+                            <a href="#" class="thumbnail"><img src="images/wf3.jpg" class="img-responsive"
+                                                               alt="Image"></a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-3 col-xs-6">
+                            <a href="#" class="thumbnail"><img src="images/wf4.jpg" class="img-responsive"
+                                                               alt="Image"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- row -->
+    </div> <!-- container -->
+</aside> <!-- footer-widgets -->
+
+<footer id="footer">
+    <p>&copy; 2014 <a href="#/">Wikibus</a> All rights reserved.</p>
+</footer>
+
+</div> <!-- boxed -->
+
+
+<div id="back-top">
+    <a href="#top"><i class="fa fa-chevron-up"></i></a>
+</div>
+</body>
+</html>

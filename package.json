@@ -1,0 +1,23 @@
+{
+  "name": "wikibus.org",
+  "version": "0.1.0",
+  "description": "wikibus.org public transport encyclopedia",
+  "main": "index.js",
+  "dependencies": {
+    "gulp": "^3.9.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bus",
+    "tram",
+    "trolleybus"
+  ],
+  "author": "Tomasz Pluskiewicz",
+  "license": "ISC"
+}
