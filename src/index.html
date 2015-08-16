@@ -8,50 +8,22 @@
     <title></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width" />
-    <!-- build:css({.tmp,app}) styles/main.css -->
-    <!--suppress HtmlUnknownTarget -->
     <link rel="stylesheet" href="styles/main.css" />
-    <!-- endbuild -->
-    <!-- build:css({.tmp,app}) styles/openmind.css -->
-    <!--suppress HtmlUnknownTarget -->
     <link rel="stylesheet" href="styles/openmind.css" />
-    <link rel="stylesheet" href="styles/width-full.css" />
-    <!-- endbuild -->
-
+    <link rel="import" href="lib/polymer/polymer.html" />
+    <link rel="import" href="styles/openmind.html" />
+    <link rel="import" href="components/wb-header.html" />
 </head>
 <body>
 
 <a name="top"></a>
 
 <div class="boxed animated fadeIn animation-delay-5">
-<header id="header" class="hidden-xs">
+<header id="header">
     <div class="container">
-        <div id="header-title">
-            <img src="/images/wikibus-logo.png" alt="WikiBus">
-
-            <p class="animated fadeInLeft" translate>{{ 'HEADLINE' }}</p>
-        </div>
-
-        <div id="social-header" class="hidden-xs">
-            <a class="social-icon soc-twitter animated fadeInDown animation-delay-1"><i class="fa fa-twitter"></i></a>
-            <a class="social-icon soc-google-plus animated fadeInDown animation-delay-2"><i class="fa fa-google-plus"></i></a>
-            <a href="http://facebook.com/wikibus" class="social-icon soc-facebook animated fadeInDown animation-delay-3"><i class="fa fa-facebook"></i></a>
-            <a class="social-icon soc-instagram animated fadeInDown animation-delay-4"><i class="fa fa-instagram"></i></a>
-            <a class="social-icon soc-pinterest animated fadeInDown animation-delay-5"><i class="fa fa-pinterest"></i></a>
-            <a class="social-icon soc-linkedin animated fadeInDown animation-delay-6"><i class="fa fa-linkedin"></i></a>
-            <a href="https://github.com/wikibus/website" class="social-icon soc-github animated fadeInDown animation-delay-7"><i class="fa fa-github"></i></a>
-        </div>
-
-        <div id="search-header" class="hidden-xs animated bounceInRight">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                            </span>
-            </div> <!-- /input-group -->
-        </div>
-    </div> <!-- container -->
-</header> <!-- header -->
+        <wb-header></wb-header>
+    </div>
+</header>
 
 <nav class="navbar navbar-static-top navbar-mind" role="navigation">
     <div class="container">

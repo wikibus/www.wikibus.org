@@ -1,0 +1,36 @@
+<dom-module id="wb-header">
+    <template>
+        <div id="header-title">
+            <img src="/images/wikibus-logo.png" alt="WikiBus">
+
+            <p class="animated fadeInLeft">'HEADLINE'</p>
+        </div>
+
+        <div id="social-header" class="hidden-xs">
+            <a class="social-icon soc-twitter animated fadeInDown animation-delay-1"><i class="fa fa-twitter"></i></a>
+            <a class="social-icon soc-google-plus animated fadeInDown animation-delay-2"><i class="fa fa-google-plus"></i></a>
+            <a href="http://facebook.com/wikibus" class="social-icon soc-facebook animated fadeInDown animation-delay-3"><i class="fa fa-facebook"></i></a>
+            <a class="social-icon soc-instagram animated fadeInDown animation-delay-4"><i class="fa fa-instagram"></i></a>
+            <a class="social-icon soc-pinterest animated fadeInDown animation-delay-5"><i class="fa fa-pinterest"></i></a>
+            <a class="social-icon soc-linkedin animated fadeInDown animation-delay-6"><i class="fa fa-linkedin"></i></a>
+            <a href="https://github.com/wikibus/website" class="social-icon soc-github animated fadeInDown animation-delay-7"><i class="fa fa-github"></i></a>
+        </div>
+
+        <div id="search-header" class="hidden-xs animated bounceInRight">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                        </span>
+            </div> <!-- /input-group -->
+        </div>
+    </template>
+</dom-module>
+
+<script>
+    'use strict';
+
+    Polymer({
+        is: 'wb-header'
+    });
+</script>

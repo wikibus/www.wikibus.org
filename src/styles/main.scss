@@ -1,0 +1,18 @@
+$icon-font-path: "/lib/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+$fa-font-path: "/lib/font-awesome/fonts";
+
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
+@import "../../bower_components/font-awesome/scss/font-awesome.scss";
+@import "wikibus-font.scss";
+
+// bower:scss
+// endbower
+
+#header-title > img {
+  position: relative;
+  top: 25px;
+}
+
+#header-title > p {
+  text-align: center;
+}

@@ -1,0 +1,21 @@
+@import "style.less";
+@import "color.less";
+
+// .video class interferes with <video /> tag
+html.video{
+  overflow: visible;
+  height: auto;
+  padding-bottom: 0px;
+}
+
+// show pointer on all links
+a, #header a{
+  cursor: pointer;
+}
+
+// open menus on hover
+@media (min-width: 768px) {
+  li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+  }
+}
