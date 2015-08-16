@@ -4,13 +4,14 @@ var gulp = require('gulp'),
     gulpIgnore = require('gulp-ignore'),
     history = require('connect-history-api-fallback'),
     sass = require('gulp-sass'),
-    less = require('gulp-less');
+    less = require('gulp-less'),
+    jshint = require('gulp-jshint');
 
 gulp.task('default', ['clean'], function() {
     gulp.start('build');
 });
 
-gulp.task('build', [ 'bower-files', 'content', 'css', 'connect', 'watch']);
+gulp.task('build', [ 'bower-files', 'content', 'lint', 'css', 'connect', 'watch']);
 
 gulp.task('bower-files', function() {
     gulp.src('bower_components/**/*.*', { base: 'bower_components' })
@@ -39,6 +40,17 @@ gulp.task('content', function() {
 
     gulp.src('src/fonts/*.*')
         .pipe(gulp.dest('dist/fonts'));
+});
+
+gulp.task('lint', function() {
+    gulp.src('src/components/**/*.html')
+        // if flag is not defined default value is 'auto'
+        .pipe(jshint.extract('auto'))
+        .pipe(jshint({
+            newcap: false,
+            globalstrict: true
+        }))
+        .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('connect', function() {
