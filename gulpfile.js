@@ -2,7 +2,7 @@ var gulp = require('gulp'),
     connect = require('gulp-connect'),
     del = require('del'),
     gulpIgnore = require('gulp-ignore'),
-    historyApiFallback = require('connect-history-api-fallback'),
+    history = require('connect-history-api-fallback'),
     sass = require('gulp-sass'),
     less = require('gulp-less');
 
@@ -44,12 +44,19 @@ gulp.task('content', function() {
 gulp.task('connect', function() {
     connect.server({
         root: 'dist',
-        port: 9700
+        port: 9700,
+        middleware: function(connect, opt) {
+            return [
+                history({
+                    verbose: false
+                })
+            ];
+        }
     });
 });
 
 gulp.task('watch', function() {
-    gulp.watch(['src/**/*.html'], ['html', 'reload']);
+    gulp.watch(['src/**/*.html'], ['content', 'reload']);
     gulp.watch(['src/**/*.js'], ['js', 'reload']);
     gulp.watch(['src/styles/**/*.*'], ['css', 'reload']);
 });
