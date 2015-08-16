@@ -10,7 +10,7 @@ gulp.task('default', ['clean'], function() {
     gulp.start('build');
 });
 
-gulp.task('build', [ 'bower-files', 'html', 'css', 'connect', 'watch']);
+gulp.task('build', [ 'bower-files', 'content', 'css', 'connect', 'watch']);
 
 gulp.task('bower-files', function() {
     gulp.src('bower_components/**/*.*', { base: 'bower_components' })
@@ -28,7 +28,7 @@ gulp.task('css', function () {
         .pipe(gulp.dest('dist/styles'));
 });
 
-gulp.task('html', function() {
+gulp.task('content', function() {
     gulp.src([
             'src/**/*.html',
             'src/images/**/*.*'
@@ -36,6 +36,9 @@ gulp.task('html', function() {
             base: 'src'
         })
         .pipe(gulp.dest('dist'));
+
+    gulp.src('src/fonts/*.*')
+        .pipe(gulp.dest('dist/fonts'));
 });
 
 gulp.task('connect', function() {
@@ -48,8 +51,7 @@ gulp.task('connect', function() {
 gulp.task('watch', function() {
     gulp.watch(['src/**/*.html'], ['html', 'reload']);
     gulp.watch(['src/**/*.js'], ['js', 'reload']);
-    gulp.watch(['src/**/*.scss'], ['sass', 'reload']);
-    gulp.watch(['src/**/*.less'], ['sass', 'reload']);
+    gulp.watch(['src/styles/**/*.*'], ['css', 'reload']);
 });
 
 gulp.task('clean', function(cb) {
