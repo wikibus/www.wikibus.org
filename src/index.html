@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="styles/openmind.css" />
     <link rel="import" href="lib/polymer/polymer.html" />
     <link rel="import" href="styles/openmind.html" />
+    <link rel="import" href="components/bootstrap.html" />
     <link rel="import" href="components/wb-header.html" />
+    <link rel="import" href="components/wb-main-menu.html" />
     <link rel="stylesheet" href="lib/lightbox/dist/css/lightbox.css" />
     <link rel="stylesheet" href="lib/animate.css/animate.css" />
 </head>
@@ -21,67 +23,15 @@
 <a name="top"></a>
 
 <div class="boxed animated fadeIn animation-delay-5">
-<header id="header">
+<header id="header" class="hidden-xs">
     <wb-header class="container"></wb-header>
 </header>
 
 <nav class="navbar navbar-static-top navbar-mind" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <a class="navbar-brand visible-xs" href="/#">Wiki<span>Bus</span></a>
+    <wb-main-menu class="container">
 
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-mind-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <i class="fa fa-bars fa-inverse"></i>
-            </button>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-mind-collapse">
-            <ul class="nav navbar-nav">
-                <li ng-class="{active: $routeSegment.startsWith('home')}">
-                    <a href="#/"><span translate>{{ 'MENUS.HOME_PAGE' }}</span></a>
-                </li> <!-- dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <span translate>{{ 'MENUS.PRODUCER' }}</span> <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#/companies"><span translate>{{ 'MENUS.COMPANY' }}</span></a></li>
-                        <li><a href="#/brands"><span translate>{{ 'MENUS.BRAND' }}</span></a></li>
-                    </ul>
-                </li> <!-- dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown"><span translate>{{ 'MENUS.VEHICLE' }}</span> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#/buses"><span class="bus-bus-front"></span><span translate>{{ 'MENUS.BUS' }}</span></a></li>
-                        <li><a href="#/trams"><span class="bus-tram-front"></span><span translate>{{ 'MENUS.TRAM' }}</span></a></li>
-                        <li><a href="#/trolleys"><span class="bus-trolley-front"></span><span translate>{{ 'MENUS.TROLLEY' }}</span></a></li>
-                    </ul>
-                </li> <!-- dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown"><span translate>{{ 'MENUS.SOURCE' }}</span> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#/books"><span translate>{{ 'MENUS.BOOK' }}</span></a></li>
-                        <li><a href="#/brochures"><span translate>{{ 'MENUS.BROCHURE' }}</span></a></li>
-                        <li><a href="#/mags"><span translate>{{ 'MENUS.MAGAZINE' }}</span></a></li>
-                        <li><a href="#/links"><span translate>{{ 'MENUS.LINK' }}</span></a></li>
-                    </ul>
-                </li> <!-- dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown"><span translate>{{ 'MENUS.TECH' }}</span></a>
-                </li> <!-- dropdown -->
-                <li class="dropdown">
-                    <a href="#/images" class="dropdown-toggle" data-toggle="dropdown"><span translate>{{ 'MENUS.IMAGE' }}</span></a>
-                </li> <!-- dropdown -->
-                <li class="dropdown">
-                    <a href="#/blog" class="dropdown-toggle" data-toggle="dropdown"><span translate>{{ 'MENUS.BLOG' }}</span></a>
-                </li> <!-- dropdown -->
-            </ul> <!-- nav nabvar-nav -->
-        </div> <!-- navbar-collapse -->
-    </div> <!-- container -->
-</nav> <!-- navbar navbar-default -->
+    </wb-main-menu>
+</nav>
 
 <header class="wrap-title" ng-show="!$routeSegment.startsWith('home')" ng-cloak>
     <div class="container">
@@ -95,7 +45,7 @@
     </div>
 </header>
 
-<div id="main" app-view-segment="0"></div>
+<div id="main"></div>
 
 <aside id="footer-widgets">
     <div class="container">
