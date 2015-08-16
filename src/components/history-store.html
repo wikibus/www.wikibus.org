@@ -1,0 +1,48 @@
+<link rel="import" href="wb-actions.html" />
+
+<script>
+    (function(scope){
+        'use strict';
+
+        var HistoryElement = Object.create(HTMLElement.prototype);
+
+        HistoryElement.attachedCallback = function() {
+            if (this.hasAttribute('basePath')) {
+                this.setAttribute('basePath', '/' + trim(this.getAttribute('basePath'), '/') + '/');
+            } else {
+                this.setAttribute('basePath', '/');
+            }
+
+            scope.Wikibus.actions.navigateTo.listen(this.pushHistory.bind(this));
+            scope.addEventListener('popstate', this.restoreHistory);
+            scope.Wikibus.actions.navigateTo(getResourceUri(this));
+        };
+
+        HistoryElement.restoreHistory = function(ev) {
+            scope.Wikibus.actions.navigateTo(ev.state);
+        };
+
+        HistoryElement.pushHistory = function(resourceUri) {
+            var uri = this.getAttribute('basePath');
+            if (resourceUri !== history.state) {
+                var baseUri = this.getAttribute('baseUri');
+                uri += resourceUri.replace(new RegExp('^' + baseUri), '');
+                history.pushState(resourceUri, '', uri);
+            }
+        };
+
+        function getResourceUri(router) {
+            var resourcePath = document.location.pathname;
+
+            if (router.hasAttribute('basePath')) {
+                resourcePath = resourcePath.replace(new RegExp('^' + router.getAttribute('basePath')), router.getAttribute('baseUri'));
+            }
+
+            return resourcePath;
+        }
+
+        document.registerElement('history-store', {
+            prototype: HistoryElement
+        });
+    })(window);
+</script>

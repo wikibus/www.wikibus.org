@@ -68,8 +68,8 @@ gulp.task('connect', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(['src/**/*.html'], ['content', 'reload']);
-    gulp.watch(['src/**/*.js'], ['js', 'reload']);
+    gulp.watch(['src/**/*.html'], ['content', 'lint', 'reload']);
+    gulp.watch(['src/**/*.js'], ['js', 'lint', 'reload']);
     gulp.watch(['src/styles/**/*.*'], ['css', 'reload']);
 });
 

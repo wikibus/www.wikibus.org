@@ -1,0 +1,13 @@
+<script src="/lib/reflux/dist/reflux.min.js" ></script>
+
+<script>
+    (function(scope){
+        'use strict';
+
+        scope.Wikibus = scope.Wikibus || {};
+
+        scope.Wikibus.actions = Reflux.createActions({
+            'navigateTo': { children: [ 'success', 'failed' ] }
+        });
+    })(window);
+</script>

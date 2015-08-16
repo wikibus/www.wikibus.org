@@ -19,7 +19,8 @@
     "polymer": "Polymer/polymer#^1.0.0",
     "font-awesome": "~4.4.0",
     "animate.css": "~3.4.0",
-    "lightbox": "~2.8.1"
+    "lightbox": "~2.8.1",
+    "reflux": "~0.2.12"
   },
   "devDependencies": {
     "bootstrap-sass-official": "~3.3.5"
