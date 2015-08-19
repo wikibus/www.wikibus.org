@@ -1,0 +1,56 @@
+<link rel="import" href="wb-actions.html"/>
+<link rel="import" href="deps/jsonld.html"/>
+<link rel="import" href="deps/fetch.html"/>
+<link rel="import" href="/lib/iron-ajax/iron-ajax.html"/>
+
+<script>
+    (function (window, Wikibus) {
+        'use strict';
+
+        var store = Reflux.createStore({
+            init: function () {
+                this.listenTo(Wikibus.actions.loadModel, loadResource);
+            }
+        });
+
+        Polymer({
+            is: 'wb-model-store',
+            properties: {
+                model: {
+                    type: Object,
+                    readOnly: true,
+                    notify: true
+                }
+            },
+            ready: function () {
+                var self = this;
+                store.listen(function (model) {
+                    self._setModel(model);
+                })
+            }
+        });
+
+        function loadResource(url) {
+            window.fetch(url, {
+                method: 'get',
+                headers: {
+                    accept: 'application/ld+json'
+                }
+            }).then(getJson).then(expand).then(notifyListeners);
+        }
+
+        function expand(json) {
+            return window.jsonld.promises.expand(json);
+        }
+
+        function notifyListeners(expanded) {
+            Wikibus.actions.loadModel.success(expanded[0]);
+            store.trigger(expanded[0]);
+        }
+
+        function getJson(response) {
+            return response.json();
+        }
+
+    })(window, window.Wikibus);
+</script>

@@ -20,7 +20,11 @@
     "font-awesome": "~4.4.0",
     "animate.css": "~3.4.0",
     "lightbox": "~2.8.1",
-    "reflux": "~0.2.12"
+    "reflux": "~0.2.12",
+    "iron-ajax": "PolymerElements/iron-ajax#~1.0.4",
+    "jsonld.js": "~0.3.24",
+    "es6-promise": "~3.0.2",
+    "fetch": "~0.9.0"
   },
   "devDependencies": {
     "bootstrap-sass-official": "~3.3.5"

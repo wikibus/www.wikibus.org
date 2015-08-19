@@ -1,7 +1,7 @@
 <dom-module id="wb-application">
     <template>
-        main app here
-
+        <wb-model-store model="{{theModel}}"></wb-model-store>
+        <span>{{stringify(theModel)}}</span>
     </template>
 </dom-module>
 
@@ -10,7 +10,10 @@
         'use strict';
 
         Polymer({
-            is: 'wb-application'
+            is: 'wb-application',
+            stringify: function(x){
+                return JSON.stringify(x, null, 2);
+            }
         });
     })();
 </script>

@@ -7,21 +7,24 @@
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="styles/main.css" />
-    <link rel="stylesheet" href="styles/openmind.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/openmind.css" />
+    <script src="/lib/webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="/lib/polymer/polymer.html" />
-    <link rel="import" href="styles/openmind.html" />
-    <link rel="import" href="components/bootstrap.html" />
-    <link rel="import" href="components/wb-header.html" />
-    <link rel="import" href="components/wb-main-menu.html" />
-    <link rel="import" href="components/wb-footer.html" />
-    <link rel="import" href="components/wb-application.html" />
-    <link rel="import" href="components/history-store.html" />
+    <link rel="import" href="/styles/openmind.html" />
+    <link rel="import" href="/components/deps/bootstrap.html" />
+    <link rel="import" href="/components/wb-header.html" />
+    <link rel="import" href="/components/wb-main-menu.html" />
+    <link rel="import" href="/components/wb-footer.html" />
+    <link rel="import" href="/components/wb-app-body.html" />
+    <link rel="import" href="/components/wb-application.html" />
+    <link rel="import" href="/components/history-store.html" />
     <link rel="stylesheet" href="/lib/lightbox/dist/css/lightbox.css" />
     <link rel="stylesheet" href="/lib/animate.css/animate.css" />
 </head>
-<body>
+<body is="wb-app-body" class="display: none">
 
 <history-store baseUri="http://test.wikibus.org/"></history-store>
 

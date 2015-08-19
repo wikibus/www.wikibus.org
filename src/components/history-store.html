@@ -13,9 +13,9 @@
                 this.setAttribute('basePath', '/');
             }
 
-            scope.Wikibus.actions.navigateTo.listen(this.pushHistory.bind(this));
+            scope.Wikibus.actions.loadModel.listen(this.pushHistory.bind(this));
             scope.addEventListener('popstate', this.restoreHistory);
-            scope.Wikibus.actions.navigateTo(getResourceUri(this));
+            scope.Wikibus.actions.loadModel(getResourceUri(this));
         };
 
         HistoryElement.restoreHistory = function(ev) {
