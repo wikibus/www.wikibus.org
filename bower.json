@@ -21,10 +21,11 @@
     "animate.css": "~3.4.0",
     "lightbox": "~2.8.1",
     "reflux": "~0.2.12",
-    "iron-ajax": "PolymerElements/iron-ajax#~1.0.4",
     "jsonld.js": "~0.3.24",
     "es6-promise": "~3.0.2",
-    "fetch": "~0.9.0"
+    "fetch": "~0.9.0",
+    "lodash": "~3.10.1",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#~1.0.3"
   },
   "devDependencies": {
     "bootstrap-sass-official": "~3.3.5"

@@ -1,0 +1,32 @@
+<dom-module id="openmind-portfolio-item">
+    <style>
+        :host {
+            display: block;
+        }
+    </style>
+
+    <template>
+        <div class="panel panel-primary">
+            <div class="panel-heading">{{title}}</div>
+            <img src="img/w1.jpg" class="img-responsive" alt="Image">
+            <div class="panel-body">
+                <h4 class="post-title">Natus impedit officia veritatis</h4>
+                <content select="p"></content>
+                <a href="portfolio_item.html" class="btn btn-primary pull-right">See more »</a>
+            </div>
+        </div>
+    </template>
+</dom-module>
+
+<script>
+    (function(){
+       'use strict';
+
+        Polymer({
+            is: 'openmind-portfolio-item',
+            properties: {
+                title: String
+            }
+        });
+    })();
+</script>

@@ -1,7 +1,13 @@
+<script src="/lib/lodash/lodash.js"></script>
+<link rel="import" href="views/wb-brochures.html" />
+<link rel="import" href="/lib/iron-flex-layout/iron-flex-layout.html" />
+
 <dom-module id="wb-application">
     <template>
         <wb-model-store model="{{theModel}}"></wb-model-store>
-        <span>{{stringify(theModel)}}</span>
+        <template is="dom-if" if="{{modelIsBrochures(theModel)}}">
+            <wb-brochures brochures="[[theModel]]"></wb-brochures>
+        </template>
     </template>
 </dom-module>
 
@@ -11,9 +17,20 @@
 
         Polymer({
             is: 'wb-application',
-            stringify: function(x){
-                return JSON.stringify(x, null, 2);
+            modelIsBrochures: function(model) {
+                var predicate = typeEquals('http://wikibus.org/ontology#PagedCollectionOfBrochures');
+
+                return predicate(model['@type']) || _.any(model['@type'], predicate);
+            },
+            getId: function(item){
+                return item['@id'];
             }
         });
+
+        function typeEquals(typeToMatch) {
+            return function(item) {
+                return typeToMatch === item;
+            };
+        }
     })();
 </script>

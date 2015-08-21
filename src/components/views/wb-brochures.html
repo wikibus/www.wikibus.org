@@ -1,0 +1,33 @@
+<link rel="import" href="../hydra/collection.html" />
+<link rel="import" href="../openmind/portfolio-item.html" />
+
+<dom-module id="wb-brochures">
+    <style>
+        openmind-portfolio-item {
+            width: 360px;
+            margin: 0 15px;
+        }
+    </style>
+
+    <template>
+        <hydra-collection model="[[brochures]]">
+            <template class="member">
+                <openmind-portfolio-item title="{{item.@id}}">
+                </openmind-portfolio-item>
+            </template>
+        </hydra-collection>
+    </template>
+</dom-module>
+
+<script>
+    (function(){
+        'use strict';
+
+        Polymer({
+            is: 'wb-brochures',
+            properties: {
+                brochures: Object
+            }
+        });
+    })();
+</script>

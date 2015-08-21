@@ -1,0 +1,46 @@
+<dom-module id="hydra-collection">
+    <style>
+        #items {
+            @apply(--layout-wrap);
+            @apply(--layout-horizontal);
+            margin: 0 -15px;
+        }
+    </style>
+
+    <template>
+        <div>this is header</div>
+        <content id="distributedMembers" select=".member"></content>
+        <div id="items"></div>
+        <div>this is footer</div>
+    </template>
+</dom-module>
+
+<script>
+    (function (Wikibus) {
+        'use strict';
+
+        Polymer({
+            is: 'hydra-collection',
+            behaviors: [ Polymer.Templatizer ],
+            parameters: {
+                model: Object
+            },
+            ready: function(){
+                var template = Polymer.dom(this.$.distributedMembers).getDistributedNodes()[0];
+                if(!template){
+                    return;
+                }
+
+                this.templatize(template);
+
+                var items = this.model['http://www.w3.org/ns/hydra/core#member'];
+                for(var i=0; i < items.length; i++) {
+                    var itemNode = this.stamp({});
+                    itemNode.item = items[i];
+                    Polymer.dom(this.$.items).appendChild(itemNode.root);
+                }
+            }
+        });
+
+    })(window.Wikibus);
+</script>
