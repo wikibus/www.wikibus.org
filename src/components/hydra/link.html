@@ -1,0 +1,22 @@
+<script>
+    (function(){
+        'use strict';
+
+        Polymer({
+            is: 'hydra-link',
+            extends: 'a',
+            properties: {
+                id: {
+                    type: String,
+                    observer: '_idChanged'
+                }
+            },
+            ready: function(){
+                this.href = this.id;
+            },
+            _idChanged: function() {
+                this.href = this.id;
+            }
+        });
+    })(window.Wikibus);
+</script>

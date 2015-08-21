@@ -1,3 +1,4 @@
+<link rel="import" href="/components/styles.html" />
 <link rel="import" href="../hydra/collection.html" />
 <link rel="import" href="../openmind/portfolio-item.html" />
 
@@ -12,7 +13,9 @@
     <template>
         <hydra-collection model="[[brochures]]">
             <template class="member">
-                <openmind-portfolio-item title="{{item.@id}}">
+                <openmind-portfolio-item title="{{item.title}}"
+                                         image="{{item.image.thumbnail.contentUrl}}"
+                                         id="{{item.@id}}">
                 </openmind-portfolio-item>
             </template>
         </hydra-collection>

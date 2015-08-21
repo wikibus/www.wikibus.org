@@ -36,7 +36,7 @@
                 headers: {
                     accept: 'application/ld+json'
                 }
-            }).then(getJson).then(expand).then(notifyListeners);
+            }).then(getJson).then(notifyListeners);
         }
 
         function expand(json) {
@@ -44,8 +44,8 @@
         }
 
         function notifyListeners(expanded) {
-            Wikibus.actions.loadModel.success(expanded[0]);
-            store.trigger(expanded[0]);
+            Wikibus.actions.loadModel.success(expanded);
+            store.trigger(expanded);
         }
 
         function getJson(response) {

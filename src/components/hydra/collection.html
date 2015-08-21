@@ -33,7 +33,7 @@
 
                 this.templatize(template);
 
-                var items = this.model['http://www.w3.org/ns/hydra/core#member'];
+                var items = this.model['member'];
                 for(var i=0; i < items.length; i++) {
                     var itemNode = this.stamp({});
                     itemNode.item = items[i];
