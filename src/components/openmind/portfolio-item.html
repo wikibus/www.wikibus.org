@@ -10,12 +10,22 @@
         .panel-heading {
             @apply(--ellipsis);
         }
+
+        .panel-primary {
+            @apply(--layout-vertical);
+        }
+
+        .flex {
+            @apply(--layout-flex);
+        }
     </style>
 
     <template>
         <div class="panel panel-primary">
             <div class="panel-heading">{{title}}</div>
-            <img src="{{image}}" class="img-responsive" alt="Image">
+            <div class="flex">
+                <img src="{{image}}" class="img-responsive" alt="Image">
+            </div>
             <div class="panel-body">
                 <content select="h4.post-title"></content>
                 <content select="p"></content>

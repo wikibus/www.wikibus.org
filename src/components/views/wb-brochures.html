@@ -13,10 +13,12 @@
     <template>
         <hydra-collection model="[[brochures]]">
             <template class="member">
-                <openmind-portfolio-item title="{{item.title}}"
-                                         image="{{item.image.thumbnail.contentUrl}}"
-                                         id="{{item.@id}}">
-                </openmind-portfolio-item>
+                <div class="flex">
+                    <openmind-portfolio-item title="{{item.title}}"
+                                             image="{{item.image.thumbnail.contentUrl}}"
+                                             id="{{item.@id}}">
+                    </openmind-portfolio-item>
+                </div>
             </template>
         </hydra-collection>
     </template>
