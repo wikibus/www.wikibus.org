@@ -23,7 +23,7 @@
             is: 'hydra-collection',
             behaviors: [ Polymer.Templatizer ],
             parameters: {
-                model: Object
+                collection: Object
             },
             ready: function(){
                 var template = Polymer.dom(this.$.distributedMembers).getDistributedNodes()[0];
@@ -33,8 +33,8 @@
 
                 this.templatize(template);
 
-                var items = this.model['member'];
-                for(var i=0; i < items.length; i++) {
+                var items = this.collection.member;
+                for(var i = 0; i < items.length; i++) {
                     var itemNode = this.stamp({});
                     itemNode.item = items[i];
                     Polymer.dom(this.$.items).appendChild(itemNode.root);

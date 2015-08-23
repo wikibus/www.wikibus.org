@@ -11,12 +11,19 @@
     </style>
 
     <template>
-        <hydra-collection model="[[brochures]]">
+        <hydra-collection collection="[[brochures]]">
             <template class="member">
+                <style>
+                    .brochure /deep/ .panel-primary {
+                        height: 307px;
+                    }
+                </style>
+
                 <div class="flex">
                     <openmind-portfolio-item title="{{item.title}}"
                                              image="{{item.image.thumbnail.contentUrl}}"
-                                             id="{{item.@id}}">
+                                             id="{{item.@id}}"
+                                             class="brochure">
                     </openmind-portfolio-item>
                 </div>
             </template>
