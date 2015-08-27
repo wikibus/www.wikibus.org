@@ -19,7 +19,7 @@
         };
 
         HistoryElement.restoreHistory = function(ev) {
-            scope.Wikibus.actions.navigateTo(ev.state);
+            scope.Wikibus.actions.loadModel(ev.state);
         };
 
         HistoryElement.pushHistory = function(resourceUri) {

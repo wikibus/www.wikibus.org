@@ -4,14 +4,14 @@
 
 <dom-module id="wb-brochures">
     <style>
-        openmind-portfolio-item {
-            width: 360px;
+        :host openmind-portfolio-item {
+            width: 262px;
             margin: 0 15px;
         }
     </style>
 
     <template>
-        <hydra-collection collection="[[brochures]]">
+        <hydra-collection collection="{{brochures}}">
             <template class="member">
                 <style>
                     .brochure /deep/ .panel-primary {

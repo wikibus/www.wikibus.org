@@ -1,0 +1,27 @@
+<link rel="import" href="../openmind/panel.html" />
+
+<dom-module id="hydra-pager">
+    <template>
+        <openmind-panell>
+            Showing <span>{{collection.itemsPerPage}}</span> of <span>{{collection.totalItems}}</span>
+            <a is="hydra-link" resource="{{collection.firstPage}}" hidden$="{{!collection.firstPage}}" class="btn btn-default">First page</a>
+            <a is="hydra-link" resource="{{collection.previousPage}}" hidden$="{{!collection.previousPage}}" class="btn btn-default">Prev page</a>
+            <a is="hydra-link" resource="{{collection.nextPage}}" hidden$="{{!collection.nextPage}}" class="btn btn-default">Next page</a>
+            <a is="hydra-link" resource="{{collection.lastPage}}" hidden$="{{!collection.lastPage}}" class="btn btn-default">Last page</a>
+        </openmind-panell>
+    </template>
+</dom-module>
+
+<script>
+    (function(Wikibus){
+       'use strict';
+
+        Polymer({
+            is: 'hydra-pager',
+            properties: {
+                collection: Object
+            }
+        });
+
+    })(window.Wikibus);
+</script>

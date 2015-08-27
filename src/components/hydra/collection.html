@@ -1,3 +1,5 @@
+<link rel="import" href="pager.html" />
+
 <dom-module id="hydra-collection">
     <style>
         #items {
@@ -8,10 +10,10 @@
     </style>
 
     <template>
-        <div>this is header</div>
+        <hydra-pager collection="[[collection]]"></hydra-pager>
         <content id="distributedMembers" select=".member"></content>
         <div id="items"></div>
-        <div>this is footer</div>
+        <hydra-pager collection="[[collection]]"></hydra-pager>
     </template>
 </dom-module>
 
@@ -22,25 +24,37 @@
         Polymer({
             is: 'hydra-collection',
             behaviors: [ Polymer.Templatizer ],
-            parameters: {
-                collection: Object
+            properties: {
+                collection: {
+                    type: Object,
+                    observer: '_collectionChanged'
+                }
             },
             ready: function(){
-                var template = Polymer.dom(this.$.distributedMembers).getDistributedNodes()[0];
-                if(!template){
-                    return;
-                }
-
-                this.templatize(template);
-
-                var items = this.collection.member;
-                for(var i = 0; i < items.length; i++) {
-                    var itemNode = this.stamp({});
-                    itemNode.item = items[i];
-                    Polymer.dom(this.$.items).appendChild(itemNode.root);
-                }
+                renderItems.apply(this);
+            },
+            _collectionChanged: function() {
+                renderItems.apply(this);
             }
         });
+
+        function renderItems() {
+            Polymer.dom(this.$.items).innerHTML = '';
+
+            var template = Polymer.dom(this.$.distributedMembers).getDistributedNodes()[0];
+            if(!template){
+                return;
+            }
+
+            this.templatize(template);
+
+            var items = this.collection.member;
+            for(var i = 0; i < items.length; i++) {
+                var itemNode = this.stamp({});
+                itemNode.item = items[i];
+                Polymer.dom(this.$.items).appendChild(itemNode.root);
+            }
+        }
 
     })(window.Wikibus);
 </script>

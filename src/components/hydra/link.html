@@ -1,21 +1,28 @@
 <script>
-    (function(){
+    (function(Wikibus) {
         'use strict';
 
         Polymer({
             is: 'hydra-link',
             extends: 'a',
             properties: {
-                id: {
+                resource: {
                     type: String,
                     observer: '_idChanged'
                 }
             },
             ready: function(){
-                this.href = this.id;
+                this.addEventListener('click', function(e) {
+                    if(this.resource) {
+                        Wikibus.actions.loadModel(this.resource);
+                        e.preventDefault();
+                    }
+                }.bind(this));
             },
             _idChanged: function() {
-                this.href = this.id;
+                if(this.resource) {
+                    this.href = this.resource.replace('http://test.wikibus.org', '');
+                }
             }
         });
     })(window.Wikibus);
