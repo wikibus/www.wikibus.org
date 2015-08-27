@@ -1,0 +1,21 @@
+<script>
+    (function(){
+        'use strict';
+
+        Polymer({
+            is: 'fallback-image',
+            extends: 'img',
+            properties: {
+                fallbackSrc: String
+            },
+            ready: function() {
+                this.onerror = this.replaceImage.bind(this);
+            },
+            replaceImage: function() {
+                if(this.src && this.src.endsWith(this.fallbackSrc) === false) {
+                    this.src = this.fallbackSrc;
+                }
+            }
+        });
+    })();
+</script>

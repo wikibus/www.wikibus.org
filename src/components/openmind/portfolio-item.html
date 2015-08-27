@@ -1,3 +1,4 @@
+<link rel="import" href="/components/fallback-image.html" />
 <link rel="import" href="/components/styles.html" />
 <link rel="import" href="/components/hydra/link.html" />
 
@@ -18,13 +19,18 @@
         .flex {
             @apply(--layout-flex);
         }
+
+        .img-responsive {
+            max-height: 200px;
+            max-width: 260px;
+        }
     </style>
 
     <template>
         <div class="panel panel-primary">
             <div class="panel-heading">{{title}}</div>
             <div class="flex">
-                <img src="{{image}}" class="img-responsive" alt="Image">
+                <img is="fallback-image" id="image" src="{{image}}" fallback-src="/images/document-fallback.png" class="img-responsive" alt="Image">
             </div>
             <div class="panel-body">
                 <content select="h4.post-title"></content>
