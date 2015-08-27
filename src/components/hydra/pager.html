@@ -1,14 +1,28 @@
 <link rel="import" href="../openmind/panel.html" />
 
 <dom-module id="hydra-pager">
+    <style>
+        .pager-panel {
+            @apply(--layout-horizontal);
+        }
+
+        .page-descr {
+            @apply(--layout-flex);
+            text-align: center;
+            margin: 0px;
+        }
+    </style>
+
     <template>
-        <openmind-panell>
-            Showing <span>{{collection.itemsPerPage}}</span> of <span>{{collection.totalItems}}</span>
-            <a is="hydra-link" resource="{{collection.firstPage}}" hidden$="{{!collection.firstPage}}" class="btn btn-default">First page</a>
-            <a is="hydra-link" resource="{{collection.previousPage}}" hidden$="{{!collection.previousPage}}" class="btn btn-default">Prev page</a>
-            <a is="hydra-link" resource="{{collection.nextPage}}" hidden$="{{!collection.nextPage}}" class="btn btn-default">Next page</a>
-            <a is="hydra-link" resource="{{collection.lastPage}}" hidden$="{{!collection.lastPage}}" class="btn btn-default">Last page</a>
-        </openmind-panell>
+        <openmind-panel>
+            <div class="pager-panel">
+                <a is="hydra-link" resource="{{collection.firstPage}}" hidden$="{{!collection.firstPage}}" class="btn btn-default">First page</a>
+                <a is="hydra-link" resource="{{collection.previousPage}}" hidden$="{{!collection.previousPage}}" class="btn btn-default">Prev page</a>
+                <p class="page-descr">Showing <span>{{collection.itemsPerPage}}</span> of <span>{{collection.totalItems}}</span></p>
+                <a is="hydra-link" resource="{{collection.nextPage}}" hidden$="{{!collection.nextPage}}" class="btn btn-default">Next page</a>
+                <a is="hydra-link" resource="{{collection.lastPage}}" hidden$="{{!collection.lastPage}}" class="btn btn-default">Last page</a>
+            </div>
+        </openmind-panel>
     </template>
 </dom-module>
 
