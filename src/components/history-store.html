@@ -32,7 +32,7 @@
         };
 
         function getResourceUri(router) {
-            var resourcePath = document.location.pathname;
+            var resourcePath = document.location.pathname + document.location.search;
 
             if (router.hasAttribute('basePath')) {
                 resourcePath = resourcePath.replace(new RegExp('^' + router.getAttribute('basePath')), router.getAttribute('baseUri'));
