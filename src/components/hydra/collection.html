@@ -31,28 +31,28 @@
                 }
             },
             ready: function(){
-                renderItems.apply(this);
+                renderItems(this);
             },
             _collectionChanged: function() {
-                renderItems.apply(this);
+                renderItems(this);
             }
         });
 
-        function renderItems() {
-            Polymer.dom(this.$.items).innerHTML = '';
+        function renderItems(element) {
+            Polymer.dom(element.$.items).innerHTML = '';
 
-            var template = Polymer.dom(this.$.distributedMembers).getDistributedNodes()[0];
+            var template = Polymer.dom(element.$.distributedMembers).getDistributedNodes()[0];
             if(!template){
                 return;
             }
 
-            this.templatize(template);
+            element.templatize(template);
 
-            var items = this.collection.member;
+            var items = element.collection.member;
             for(var i = 0; i < items.length; i++) {
-                var itemNode = this.stamp({});
+                var itemNode = element.stamp({});
                 itemNode.item = items[i];
-                Polymer.dom(this.$.items).appendChild(itemNode.root);
+                Polymer.dom(element.$.items).appendChild(itemNode.root);
             }
         }
 
