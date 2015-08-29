@@ -18,7 +18,7 @@
                 <openmind-lightbox-image image="[[brochure.image]]" alt="[[brochure.title]]"></openmind-lightbox-image>
             </div>
             <div class="col-md-6">
-                <h3 class="section-title">[[brochure.title]]</h3>
+                <h3 id="title" class="section-title"></h3>
                 <dl class="dl-horizontal">
                     <wb-dt-dd object="[[brochure]]" property="code"></wb-dt-dd>
                     <wb-dt-dd object="[[brochure]]" property="pages"></wb-dt-dd>
@@ -43,9 +43,19 @@
         Polymer({
             is: 'wb-brochure',
             properties: {
-                brochure: Object
+                brochure: {
+                    type: Object,
+                    observer: '_brochureChanged'
+                }
+            },
+            _brochureChanged: function(b) {
+                Polymer.dom(this.$.title).innerHTML = titleBroken(b.title);
             }
         });
+
+        function titleBroken(title) {
+            return (title || '').replace('\\r\\n', '<br/>');
+        }
 
         Polymer({
             is: 'wb-dt-dd',

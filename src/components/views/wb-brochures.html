@@ -20,7 +20,7 @@
                 </style>
 
                 <div class="flex">
-                    <openmind-portfolio-item title="{{item.title}}"
+                    <openmind-portfolio-item title="{{removeLineBreaks(item.title)}}"
                                              image="{{item.image.thumbnail.contentUrl}}"
                                              id="{{item.@id}}"
                                              class="brochure">
@@ -39,6 +39,9 @@
             is: 'wb-brochures',
             properties: {
                 brochures: Object
+            },
+            removeLineBreaks: function(title) {
+                return (title || '').replace('\\r\\n', ' ');
             }
         });
     })();
