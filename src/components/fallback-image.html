@@ -11,8 +11,13 @@
             ready: function() {
                 this.onerror = this.replaceImage.bind(this);
             },
+            attached: function() {
+                if(!this.src) {
+                    this.src = this.fallbackSrc;
+                }
+            },
             replaceImage: function() {
-                if(this.src && this.src.endsWith(this.fallbackSrc) === false) {
+                if (this.src && this.src.endsWith(this.fallbackSrc) === false) {
                     this.src = this.fallbackSrc;
                 }
             }

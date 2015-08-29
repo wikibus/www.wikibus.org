@@ -12,10 +12,16 @@
 </dom-module>
 
 <dom-module id="wb-brochure">
+    <style>
+        openmind-lightbox-image /deep/ img {
+            max-width: 200px;
+        }
+    </style>
+
     <template>
         <div class="row">
             <div class="col-md-6">
-                <openmind-lightbox-image image="[[brochure.image]]" alt="[[brochure.title]]"></openmind-lightbox-image>
+                <openmind-lightbox-image image="[[brochure.image]]" alt="[[brochure.title]]" fallback-image="/images/document-fallback.png"></openmind-lightbox-image>
             </div>
             <div class="col-md-6">
                 <h3 id="title" class="section-title"></h3>

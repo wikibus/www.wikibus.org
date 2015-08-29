@@ -20,7 +20,7 @@
             @apply(--layout-flex);
         }
 
-        .img-responsive {
+        .flex /deep/ img {
             max-height: 200px;
             max-width: 260px;
         }
@@ -30,7 +30,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">{{title}}</div>
             <div class="flex">
-                <img is="fallback-image" id="image" src="{{image}}" fallback-src="/images/document-fallback.png" class="img-responsive" alt="Image">
+                <content select="img"></content>
             </div>
             <div class="panel-body">
                 <content select="h4.post-title"></content>

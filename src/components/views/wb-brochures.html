@@ -21,9 +21,11 @@
 
                 <div class="flex">
                     <openmind-portfolio-item title="{{removeLineBreaks(item.title)}}"
-                                             image="{{item.image.thumbnail.contentUrl}}"
                                              id="{{item.@id}}"
                                              class="brochure">
+                        <img is="fallback-image" src="{{item.image.thumbnail.contentUrl}}"
+                             fallback-src="/images/document-fallback.png" class="img-responsive"
+                             alt$="{{removeLineBreaks(item.title)}}">
                     </openmind-portfolio-item>
                 </div>
             </template>
