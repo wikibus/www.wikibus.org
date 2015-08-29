@@ -1,0 +1,27 @@
+<link rel="import" href="/components/deps/lightbox.html" />
+
+<dom-module id="openmind-lightbox-image">
+    <template>
+        <a href="[[image.contentUrl]]" class="thumbnail margin-bottom-20" data-lightbox$="{{lightboxId}}" data-title$="{{alt}}">
+            <img src="[[image.thumbnail.contentUrl]]" class="img-responsive" alt="{{alt}}">
+        </a>
+    </template>
+</dom-module>
+
+<script>
+    (function(){
+        'use strict';
+
+        Polymer({
+            is: 'openmind-lightbox-image',
+            properties: {
+                image: Object,
+                alt: String,
+                lightboxId: {
+                    type: String,
+                    value: 'lightbox'
+                }
+            }
+        });
+    })();
+</script>

@@ -49,10 +49,12 @@
             element.templatize(template);
 
             var items = element.collection.member;
-            for(var i = 0; i < items.length; i++) {
-                var itemNode = element.stamp({});
-                itemNode.item = items[i];
-                Polymer.dom(element.$.items).appendChild(itemNode.root);
+            if(items) {
+                for(var i = 0; i < items.length; i++) {
+                    var itemNode = element.stamp({});
+                    itemNode.item = items[i];
+                    Polymer.dom(element.$.items).appendChild(itemNode.root);
+                }
             }
         }
 

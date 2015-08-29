@@ -1,5 +1,6 @@
 <script src="/lib/lodash/lodash.js"></script>
 <link rel="import" href="views/wb-brochures.html" />
+<link rel="import" href="views/wb-brochure.html" />
 <link rel="import" href="/lib/iron-flex-layout/iron-flex-layout.html" />
 
 <dom-module id="wb-application">
@@ -7,6 +8,9 @@
         <wb-model-store model="{{theModel}}"></wb-model-store>
         <template is="dom-if" if="{{modelIsBrochures(theModel)}}">
             <wb-brochures brochures="[[theModel]]"></wb-brochures>
+        </template>
+        <template is="dom-if" if="{{modelIsBrochure(theModel)}}">
+            <wb-brochure brochure="[[theModel]]"></wb-brochure>
         </template>
     </template>
 </dom-module>
@@ -18,9 +22,10 @@
         Polymer({
             is: 'wb-application',
             modelIsBrochures: function(model) {
-                var predicate = typeEquals('http://wikibus.org/ontology#PagedCollectionOfBrochures');
-
-                return predicate(model['@type']) || _.any(model['@type'], predicate);
+                return isModelOfType(model, 'http://wikibus.org/ontology#PagedCollectionOfBrochures');
+            },
+            modelIsBrochure: function(model) {
+                return isModelOfType(model, 'http://wikibus.org/ontology#Brochure');
             },
             getId: function(item){
                 return item['@id'];
@@ -31,6 +36,12 @@
             return function(item) {
                 return typeToMatch === item;
             };
+        }
+
+        function isModelOfType(model, type) {
+            var predicate = typeEquals(type);
+
+            return predicate(model['@type']) || _.any(model['@type'], predicate);
         }
     })();
 </script>

@@ -1,0 +1,29 @@
+<link rel="import" href="/lib/flag-icon/flag-icon.html" />
+
+<dom-module id="wb-flag">
+    <template>
+        <flag-icon key="[[getCountryCode(language)]]"></flag-icon>
+    </template>
+</dom-module>
+
+<script>
+    (function(){
+        'use strict';
+
+        Polymer({
+            is: 'wb-flag',
+            properties: {
+                language: String
+            },
+            getCountryCode: function(lang) {
+                var langCode = lang.replace('langIso:', '');
+
+                if(langCode === 'en'){
+                    langCode = 'gb';
+                }
+
+                return  langCode;
+            }
+        });
+    })();
+</script>

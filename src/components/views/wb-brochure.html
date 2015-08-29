@@ -1,0 +1,80 @@
+<link rel="import" href="/components/openmind/lightbox-image.html" />
+<link rel="import" href="/components/elements/wb-flag.html" />
+
+<dom-module id="wb-dt-dd">
+    <template>
+        <dt hidden$="[[hasNoValue]]">[[property]]</dt>
+        <dd hidden$="[[hasNoValue]]">
+            <span id="value">[[propValue]]</span>
+            <content id="ddDistributed"></content>
+        </dd>
+    </template>
+</dom-module>
+
+<dom-module id="wb-brochure">
+    <template>
+        <div class="row">
+            <div class="col-md-6">
+                <openmind-lightbox-image image="[[brochure.image]]" alt="[[brochure.title]]"></openmind-lightbox-image>
+            </div>
+            <div class="col-md-6">
+                <h3 class="section-title">[[brochure.title]]</h3>
+                <dl class="dl-horizontal">
+                    <wb-dt-dd object="[[brochure]]" property="code"></wb-dt-dd>
+                    <wb-dt-dd object="[[brochure]]" property="pages"></wb-dt-dd>
+                    <wb-dt-dd object="[[brochure]]" property="year"></wb-dt-dd>
+                    <wb-dt-dd object="[[brochure]]" property="month"></wb-dt-dd>
+                    <wb-dt-dd object="[[brochure]]" property="day"></wb-dt-dd>
+                    <wb-dt-dd object="[[brochure]]" property="languages">
+                        <template is="dom-repeat" items="[[brochure.languages]]">
+                            <wb-flag language="[[item]]"></wb-flag>
+                        </template>
+                    </wb-dt-dd>
+                </dl>
+            </div>
+        </div>
+    </template>
+</dom-module>
+
+<script>
+    (function(){
+        'use strict';
+
+        Polymer({
+            is: 'wb-brochure',
+            properties: {
+                brochure: Object
+            }
+        });
+
+        Polymer({
+            is: 'wb-dt-dd',
+            properties: {
+                object: Object,
+                property: String,
+                propValue: {
+                    type: String,
+                    computed: 'getValue(object, property)'
+                },
+                hasNoValue: {
+                    type: Boolean,
+                    computed: 'getHasNoValue(object, property)'
+                }
+            },
+            ready: function(){
+                var distributedDd = Polymer.dom(this.$.ddDistributed).getDistributedNodes();
+
+                if(distributedDd.length > 0) {
+                    this.$.value.hidden = true;
+                }
+            },
+            getHasNoValue: function(o, p) {
+                var value = this.getValue(o, p);
+                return typeof value === 'undefined' || value === null;
+            },
+            getValue: function(b, p) {
+                return b[p];
+            }
+        });
+    })();
+</script>
