@@ -1,5 +1,6 @@
 <link rel="import" href="/components/openmind/lightbox-image.html" />
 <link rel="import" href="/components/elements/wb-flag.html" />
+<link rel="import" href="/behaviours/line-breaks-remove.html" />
 
 <dom-module id="wb-dt-dd">
     <template>
@@ -45,7 +46,7 @@
 </dom-module>
 
 <script>
-    (function(){
+    (function(Wikibus) {
         'use strict';
 
         Polymer({
@@ -56,14 +57,13 @@
                     observer: '_brochureChanged'
                 }
             },
+            behaviors: [
+                Wikibus.Behaviours.LineBreaksRemoved
+            ],
             _brochureChanged: function(b) {
-                Polymer.dom(this.$.title).innerHTML = titleBroken(b.title);
+                Polymer.dom(this.$.title).innerHTML = this.removeLineBreaks(b.title, '<br/>');
             }
         });
-
-        function titleBroken(title) {
-            return (title || '').replace('\\r\\n', '<br/>');
-        }
 
         Polymer({
             is: 'wb-dt-dd',
@@ -94,5 +94,5 @@
                 return b[p];
             }
         });
-    })();
+    })(window.Wikibus);
 </script>

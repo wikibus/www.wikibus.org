@@ -1,0 +1,19 @@
+<script>
+    (function(wikibus){
+        'use strict';
+
+        wikibus.Behaviours = wikibus.Behaviours || {};
+
+        wikibus.Behaviours.LineBreaksRemoved = {
+            removeLineBreaks: function(text, replacement) {
+                replacement = replacement || ' ';
+
+                if(text && typeof text === 'string') {
+                    return text.replace('\\r\\n', replacement);
+                }
+
+                return text;
+            }
+        }
+    })(window.Wikibus);
+</script>

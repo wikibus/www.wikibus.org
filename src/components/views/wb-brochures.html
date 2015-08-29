@@ -1,6 +1,7 @@
 <link rel="import" href="/components/styles.html" />
 <link rel="import" href="../hydra/collection.html" />
 <link rel="import" href="../openmind/portfolio-item.html" />
+<link rel="import" href="/behaviours/line-breaks-remove.html" />
 
 <dom-module id="wb-brochures">
     <style>
@@ -34,7 +35,7 @@
 </dom-module>
 
 <script>
-    (function(){
+    (function(Wikibus){
         'use strict';
 
         Polymer({
@@ -42,9 +43,9 @@
             properties: {
                 brochures: Object
             },
-            removeLineBreaks: function(title) {
-                return (title || '').replace('\\r\\n', ' ');
-            }
+            behaviors: [
+                Wikibus.Behaviours.LineBreaksRemoved
+            ]
         });
-    })();
+    })(window.Wikibus);
 </script>

@@ -1,0 +1,28 @@
+<link rel="import" href="/components/elements/span-line-breaks-removed.html" />
+
+<dom-module id="wb-context-header">
+    <template>
+        <wb-model-store model="{{theModel}}"></wb-model-store>
+
+        <h1 class="page-title">[[removeLineBreaks(theModel.title)]]</h1>
+
+        <ol class="breadcrumb hidden-xs">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">UI Elements</a></li>
+            <li class="active">CSS</li>
+        </ol>
+    </template>
+</dom-module>
+
+<script>
+    (function(){
+        'use strict';
+
+        Polymer({
+            is: 'wb-context-header',
+            behaviors: [
+                Wikibus.Behaviours.LineBreaksRemoved
+            ]
+        });
+    })();
+</script>
