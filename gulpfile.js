@@ -5,13 +5,14 @@ var gulp = require('gulp'),
     history = require('connect-history-api-fallback'),
     sass = require('gulp-sass'),
     less = require('gulp-less'),
-    jshint = require('gulp-jshint');
+    jshint = require('gulp-jshint'),
+    es6transpiler = require("gulp-babel");
 
 gulp.task('default', ['clean'], function() {
     gulp.start('build');
 });
 
-gulp.task('build', [ 'bower-files', 'content', 'lint', 'css', 'connect', 'watch']);
+gulp.task('build', [ 'bower-files', 'content', 'js', 'lint', 'css', 'connect', 'watch']);
 
 gulp.task('bower-files', function() {
     gulp.src('bower_components/**/*.*', { base: 'bower_components' })
@@ -40,6 +41,14 @@ gulp.task('content', function() {
 
     gulp.src('src/fonts/*.*')
         .pipe(gulp.dest('dist/fonts'));
+});
+
+gulp.task('js', function() {
+    gulp.src('src/scripts/**/*.js', {
+            base: 'src'
+        })
+        .pipe(es6transpiler())
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('lint', function() {

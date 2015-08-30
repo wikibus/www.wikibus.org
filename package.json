@@ -4,15 +4,23 @@
   "description": "wikibus.org public transport encyclopedia",
   "main": "index.js",
   "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-loader": "^5.0.0",
     "connect-history-api-fallback": "^1.1.0",
     "del": "^1.2.1",
     "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
     "gulp-connect": "^2.2.0",
     "gulp-ignore": "^1.2.1",
     "gulp-jshint": "^1.11.2",
     "gulp-less": "^3.0.3",
     "gulp-sass": "^2.0.4",
-    "jshint-stylish": "^2.0.1"
+    "jasmine-core": "^2.3.4",
+    "jasmine-es6": "0.0.17",
+    "jshint-stylish": "^2.0.1",
+    "karma": "^0.12.31",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.1.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
