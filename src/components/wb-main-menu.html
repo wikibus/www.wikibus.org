@@ -1,8 +1,13 @@
+<link rel="import" href="hydra/api-store.html" />
+<link rel="import" href="hydra/link.html" />
+
 <dom-module id="wb-main-menu">
     <template>
+        <hydra-api-store id="apiStore" entry-point="{{entryPoint}}"></hydra-api-store>
+
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand visible-xs" href="/#">Wiki<span>Bus</span></a>
+            <a is="hydra-link" class="navbar-brand visible-xs" resource="{{entryPoint.@id}}">Wiki<span>Bus</span></a>
 
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-mind-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -10,11 +15,17 @@
             </button>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-mind-collapse">
             <ul class="nav navbar-nav">
+                <template is="dom-repeat" items="[[getGetOperations(entryPoint)]]">
+                    <wb-menu-item></wb-menu-item>
+                </template>
+            </ul>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
                 <li>
-                    <a href="#/"><span translate>'MENUS.HOME_PAGE'</span></a>
+                    <a resource="{{entryPoint.@id}}" is="hydra-link"><span translate>'MENUS.HOME_PAGE'</span></a>
                 </li> <!-- dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">
@@ -51,8 +62,21 @@
                 <li class="dropdown">
                     <a href="#/blog" class="dropdown-toggle" data-toggle="dropdown"><span translate>{{ 'MENUS.BLOG' }}</span></a>
                 </li> <!-- dropdown -->
-            </ul> <!-- nav nabvar-nav -->
-        </div> <!-- navbar-collapse -->
+    </template>
+</dom-module>
+
+<dom-module id="menu-item">
+    <template>
+        <li>
+            <a resource="{{resource.@id}}" is="hydra-link">
+                <content></content>
+                <template is="dom-if" if="{{hasSubItems(resource)}}">
+                    <ul class="dropdown-menu">
+                        <template is="dom-repeat" items=""></template>
+                    </ul>
+                </template>
+            </a>
+        </li>
     </template>
 </dom-module>
 
@@ -61,7 +85,10 @@
         'use strict';
 
         Polymer({
-            is: 'wb-main-menu'
+            is: 'wb-main-menu',
+            getGetOperations: function(entrypoint) {
+                return this.$.api.getOperationsFor(entrypoint)
+            }
         });
     })();
 </script>

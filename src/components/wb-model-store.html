@@ -1,13 +1,14 @@
 <link rel="import" href="wb-actions.html"/>
 <link rel="import" href="deps/jsonld.html"/>
 <link rel="import" href="deps/fetch.html"/>
-<link rel="import" href="/lib/iron-ajax/iron-ajax.html"/>
 
 <script>
     (function (window, Wikibus) {
         'use strict';
 
-        var store = Reflux.createStore({
+        Wikibus.Stores = Wikibus.Stores || {};
+
+        Wikibus.Stores.Model = Reflux.createStore({
             init: function () {
                 this.listenTo(Wikibus.actions.loadModel, loadResource);
             }
@@ -20,23 +21,38 @@
                     type: Object,
                     readOnly: true,
                     notify: true
+                },
+                apiDocumentation: {
+                    type: Object,
+                    readOnly: true,
+                    notify: true
                 }
             },
             ready: function () {
                 var self = this;
-                store.listen(function (model) {
+                Wikibus.Stores.Model.listen(function (model) {
                     self._setModel(model);
                 });
             }
         });
 
         function loadResource(url) {
-            window.fetch(url, {
+            var fetch = window.fetch(url, {
                 method: 'get',
                 headers: {
                     accept: 'application/ld+json'
                 }
-            }).then(getJson).then(notifyListeners);
+            });
+
+            fetch.then(getJson).then(notifyListeners);
+            fetch.then(getApiDocumentation).then(Wikibus.actions.loadApiDocumentation);
+        }
+
+        function getApiDocumentation(response) {
+            var linkHeader = response.headers.get('Link');
+
+            var links = li.parse(linkHeader);
+            return links['http://www.w3.org/ns/hydra/core#apiDocumentation'];
         }
 
         function expand(json) {
@@ -45,12 +61,11 @@
 
         function notifyListeners(expanded) {
             Wikibus.actions.loadModel.success(expanded);
-            store.trigger(expanded);
+            Wikibus.Stores.Model.trigger(expanded);
         }
 
         function getJson(response) {
             return response.json();
         }
-
     })(window, window.Wikibus);
 </script>

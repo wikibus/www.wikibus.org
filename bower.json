@@ -26,7 +26,8 @@
     "fetch": "~0.9.0",
     "lodash": "~3.10.1",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#~1.0.3",
-    "flag-icon": "https://github.com/tpluscode/flag-icon.git#patch-1"
+    "flag-icon": "https://github.com/tpluscode/flag-icon.git#patch-1",
+    "li": "~1.0.1"
   },
   "devDependencies": {
     "bootstrap-sass-official": "~3.3.5"

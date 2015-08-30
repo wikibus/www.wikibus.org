@@ -1,0 +1,77 @@
+<link rel="import" href="../wb-actions.html"/>
+<link rel="import" href="../deps/fetch.html"/>
+
+<script>
+    (function(Wikibus){
+        'use strict';
+
+        var apiDocumentationFrame = {
+            '@type': 'http://www.w3.org/ns/hydra/core#ApiDocumentation',
+            '@context': {
+                'hydra': 'http://www.w3.org/ns/hydra/core#'
+            }
+        };
+        var shouldLoadDocumentation = true;
+        Wikibus.Stores = Wikibus.Stores || {};
+
+        Wikibus.Stores.ApiDocumentation = Reflux.createStore({
+            init: function() {
+                this.listenTo(Wikibus.actions.loadApiDocumentation, loadApiDocumentation);
+            }
+        });
+
+        Polymer({
+            is: 'hydra-api-store',
+            properties: {
+                entryPoint: {
+                    type: Object,
+                    readOnly: true,
+                    notify: true
+                }
+            },
+            ready: function() {
+                Wikibus.actions.loadApiDocumentation.entrypointDiscovered.listen(function(entryPoint) {
+                    this._setEntryPoint(entryPoint);
+                }.bind(this));
+            }
+        });
+
+        function loadApiDocumentation(apiDocumentationUrl) {
+            if(shouldLoadDocumentation === false){
+                return;
+            }
+
+            shouldLoadDocumentation = false;
+
+            var fetch = window.fetch(apiDocumentationUrl, {
+                method: 'get',
+                headers: {
+                    accept: 'application/ld+json'
+                }
+            }).then(getJson);
+
+            fetch.then(getEntrypoint).then(expand).then(_.first).then(Wikibus.actions.loadApiDocumentation.entrypointDiscovered);
+            fetch.then(getFramed).then(function(e) {
+                console.log(e);
+            });
+        }
+
+        function getFramed(json) {
+            return window.jsonld.promises.frame(json, apiDocumentationFrame).then(function(framed) {
+                return framed['@graph'][0];
+            });
+        }
+
+        function expand(json) {
+            return window.jsonld.promises.expand(json);
+        }
+
+        function getJson(response) {
+            return response.json();
+        }
+
+        function getEntrypoint(apiDoc) {
+            return window.fetch(apiDoc.entrypoint).then(getJson);
+        }
+    })(window.Wikibus);
+</script>

@@ -7,7 +7,8 @@
         scope.Wikibus = scope.Wikibus || {};
 
         scope.Wikibus.actions = Reflux.createActions({
-            loadModel: { children: [ 'success', 'failed' ] }
+            loadModel: { children: [ 'success', 'failed' ] },
+            loadApiDocumentation: { children: [ 'entrypointDiscovered' ] }
         });
     })(window);
 </script>
