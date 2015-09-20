@@ -1,8 +1,5 @@
-<link rel="import" href="../wb-actions.html"/>
-<link rel="import" href="../deps/fetch.html"/>
-
 <script>
-    (function(Wikibus){
+    (function(){
         'use strict';
 
         var apiDocumentationFrame = {
@@ -11,38 +8,36 @@
                 'hydra': 'http://www.w3.org/ns/hydra/core#'
             }
         };
-        var shouldLoadDocumentation = true;
-        Wikibus.Stores = Wikibus.Stores || {};
-
-        Wikibus.Stores.ApiDocumentation = Reflux.createStore({
-            init: function() {
-                this.listenTo(Wikibus.actions.loadApiDocumentation, loadApiDocumentation);
-            }
-        });
 
         Polymer({
             is: 'hydra-api-store',
             properties: {
+                apiDocumentationUrl: {
+                    type: String,
+                    observer: '_loadApiDocumentation'
+                },
+                apiDocumentation: {
+                    type: Object,
+                    notify: true,
+                    readOnly: true
+                },
                 entryPoint: {
                     type: Object,
-                    readOnly: true,
-                    notify: true
+                    notify: true,
+                    computed: 'loadEntryPoint(apiDocumentation)'
                 }
             },
-            ready: function() {
-                Wikibus.actions.loadApiDocumentation.entrypointDiscovered.listen(function(entryPoint) {
-                    this._setEntryPoint(entryPoint);
+            _loadApiDocumentation: function(url) {
+                loadApiDocumentation(url).then(function(r){
+                    this._setApiDocumentation(r);
                 }.bind(this));
+            },
+            loadEntryPoint: function(apiDoc){
+                return apiDoc['hydra:entrypoint']['@id'];
             }
         });
 
         function loadApiDocumentation(apiDocumentationUrl) {
-            if(shouldLoadDocumentation === false){
-                return;
-            }
-
-            shouldLoadDocumentation = false;
-
             var fetch = window.fetch(apiDocumentationUrl, {
                 method: 'get',
                 headers: {
@@ -50,10 +45,8 @@
                 }
             }).then(getJson);
 
-            fetch.then(getEntrypoint).then(expand).then(_.first).then(Wikibus.actions.loadApiDocumentation.entrypointDiscovered);
-            fetch.then(getFramed).then(function(e) {
-                console.log(e);
-            });
+            //fetch.then(getEntrypoint).then(expand).then(_.first).then(Wikibus.actions.loadApiDocumentation.entrypointDiscovered);
+            return fetch.then(getFramed);
         }
 
         function getFramed(json) {
@@ -73,5 +66,5 @@
         function getEntrypoint(apiDoc) {
             return window.fetch(apiDoc.entrypoint).then(getJson);
         }
-    })(window.Wikibus);
+    })();
 </script>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>
+        hydra-api-store tests
+    </title>
+    <script>
+        window.fetch = null;
+    </script>
+    <script src="wikibus.docs.js"></script>
+    <script src="../bower_components/fetch/fetch.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+    <link rel="import" href="../bower_components/polymer/polymer.html" />
+    <link rel="import" href="../bower_components/test-fixture/test-fixture.html" />
+    <script src="../bower_components/test-fixture/test-fixture-mocha.js"></script>
+    <script src="../bower_components/jsonld.js/js/jsonld.js"></script>
+    <link rel="import" href="../src/components/hydra/api-store.html" />
+</head>
+
+<body>
+    <test-fixture id="bare-store">
+        <template>
+            <hydra-api-store></hydra-api-store>
+        </template>
+    </test-fixture>
+
+    <script>
+        describe('hydra-api-store', function() {
+
+            beforeEach(function() {
+                sinon.stub(window, 'fetch');
+            });
+
+            it('should be empty by default', function() {
+                var apiStore = fixture('bare-store');
+
+                expect(apiStore.apiDocumentation).to.be.undefined;
+                expect(apiStore.apiDocumentationUrl).to.be.undefined;
+                expect(apiStore.entryPoint).to.be.undefined;
+            });
+
+            it('should load api documentation from url', function(done) {
+                var apiStore = fixture('bare-store');
+
+                window.fetch.returns(Promise.resolve(Test.ApiDocumetationResponse));
+
+                apiStore.addEventListener('api-documentation-changed', function(){
+                    expect(apiStore.apiDocumentation['@id']).to.be.equal('http://data.test.wikibus.org/doc');
+                    expect(apiStore.entryPoint).to.be.equal('http://data.test.wikibus.org/');
+                    done();
+                });
+
+                apiStore.apiDocumentationUrl = 'http://data.test.wikibus.org/doc';
+            });
+
+            afterEach(function() {
+                window.fetch.restore();
+            });
+        });
+    </script>
+</body>
+</html>
