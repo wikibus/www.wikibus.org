@@ -12,6 +12,9 @@ gulp.task('default', ['clean'], function() {
     gulp.start('build');
 });
 
+gulp.task('heroku:stage', ['default']);
+gulp.task('heroku:prod', ['default']);
+
 gulp.task('build', [ 'bower-files', 'content', 'js', 'lint', 'css', 'connect', 'watch']);
 
 gulp.task('bower-files', function() {
