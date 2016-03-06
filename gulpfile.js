@@ -65,7 +65,7 @@ gulp.task('lint', function() {
 gulp.task('connect', function() {
     connect.server({
         root: 'dist',
-        port: 9700,
+        port: process.env.PORT || 9700,
         middleware: function(connect, opt) {
             return [
                 history({
