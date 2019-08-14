@@ -1,30 +1,74 @@
 {
-  "name": "wikibus.org",
+  "name": "www.wikibus.org",
   "version": "0.1.0",
   "description": "wikibus.org public transport encyclopedia",
-  "main": "index.js",
-  "devDependencies": {
-    "bower": "latest",  
-    "connect-history-api-fallback": "^1.1.0",
-    "del": "^1.2.1",
-    "gulp": "^3.9.0",
-    "gulp-babel": "^5.2.1",
-    "gulp-connect": "^2.2.0",
-    "gulp-ignore": "^1.2.1",
-    "gulp-jshint": "^1.11.2",
-    "gulp-less": "^3.0.3",
-    "gulp-sass": "^2.0.4",
-    "jshint-stylish": "^2.0.1"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "gulp connect"
-  },
   "keywords": [
     "bus",
     "tram",
     "trolleybus"
   ],
   "author": "Tomasz Pluskiewicz",
-  "license": "ISC"
+  "license": "ISC",
+  "scripts": {
+    "lint:eslint": "eslint --ext .js,.html,.ts . --ignore-path .gitignore --quiet",
+    "format:eslint": "eslint --ext .js,.html,.ts . --fix --ignore-path .gitignore --quiet",
+    "lint:prettier": "prettier \"**/*.{ts,js}\" --check --ignore-path .gitignore",
+    "format:prettier": "prettier \"**/*.{ts,js}\" --write --ignore-path .gitignore",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "format": "npm run format:eslint && npm run format:prettier",
+    "test": "karma start --coverage",
+    "test:watch": "karma start --auto-watch=true --single-run=false",
+    "test:update-snapshots": "karma start --update-snapshots",
+    "test:prune-snapshots": "karma start --prune-snapshots",
+    "test:compatibility": "karma start --compatibility all --coverage",
+    "test:compatibility:watch": "karma start --compatibility all --auto-watch=true --single-run=false",
+    "test:bs": "karma start karma.bs.config.js --compatibility all --coverage",
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --mode production",
+    "release": "standard-version"
+  },
+  "dependencies": {
+    "lit-element": "^2.2.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@babel/preset-typescript": "^7.3.3",
+    "@open-wc/building-webpack": "^2.1.0",
+    "@open-wc/eslint-config": "^1.0.0",
+    "@open-wc/prettier-config": "^0.1.10",
+    "@open-wc/testing": "^0.11.1",
+    "@open-wc/testing-karma": "^3.0.0",
+    "@open-wc/testing-karma-bs": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^1.7.0",
+    "@typescript-eslint/parser": "^1.7.0",
+    "cz-conventional-changelog": "^2.1.0",
+    "husky": "^1.0.0",
+    "lint-staged": "^8.0.0",
+    "standard": "^13.1.0",
+    "standard-version": "^7.0.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.28.0",
+    "webpack-cli": "^3.3.4",
+    "webpack-merge": "^4.1.5",
+    "webpack-dev-server": "^3.8.0",
+    "eslint-plugin-lit": "^1.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && tsc --noEmit"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
