@@ -1,3 +1,5 @@
 node_modules/
 src.old/
 dist/
+.sass-cache/
+src/sass/**/*.css
