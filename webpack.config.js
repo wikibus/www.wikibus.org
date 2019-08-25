@@ -23,20 +23,18 @@ module.exports = merge(config, {
       'src/functions.js',
     ]),
   ],
+  resolve: {
+    extensions: ['.ts', '.js', '.json'],
+  },
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: [
-          'raw-loader',
-        ],
+        use: ['raw-loader'],
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [
-          'raw-loader',
-          'sass-loader',
-        ],
+        use: ['raw-loader', 'sass-loader'],
       },
     ],
   },
