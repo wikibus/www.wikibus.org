@@ -211,7 +211,7 @@
 				width: 6px !important;
 				height: 6px !important;
 				border: none;
-				background-color: $theme-color;
+				background-color: var(--theme-color);
 				opacity: 0.5;
 				&.flex-active {
 					opacity: 1;

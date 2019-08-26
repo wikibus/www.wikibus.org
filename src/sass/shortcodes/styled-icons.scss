@@ -88,7 +88,7 @@ body {
 .i-rounded,
 .i-circled {
 	&:hover {
-		background-color: $theme-color;
+		background-color: var(--theme-color);
 		color: #FFF;
 		text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 		box-shadow: 0 0 0 rgba(0,0,0,0.2);

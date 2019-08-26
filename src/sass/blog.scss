@@ -60,7 +60,7 @@
 		letter-spacing: 1px;
 		a {
 			color: #333;
-			&:hover { color: $theme-color; }
+			&:hover { color: var(--theme-color); }
 		}
 	}
 }
@@ -89,7 +89,7 @@
 			margin-right: 3px;
 		}
 		a { color: #999;
-			&:hover { color: $theme-color; }
+			&:hover { color: var(--theme-color); }
 		}
 		&:first-child:before { display: none; }
 		ins {
@@ -126,7 +126,7 @@
 	@include border-radius(3px);
 	&:hover {
 		color: #FFF;
-		background-color: $theme-color;
+		background-color: var(--theme-color);
 		text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
 	}
 	span {
@@ -478,8 +478,8 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 		&:hover {
 			.entry-timeline,
 			.timeline-divider {
-				border-color: $theme-color;
-				color: $theme-color;
+				border-color: var(--theme-color);
+				color: var(--theme-color);
 			}
 		}
 	}
@@ -544,7 +544,7 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 			a {
 				color: #333;
 				&:hover {
-					color: $theme-color;
+					color: var(--theme-color);
 				}
 			}
 		}
@@ -571,7 +571,7 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 }
 .more-link {
 	display: inline-block;
-	border-bottom: 1px solid $theme-color;
+	border-bottom: 1px solid var(--theme-color);
 	padding: 0 2px;
 	font-family: $secondary-font;
 	font-style: italic;
@@ -665,7 +665,7 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 			a {
 				color: #333;
 				&:hover {
-					color: $theme-color;
+					color: var(--theme-color);
 				}
 
 			}
@@ -890,7 +890,7 @@ body:not(.device-touch) .entry-link { @include transition(background-color .3s e
 			border: none;
 			color: #333;
 			&:hover {
-				color: $theme-color;
+				color: var(--theme-color);
 			}
 		}
 		span {

@@ -154,11 +154,11 @@ span.middot {
 }
 
 .bgcolor,
-.bgcolor #header-wrap { background-color: $theme-color !important; }
+.bgcolor #header-wrap { background-color: var(--theme-color) !important; }
 
-.color { color: $theme-color !important; }
+.color { color: var(--theme-color) !important; }
 
-.border-color { border-color: $theme-color !important; }
+.border-color { border-color: var(--theme-color) !important; }
 
 .nobg { background: none !important; }
 

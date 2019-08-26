@@ -550,7 +550,7 @@
 		background-color: transparent !important;
 		font-weight: 700;
 		padding-left: 5px;
-		color: $theme-color;
+		color: var(--theme-color);
 	}
 
 	#primary-menu ul li .mega-menu-content,
@@ -613,10 +613,10 @@
 
 	#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title:hover > a {
 		background-color: transparent;
-		color: $theme-color !important;
+		color: var(--theme-color) !important;
 	}
 
-	#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title > a:hover { color: $theme-color !important; }
+	#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title > a:hover { color: var(--theme-color) !important; }
 
 	#primary-menu ul li .mega-menu-content.style-2 li { border-top: 1px solid #EEE; }
 
@@ -730,7 +730,7 @@
 			left: auto;
 			right: 15px;
 			height: auto;
-			background-color: $theme-color;
+			background-color: var(--theme-color);
 			z-index: 11;
 			ul {
 				height: auto;
@@ -1456,7 +1456,7 @@
 				padding: 12px 18px !important;
 				@include border-radius(2px  !important);
 				&:hover {
-					color: $theme-color;
+					color: var(--theme-color);
 				}
 			}
 			&.activeFilter {

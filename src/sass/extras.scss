@@ -186,7 +186,7 @@
 }
 
 .btn-link {
-	color: $theme-color;
+	color: var(--theme-color);
 	&:hover,
 	&:focus {
 		color: #222;
@@ -240,8 +240,8 @@
 .page-link:hover,
 .page-link:focus {
 	color: #FFF !important;
-	background-color: $theme-color !important;
-	border-color: $theme-color !important;
+	background-color: var(--theme-color) !important;
+	border-color: var(--theme-color) !important;
 }
 
 label {

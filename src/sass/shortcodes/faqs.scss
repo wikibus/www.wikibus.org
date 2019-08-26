@@ -39,7 +39,7 @@
 		a {
 			color: #444;
 			&:hover {
-				color: $theme-color !important;
+				color: var(--theme-color) !important;
 			}
 		}
 	}

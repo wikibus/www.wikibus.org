@@ -26,7 +26,7 @@
 			line-height: 15px;
 			color: #666;
 			border-left: 1px solid rgba(0,0,0,0.07);
-			&:hover { color: $theme-color; }
+			&:hover { color: var(--theme-color); }
 		}
 		&:first-child {
 			a {
@@ -42,7 +42,7 @@
 		&.activeFilter {
 			a {
 				color: #FFF !important;
-				background-color: $theme-color;
+				background-color: var(--theme-color);
 				margin: -1px 0;
 				padding: 13px 18px;
 				font-weight: bold;
@@ -107,8 +107,8 @@
 .portfolio-filter.style-3 li a { border: 1px solid transparent; }
 
 .portfolio-filter.style-3 li.activeFilter a {
-	color: $theme-color !important;
-	border-color: $theme-color;
+	color: var(--theme-color) !important;
+	border-color: var(--theme-color);
 	background-color: transparent;
 	margin: 0;
 }
@@ -145,7 +145,7 @@
 .portfolio-filter.style-4 li.activeFilter a:after {
 	width: 100%;
 	left: 0%;
-	background-color: $theme-color;
+	background-color: var(--theme-color);
 }
 
 .portfolio-filter {
@@ -178,7 +178,7 @@
 	@include transition(all 0.2s linear);
 
 	&:hover {
-		background-color: $theme-color;
+		background-color: var(--theme-color);
 		color: #FFF;
 		text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
 	}
@@ -252,7 +252,7 @@ body {
 		a {
 			color: #222;
 			&:hover {
-				color: $theme-color;
+				color: var(--theme-color);
 			}
 		}
 	}
@@ -1211,7 +1211,7 @@ body {
 			opacity: 0;
 		}
 		&:hover {
-			color: $theme-color;
+			color: var(--theme-color);
 			background-color: #EEE;
 		}
 		i {
@@ -1528,7 +1528,7 @@ body {
 			margin-left: 0;
 		}
 		&:hover {
-			color: $theme-color;
+			color: var(--theme-color);
 		}
 	}
 }

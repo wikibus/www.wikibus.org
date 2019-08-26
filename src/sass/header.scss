@@ -147,7 +147,7 @@ body.stretched #header.full-header .container {
 .header-extras li .he-text span {
 	display: block;
 	font-weight: 400;
-	color: $theme-color;
+	color: var(--theme-color);
 }
 
 
@@ -234,7 +234,7 @@ body.stretched #header.full-header .container {
 }
 
 #primary-menu ul li:hover > a,
-#primary-menu ul li.current > a { color: $theme-color; }
+#primary-menu ul li.current > a { color: var(--theme-color); }
 
 #primary-menu > ul > li.sub-menu > a > div { }
 
@@ -249,7 +249,7 @@ body.no-superfish #primary-menu li:hover > .mega-menu-content { display: block; 
 	background-color: #FFF;
 	box-shadow: 0px 13px 42px 11px rgba(0, 0, 0, 0.05);
 	border: 1px solid #EEE;
-	border-top: 2px solid $theme-color;
+	border-top: 2px solid var(--theme-color);
 	height: auto;
 	z-index: 199;
 	top: 100%;
@@ -310,7 +310,7 @@ body.no-superfish #primary-menu li:hover > .mega-menu-content { display: block; 
 #primary-menu ul ul li:hover > a {
 	background-color: #F9F9F9;
 	padding-left: 18px;
-	color: $theme-color;
+	color: var(--theme-color);
 }
 
 #primary-menu ul ul > li.sub-menu > a,
@@ -403,7 +403,7 @@ body.stretched #header.full-header #primary-menu ul li.mega-menu .mega-menu-cont
 
 #primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title:hover > a { background-color: transparent; }
 
-#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title > a:hover { color: $theme-color; }
+#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title > a:hover { color: var(--theme-color); }
 
 #primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title.sub-menu > a,
 #primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title.sub-menu:hover > a { background: none; }
@@ -485,7 +485,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
 #primary-menu.style-3 > ul > li.current > a {
 	color: #FFF;
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
-	background-color: $theme-color;
+	background-color: var(--theme-color);
 }
 
 
@@ -501,7 +501,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
 }
 
 #primary-menu.style-4 > ul > li:hover > a,
-#primary-menu.style-4 > ul > li.current > a { border-color: $theme-color; }
+#primary-menu.style-4 > ul > li.current > a { border-color: var(--theme-color); }
 
 
 /* Primary Menu - Style 5
@@ -545,7 +545,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
 	left: 0;
 	height: 2px;
 	width: 0;
-	border-top: 2px solid $theme-color;
+	border-top: 2px solid var(--theme-color);
 	@include transition(width .3s ease);
 }
 
@@ -592,7 +592,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
 #primary-menu.sub-title > ul > li.current > a,
 #primary-menu.sub-title > div > ul > li:hover > a,
 #primary-menu.sub-title > div > ul > li.current > a {
-	background-color: $theme-color;
+	background-color: var(--theme-color);
 	color: #FFF;
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
 	border-top-color: rgba(0,0,0,0.1);
@@ -773,7 +773,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
 	font-size: 14px;
 	line-height: 20px;
 	text-align: center;
-	color: #333;
+	color: var(--body-color);
 	@include transition(color .3s ease-in-out);
 }
 
@@ -795,7 +795,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
 	font-size: 16px;
 }
 
-#top-cart a:hover { color: $theme-color; }
+#top-cart a:hover { color: var(--theme-color); }
 
 #top-search form {
 	opacity: 0;
@@ -880,7 +880,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
 	height: 16px;
 	line-height: 16px;
 	text-align: center;
-	background-color: $theme-color;
+	background-color: var(--theme-color);
 	border-radius: 50%;
 }
 
@@ -892,7 +892,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
 	background-color: #FFF;
 	box-shadow: 0px 20px 50px 10px rgba(0, 0, 0, 0.05);
 	border: 1px solid #EEE;
-	border-top: 2px solid $theme-color;
+	border-top: 2px solid var(--theme-color);
 	top: ( $header-height - ($header-height - 20) / 2 );
 	right: -15px;
 	left: auto;
@@ -953,7 +953,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
 	height: 44px !important;
 }
 
-.top-cart-item-image:hover { border-color: $theme-color; }
+.top-cart-item-image:hover { border-color: var(--theme-color); }
 
 .top-cart-item-desc {
 	position: relative;
@@ -971,7 +971,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
 	font-weight: 700;
 }
 
-.top-cart-item-desc a:hover { color: $theme-color !important; }
+.top-cart-item-desc a:hover { color: var(--theme-color) !important; }
 
 .top-cart-item-desc span.top-cart-item-price {
 	display: block;
@@ -996,7 +996,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
 
 .top-cart-action span.top-checkout-price {
 	font-size: 20px;
-	color: $theme-color;
+	color: var(--theme-color);
 }
 
 
@@ -1217,7 +1217,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
 
 #page-menu-wrap {
 	z-index: 99;
-	background-color: $theme-color;
+	background-color: var(--theme-color);
 	@include translate3d(0,0,0);
 	-webkit-backface-visibility: hidden;
 }
@@ -1306,7 +1306,7 @@ body:not(.device-touch) #page-menu nav li a {
 	left: 0;
 	z-index: 149;
 	height: auto;
-	background-color: $theme-color;
+	background-color: var(--theme-color);
 }
 
 #page-menu ul ul ul { display: none !important; } /* Disable Multi-Level Links */
@@ -1380,14 +1380,14 @@ body:not(.device-touch) #page-menu nav li a {
 
 	#page-menu.dots-menu nav li a:hover { background-color: rgba(0,0,0,0.7) }
 
-	#page-menu.dots-menu nav li.current a { background-color: $theme-color; }
+	#page-menu.dots-menu nav li.current a { background-color: var(--theme-color); }
 
 	#page-menu.dots-menu nav li div {
 		position: absolute;
 		width: auto;
 		top: -11px;
 		right: 25px;
-		background-color: $theme-color;
+		background-color: var(--theme-color);
 		color: #FFF;
 		padding: 5px 14px;
 		white-space: nowrap;
@@ -1410,7 +1410,7 @@ body:not(.device-touch) #page-menu nav li a {
 		height: 0;
 		border-top: 7px solid transparent;
 		border-bottom: 7px solid transparent;
-		border-left: 6px solid $theme-color;
+		border-left: 6px solid var(--theme-color);
 	}
 
 	#page-menu.dots-menu nav li a:hover div {

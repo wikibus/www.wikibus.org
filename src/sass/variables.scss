@@ -1,13 +1,13 @@
 
 //-------------------- Base Colors --------------------//
 
-$theme-color:                   #64bfdb;
-$body-color:                    #999;
-$heading-color:                 #ccc;
-
 * {
+  --body-color: #999;
   --theme-color: #64bfdb;
-  --header-bg-color: #111;
+  --header-bg-color: #293650;
+  --heading-color: #CCC;
+  --footer-color: #777;
+  --footer-color-light: #999;
 }
 
 //-------------------- Line Height Variables --------------------//

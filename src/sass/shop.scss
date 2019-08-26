@@ -85,7 +85,7 @@ body {
 .single-product .product-title h2 a {
 	color: #333;
 	&:hover {
-		color: $theme-color;
+		color: var(--theme-color);
 	}
 }
 
@@ -101,7 +101,7 @@ body {
 	}
 	ins {
 		text-decoration: none;
-		color: $theme-color;
+		color: var(--theme-color);
 	}
 }
 
@@ -162,7 +162,7 @@ body {
 	top: 10px;
 	left: 10px;
 	padding: 6px 10px;
-	background-color: $theme-color;
+	background-color: var(--theme-color);
 	color: #FFF;
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
 	@include border-radius(3px);
@@ -334,7 +334,7 @@ body {
 	.product-price {
 		float: left;
 		font-size: 24px;
-		color: $theme-color;
+		color: var(--theme-color);
 		margin-bottom: 0;
 	}
 	.product-rating {
@@ -501,7 +501,7 @@ body {
 		height: 64px;
 		border: 2px solid #EEE;
 		&:hover {
-			border-color: $theme-color;
+			border-color: var(--theme-color);
 		}
 	}
 }

@@ -36,7 +36,7 @@
 		i,
 		img {
 			@include border-radius(50%);
-			background-color: $theme-color;
+			background-color: var(--theme-color);
 		}
 		i {
 			font-style: normal;
@@ -86,7 +86,7 @@
 .feature-box {
 	&.fbox-outline {
 		.fbox-icon {
-			border: 1px solid $theme-color;
+			border: 1px solid var(--theme-color);
 			@include border-radius(50%);
 			padding: 3px;
 			i {
@@ -198,13 +198,13 @@
 .feature-box {
 	&.fbox-border {
 		.fbox-icon {
-			border: 1px solid  $theme-color;
+			border: 1px solid  var(--theme-color);
 			@include border-radius(50%);
 			i,
 			img {
 				border: none;
 				background-color: transparent !important;
-				color: $theme-color;
+				color: var(--theme-color);
 			}
 		}
 		.fbox-icon {
@@ -255,7 +255,7 @@
 			img {
 				border: none !important;
 				background-color: transparent !important;
-				color: $theme-color;
+				color: var(--theme-color);
 				@include border-radius(0);
 			}
 			i {
@@ -590,10 +590,10 @@
 	color: #FFF;
 }
 
-.fbox-effect.fbox-dark .fbox-icon i:after { box-shadow: 0 0 0 2px $theme-color; }
+.fbox-effect.fbox-dark .fbox-icon i:after { box-shadow: 0 0 0 2px var(--theme-color); }
 
 .fbox-effect.fbox-dark .fbox-icon i:hover,
-.fbox-effect.fbox-dark:hover .fbox-icon i { background-color: $theme-color; }
+.fbox-effect.fbox-dark:hover .fbox-icon i { background-color: var(--theme-color); }
 
 .fbox-effect .fbox-icon i:hover:after,
 .fbox-effect:hover .fbox-icon i:after {
@@ -635,9 +635,9 @@
 }
 
 .fbox-border.fbox-effect.fbox-dark .fbox-icon i:hover,
-.fbox-border.fbox-effect.fbox-dark:hover .fbox-icon i { box-shadow: 0 0 0 1px $theme-color; }
+.fbox-border.fbox-effect.fbox-dark:hover .fbox-icon i { box-shadow: 0 0 0 1px var(--theme-color); }
 
-.fbox-border.fbox-effect.fbox-dark .fbox-icon i:after { background-color: $theme-color; }
+.fbox-border.fbox-effect.fbox-dark .fbox-icon i:after { background-color: var(--theme-color); }
 
 .fbox-border.fbox-effect .fbox-icon i:hover:after,
 .fbox-border.fbox-effect:hover .fbox-icon i:after {

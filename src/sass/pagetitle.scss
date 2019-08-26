@@ -57,7 +57,7 @@ body.stretched .container-fullwidth .breadcrumb { right: 60px !important; }
 
 .breadcrumb {
 	a { color: #555;
-		&:hover { color: $theme-color; }
+		&:hover { color: var(--theme-color); }
 	}
 	i { width: auto !important; }
 }

@@ -270,7 +270,7 @@
 }
 
 .owl-carousel .owl-nav [class*=owl-]:hover {
-	background-color: $theme-color !important;
+	background-color: var(--theme-color) !important;
 	color: #FFF !important;
 	text-decoration: none;
 }
@@ -295,7 +295,7 @@
 				margin: 0 4px;
 				opacity: 0.5;
 				border-radius: 50%;
-				background-color: $theme-color;
+				background-color: var(--theme-color);
 				@include transition(all .3s ease);
 			}
 			&.active,

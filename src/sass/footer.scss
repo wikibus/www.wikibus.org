@@ -106,10 +106,10 @@
 	a {
 		display: inline-block;
 		margin: 0 3px;
-		color: #333;
+		color: var(--footer-color);
 		border-bottom: 1px dotted #444;
 		&:hover {
-			color: #555;
+			color: var(--footer-color-light);
 			border-bottom: 1px solid #666;
 		}
 	}

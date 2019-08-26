@@ -1,11 +1,11 @@
-import { css, html, property } from 'lit-element'
+import { css, html, LitElement, property } from 'lit-element'
 // @ts-ignore
 import { ChevronUp, setCustomTemplateLiteralTag } from 'feather-icon-literals'
-import { CanvasShellElement } from './CanvasShellElement'
+import CanvasShellBase from './CanvasShellBase'
 
 setCustomTemplateLiteralTag(html)
 
-export class CanvasGototop extends CanvasShellElement {
+export class CanvasGototop extends CanvasShellBase(LitElement) {
   private get goToTopEl() {
     return this.$('#gotoTop')
   }

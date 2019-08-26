@@ -125,7 +125,7 @@ body:not(.device-touch) .rounded-skill {
 			left: 0;
 			width: 0;
 			height: 100%;
-			background-color: $theme-color;
+			background-color: var(--theme-color);
 			overflow: visible !important;
 			@include border-radius(2px);
 			@include transition(width 1.2s ease-in-out);

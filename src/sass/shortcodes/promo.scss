@@ -143,7 +143,7 @@
 
 .promo {
 	&.promo-flat {
-		background-color: $theme-color;
+		background-color: var(--theme-color);
 		a {
 			&.button {
 				&:not(.button-border) {

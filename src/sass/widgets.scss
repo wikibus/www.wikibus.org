@@ -58,8 +58,8 @@
 		color: #666;
 		@include border-radius(2px);
 		&:hover {
-			border-color: $theme-color !important;
-			color: $theme-color !important;
+			border-color: var(--theme-color) !important;
+			color: var(--theme-color) !important;
 		}
 	}
 }
@@ -384,7 +384,7 @@ blockquote {
 
 .widget-filter-links li.active-filter span {
 	color: #FFF;
-	background-color: $theme-color;
+	background-color: var(--theme-color);
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
 }
 
@@ -431,7 +431,7 @@ blockquote {
 		&:hover,
 		&.current,
 		&.active {
-			> a { color: $theme-color !important; }
+			> a { color: var(--theme-color) !important; }
 		}
 	}
 	ul ul {

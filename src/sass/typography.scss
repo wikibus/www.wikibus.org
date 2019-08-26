@@ -20,19 +20,19 @@ dl, dt, dd, ol, ul, li {
 }
 
 ::selection {
-	background: $theme-color;
+	background: var(--theme-color);
 	color: #FFF;
 	text-shadow: none;
 }
 
 ::-moz-selection {
-	background: $theme-color; /* Firefox */
+	background: var(--theme-color); /* Firefox */
 	color: #FFF;
 	text-shadow: none;
 }
 
 ::-webkit-selection {
-	background: $theme-color; /* Safari */
+	background: var(--theme-color); /* Safari */
 	color: #FFF;
 	text-shadow: none;
 }
@@ -48,14 +48,14 @@ dl, dt, dd, ol, ul, li {
 
 body {
 	line-height: $line-height-base;
-	color: $body-color;
+	color: var(--body-color);
 	font-size: $font-size-base;
 	font-family: $body-font;
 }
 
 a {
 	text-decoration: none !important;
-	color: $theme-color;
+	color: var(--theme-color);
 	&:hover {
 		color: #222;
 	}
@@ -78,7 +78,7 @@ h3,
 h4,
 h5,
 h6 {
-	color: $heading-color;
+	color: var(--heading-color);
 	font-weight: 600;
 	line-height: $line-height-base;
 	margin: 0 0 30px 0;
@@ -107,7 +107,7 @@ h4,
 h5,
 h6 {
 	> span:not(.nocolor) {
-		color: $theme-color;
+		color: var(--theme-color);
 	}
 }
 

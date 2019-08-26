@@ -51,7 +51,7 @@
 	}
 	span {
 		display: block;
-		color: $theme-color;
+		color: var(--theme-color);
 		font-weight: 400;
 		font-family: $secondary-font;
 		font-style: italic;

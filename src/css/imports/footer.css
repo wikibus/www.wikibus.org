@@ -91,12 +91,12 @@
 .copyright-links a {
 	display: inline-block;
 	margin: 0 3px;
-	color: #333;
+	color: #777;
 	border-bottom: 1px dotted #444;
 }
 
 .copyright-links a:hover {
-	color: #555;
+	color: #999;
 	border-bottom: 1px solid #666;
 }
 

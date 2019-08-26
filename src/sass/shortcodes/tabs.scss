@@ -78,7 +78,7 @@ ul {
 				top: -1px;
 				height: 43px;
 				line-height: 38px;
-				border-top: 2px solid $theme-color;
+				border-top: 2px solid var(--theme-color);
 			}
 		}
 	}
@@ -105,7 +105,7 @@ ul {
 					border-bottom: 2px solid transparent;
 				}
 				&.ui-tabs-active a {
-					border-bottom: 2px solid $theme-color;
+					border-bottom: 2px solid var(--theme-color);
 					top: -2px;
 					height: 44px;
 					line-height: 44px;
@@ -137,7 +137,7 @@ ul {
 				&.ui-state-active {
 					a {
 						top: 0;
-						background-color: $theme-color;
+						background-color: var(--theme-color);
 						color: #FFF;
 					}
 				}
@@ -331,7 +331,7 @@ ul {
 	border-color: rgba(0,0,0,0.1) !important;
 	color: #FFF !important;
 	font-weight: 700;
-	background-color: $theme-color !important;
+	background-color: var(--theme-color) !important;
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
 }
 
