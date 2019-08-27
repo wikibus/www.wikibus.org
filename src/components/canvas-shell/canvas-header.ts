@@ -1,5 +1,9 @@
 import { customElement, html, LitElement, property } from 'lit-element'
+// @ts-ignore
+import { Menu, Search } from '../icons'
 import CanvasShellBase from './CanvasShellBase'
+
+const iconSize = 17
 
 @customElement('canvas-header')
 export class CanvasFooter extends CanvasShellBase(LitElement) {
@@ -55,10 +59,8 @@ export class CanvasFooter extends CanvasShellBase(LitElement) {
       >
         <div id="header-wrap">
           <div class="container clearfix">
-            <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+            <div id="primary-menu-trigger">${Menu(iconSize)}</div>
 
-            <!-- Logo
-                  ============================================= -->
             <div id="logo">
               <a href="index.html" class="standard-logo" data-dark-logo="images/logo-dark.png"
                 ><img src="images/logo.png" alt="Canvas Logo"
@@ -67,10 +69,7 @@ export class CanvasFooter extends CanvasShellBase(LitElement) {
                 ><img src="images/logo@2x.png" alt="Canvas Logo"
               /></a>
             </div>
-            <!-- #logo end -->
 
-            <!-- Primary Navigation
-                  ============================================= -->
             <nav id="primary-menu">
               <ul>
                 <li>
@@ -96,12 +95,8 @@ export class CanvasFooter extends CanvasShellBase(LitElement) {
                 </li>
               </ul>
 
-              <!-- Top Search
-                      ============================================= -->
               <div id="top-search">
-                <a href="#" id="top-search-trigger"
-                  ><i class="icon-search3"></i><i class="icon-line-cross"></i
-                ></a>
+                <a href="#" id="top-search-trigger"> ${Search(iconSize)}</a>
                 <form action="search.html" method="get">
                   <input
                     type="text"
@@ -112,9 +107,7 @@ export class CanvasFooter extends CanvasShellBase(LitElement) {
                   />
                 </form>
               </div>
-              <!-- #top-search end -->
             </nav>
-            <!-- #primary-menu end -->
           </div>
         </div>
       </header>

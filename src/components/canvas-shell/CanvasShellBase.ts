@@ -2,7 +2,6 @@ import { css, LitElement, unsafeCSS } from 'lit-element'
 import bootstrap from '../../css/bootstrap.css'
 import style from '../../style.scss'
 import dark from '../../sass/dark.scss'
-import icons from '../../css/font-icons.css'
 import rs from '../../sass/responsive.scss'
 
 type ShellConstructor = new (...args: any[]) => LitElement
@@ -18,9 +17,7 @@ export default function<B extends ShellConstructor>(Base: B): B & ReturnConstruc
     private _$: JQueryStatic | null = null
 
     public static get styles() {
-      return css`${unsafeCSS(bootstrap)} ${unsafeCSS(style)} ${unsafeCSS(dark)} ${unsafeCSS(
-        icons,
-      )} ${unsafeCSS(rs)}`
+      return css`${unsafeCSS(bootstrap)} ${unsafeCSS(style)} ${unsafeCSS(dark)} ${unsafeCSS(rs)}`
     }
 
     public get $(): JQueryStatic {

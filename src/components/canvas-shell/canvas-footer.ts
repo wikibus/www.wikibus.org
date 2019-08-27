@@ -1,15 +1,15 @@
-import { customElement, html, LitElement } from 'lit-element'
+import { customElement, html, LitElement, property } from 'lit-element'
 import CanvasShellBase from './CanvasShellBase'
+import { Facebook, GitHub, Linkedin, Twitter } from '../icons'
 
 @customElement('canvas-footer')
 export class CanvasFooter extends CanvasShellBase(LitElement) {
+  @property({ type: Number })
+  public iconSize = 20
+
   public render() {
     return html`
-      <!-- Footer
-      ============================================= -->
       <footer id="footer" class="dark">
-        <!-- Copyrights
-        ============================================= -->
         <div id="copyrights">
           <div class="container clearfix">
             <div class="col_half">
@@ -27,40 +27,34 @@ export class CanvasFooter extends CanvasShellBase(LitElement) {
                   href="https://www.facebook.com/wikibus"
                   class="social-icon si-small si-borderless nobottommargin si-facebook"
                 >
-                  <i class="icon-facebook"></i>
-                  <i class="icon-facebook"></i>
+                  ${Facebook(this.iconSize)}
                 </a>
 
                 <a
                   href="https://twitter.com/WikibusOrg"
                   class="social-icon si-small si-borderless nobottommargin si-twitter"
                 >
-                  <i class="icon-twitter"></i>
-                  <i class="icon-twitter"></i>
+                  ${Twitter(this.iconSize)}
                 </a>
 
                 <a
                   href="https://github.com/wikibus"
                   class="social-icon si-small si-borderless nobottommargin si-github"
                 >
-                  <i class="icon-github"></i>
-                  <i class="icon-github"></i>
+                  ${GitHub(this.iconSize)}
                 </a>
 
                 <a
                   href="https://www.linkedin.com/in/tpluskiewicz/"
                   class="social-icon si-small si-borderless nobottommargin si-linkedin"
                 >
-                  <i class="icon-linkedin"></i>
-                  <i class="icon-linkedin"></i>
+                  ${Linkedin(this.iconSize)}
                 </a>
               </div>
             </div>
           </div>
         </div>
-        <!-- #copyrights end -->
       </footer>
-      <!-- #footer end -->
     `
   }
 }
