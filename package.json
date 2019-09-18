@@ -28,9 +28,11 @@
     "release": "standard-version"
   },
   "dependencies": {
-    "@hydrofoil/hydrofoil-shell": "^0.2.2",
+    "@hydrofoil/hydrofoil-shell": "^0.2.3",
+    "@lit-any/views": "^0.9.1",
     "lit-element": "^2.2.1",
-    "feather-icon-literals": "^1.0.0-rc.7"
+    "feather-icon-literals": "^1.0.0-rc.7",
+    "ld-navigation": "^1.0.0-3"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.5.5",

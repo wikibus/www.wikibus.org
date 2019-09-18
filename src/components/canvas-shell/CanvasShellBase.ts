@@ -12,7 +12,7 @@ interface CanvasShellBase {
 
 type ReturnConstructor = new (...args: any[]) => LitElement & CanvasShellBase
 
-export default function<B extends ShellConstructor>(Base: B): B & ReturnConstructor {
+export default function mixin<B extends ShellConstructor>(Base: B): B & ReturnConstructor {
   return class CanvasShellElement extends Base {
     private _$: JQueryStatic | null = null
 
