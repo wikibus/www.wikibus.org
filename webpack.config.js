@@ -16,7 +16,10 @@ const config = createDefaultConfig({
 
 module.exports = merge(config, {
   plugins: [
-    new Dotenv(),
+    new Dotenv({
+      systemvars: true,
+      defaults: true,
+    }),
     new CopyWebpackPlugin([
       { from: 'src/images', to: 'images' },
       { from: 'src/vendor', to: 'vendor' },

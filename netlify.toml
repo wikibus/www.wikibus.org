@@ -2,3 +2,8 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[build.environment]
+  API_LIBRARY = "https://sources.wikibus.org/"
+  API_DATA_SHEETS = "https://sheets.wikibus.org/"
+  API_FALLBACK = "https://www.wikbus.org/"

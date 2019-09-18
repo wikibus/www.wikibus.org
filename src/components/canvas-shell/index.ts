@@ -24,7 +24,7 @@ export class CanvasShell extends CanvasShellBase(
   public createStateMapper() {
     return new WikibusStateMapper({
       useHashFragment: this.usesHashFragment,
-      baseUrl: 'http://www.wikibus.org/',
+      baseUrl: process.env.API_FALLBACK,
       apis: {
         library: process.env.API_LIBRARY,
         'data-sheets': process.env.API_DATA_SHEETS,
