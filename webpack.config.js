@@ -2,6 +2,7 @@ const path = require('path')
 const { createDefaultConfig } = require('@open-wc/building-webpack')
 const merge = require('webpack-merge')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
 // if you need to support IE11 use "modern-and-legacy-config" instead.
 // const { createCompatibilityConfig } = require('@open-wc/building-webpack');
@@ -15,6 +16,7 @@ const config = createDefaultConfig({
 
 module.exports = merge(config, {
   plugins: [
+    new Dotenv(),
     new CopyWebpackPlugin([
       { from: 'src/images', to: 'images' },
       { from: 'src/vendor', to: 'vendor' },

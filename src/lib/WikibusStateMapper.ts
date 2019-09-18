@@ -1,36 +1,47 @@
 import { StateMapper } from 'ld-navigation'
 
-export class WikibusStateMapper extends StateMapper {
-  private __innerMappers: [string, StateMapper][] = []
+interface StateMapperOptions {
+  baseUrl?: string
+  useHashFragment?: boolean
+  clientBasePath?: string
+  apis: Record<string, string | undefined>
+}
 
-  public constructor(o: { useHashFragment: boolean }) {
+interface ApiStateMapping {
+  path: string
+  mapper: StateMapper
+  pathRegex: RegExp
+}
+
+export class WikibusStateMapper extends StateMapper {
+  private readonly __apis: ApiStateMapping[]
+
+  public constructor(o: StateMapperOptions) {
     super(o)
 
-    this.__innerMappers.push([
-      'library',
-      new StateMapper({
-        ...o,
-        baseUrl: 'http://sources.wikibus.org/',
-        clientBasePath: 'library',
-      }),
-    ])
+    this.__apis = Object.entries(o.apis).map(api => {
+      if (!api[1]) {
+        throw new Error(`Missing URL for API ${api[0]}`)
+      }
 
-    this.__innerMappers.push([
-      'data-sheets',
-      new StateMapper({
-        ...o,
-        baseUrl: 'http://tech.wikibus.org/',
-        clientBasePath: 'data-sheets',
-      }),
-    ])
+      return {
+        path: api[0],
+        pathRegex: new RegExp(`^/${api[0]}`),
+        mapper: new StateMapper({
+          ...o,
+          baseUrl: api[1],
+          clientBasePath: api[0],
+        }),
+      }
+    })
   }
 
   public getStatePath(resourceUrl: string): string {
     // eslint-disable-next-line no-restricted-syntax
-    for (const mapper of this.__innerMappers) {
-      const path = mapper[1].getStatePath(resourceUrl)
+    for (const api of this.__apis) {
+      const path = api.mapper.getStatePath(resourceUrl)
       if (!path.startsWith('/http://')) {
-        return `/${mapper[0]}${path}`
+        return `/${api.path}${path}`
       }
     }
 
@@ -43,12 +54,12 @@ export class WikibusStateMapper extends StateMapper {
 
   public getResourceUrl(urlString: string): string {
     const url = new URL(urlString)
-    const mapper = this.__innerMappers.find(m => new RegExp(`^/${m[0]}`).test(url.pathname))
+    const api = this.__apis.find(candidate => candidate.pathRegex.test(url.pathname))
 
-    if (mapper) {
-      return mapper[1].getResourceUrl(urlString)
+    if (api) {
+      return api.mapper.getResourceUrl(urlString)
     }
 
-    return ''
+    return super.getResourceUrl(urlString)
   }
 }

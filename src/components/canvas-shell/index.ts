@@ -14,7 +14,7 @@ ViewTemplates.default.when
   .renders(
     v =>
       html`
-        ${v}<br /><ld-link resource-url="http://sources.wikibus.org/brochure/test">Test</ld-link>
+        ${v}<br /><ld-link resource-url="https://sources.wikibus.org/brochure/test">Test</ld-link>
       `,
   )
 
@@ -24,6 +24,11 @@ export class CanvasShell extends CanvasShellBase(
   public createStateMapper() {
     return new WikibusStateMapper({
       useHashFragment: this.usesHashFragment,
+      baseUrl: 'http://www.wikibus.org/',
+      apis: {
+        library: process.env.API_LIBRARY,
+        'data-sheets': process.env.API_DATA_SHEETS,
+      },
     })
   }
 

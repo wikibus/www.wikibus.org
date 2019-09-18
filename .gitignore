@@ -3,3 +3,4 @@ src.old/
 dist/
 .sass-cache/
 src/sass/**/*.css
+.env
