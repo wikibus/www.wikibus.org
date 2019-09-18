@@ -38,13 +38,4 @@ module.exports = merge(config, {
       },
     ],
   },
-  devServer: {
-    publicPath: '/',
-    historyApiFallback: {
-      rewrites: [{ from: /wikibus-encyclopedia.js$/, to: '/wikibus-encyclopedia.js' }],
-    },
-  },
-  output: {
-    publicPath: '/',
-  },
 })
