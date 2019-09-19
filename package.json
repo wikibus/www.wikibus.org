@@ -29,8 +29,11 @@
   },
   "dependencies": {
     "@hydrofoil/hydrofoil-shell": "^0.2.3",
+    "@hydrofoil/alcaeus-loader": "^0.3.2",
     "@lit-any/views": "^0.9.1",
+    "alcaeus": "^0.9.1",
     "lit-element": "^2.2.1",
+    "lit-html": "^1.1.2",
     "feather-icon-literals": "^1.0.0-rc.7",
     "ld-navigation": "^1.0.0-3"
   },

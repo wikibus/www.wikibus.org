@@ -1,17 +1,33 @@
 import { customElement, html, LitElement, property } from 'lit-element'
+import { repeat } from 'lit-html/directives/repeat'
 // @ts-ignore
 import { Menu, Search } from '../icons'
 import CanvasShellBase from './CanvasShellBase'
+import './canvas-view'
 
 const iconSize = 17
 
 @customElement('canvas-header')
-export class CanvasFooter extends CanvasShellBase(LitElement) {
+export class CanvasHeader extends CanvasShellBase(LitElement) {
   @property({ type: Boolean })
   public topSearchOpen = false
 
   @property({ type: Boolean })
   public primaryMenuOpen = false
+
+  @property({ type: Object })
+  public model: { menu?: Record<string, any> } = {}
+
+  private get __menu() {
+    if (!this.model.menu) {
+      return []
+    }
+
+    return Object.entries(this.model.menu).map(entry => ({
+      label: entry[0],
+      url: entry[1],
+    }))
+  }
 
   public connectedCallback() {
     if (super.connectedCallback) {
@@ -50,6 +66,15 @@ export class CanvasFooter extends CanvasShellBase(LitElement) {
     )
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  private __renderMenuItem(item: any) {
+    return html`
+      <li>
+        <ld-link resource-url="${item.url}">${item.label}</ld-link>
+      </li>
+    `
+  }
+
   public render() {
     return html`
       <header
@@ -73,26 +98,9 @@ export class CanvasFooter extends CanvasShellBase(LitElement) {
             <nav id="primary-menu">
               <ul>
                 <li>
-                  <a href="index.html"><div>Home</div></a>
+                  <a href="/"><div>Home</div></a>
                 </li>
-                <li class="current">
-                  <a href="#"><div>Features</div></a>
-                </li>
-                <li class="mega-menu">
-                  <a href="#"><div>Pages</div></a>
-                </li>
-                <li class="mega-menu">
-                  <a href="#"><div>Portfolio</div></a>
-                </li>
-                <li class="mega-menu">
-                  <a href="#"><div>Blog</div></a>
-                </li>
-                <li>
-                  <a href="shop.html"><div>Shop</div></a>
-                </li>
-                <li class="mega-menu">
-                  <a href="#"><div>Shortcodes</div></a>
-                </li>
+                ${repeat(this.__menu, this.__renderMenuItem)}
               </ul>
 
               <div id="top-search">

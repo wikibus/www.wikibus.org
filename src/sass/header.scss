@@ -203,7 +203,8 @@ body.stretched #header.full-header .container {
 
 #primary-menu > ul > li:first-child { margin-left: 0; }
 
-#primary-menu ul li > a {
+#primary-menu ul li > a,
+#primary-menu ul li > ld-link {
 	display: block;
 	line-height: 22px;
 	padding: $primary-menu-padding 15px;
@@ -214,6 +215,7 @@ body.stretched #header.full-header .container {
 	text-transform: $primary-menu-font-tt;
 	font-family: $heading-font;
 	@include transition(margin .4s ease, padding .4s ease);
+  cursor: pointer;
 }
 
 #primary-menu ul li > a span { display: none; }
@@ -234,7 +236,9 @@ body.stretched #header.full-header .container {
 }
 
 #primary-menu ul li:hover > a,
-#primary-menu ul li.current > a { color: var(--theme-color); }
+#primary-menu ul li:hover > ld-link,
+#primary-menu ul li.current > a,
+#primary-menu ul li.current > ld-link { color: var(--theme-color); }
 
 #primary-menu > ul > li.sub-menu > a > div { }
 
@@ -1115,6 +1119,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
 	margin-top: 12px;
 }
 
+#header.sticky-header:not(.static-sticky) #primary-menu > ul > li > ld-link,
 #header.sticky-header:not(.static-sticky) #primary-menu > ul > li > a {
 	padding-top: $sticky-menu-padding;
 	padding-bottom: $sticky-menu-padding;

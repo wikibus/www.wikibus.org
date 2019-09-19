@@ -443,6 +443,8 @@
 
 	#primary-menu ul li:first-child { border-top: 0; }
 
+	#primary-menu ul > li > ld-link,
+	#primary-menu.style-2 > div > ul > li >ld-link,
 	#primary-menu ul > li > a,
 	#primary-menu.style-2 > div > ul > li > a {
 		padding: 14px 5px !important;

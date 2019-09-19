@@ -43,4 +43,7 @@ module.exports = merge(config, {
       },
     ],
   },
+  node: {
+    crypto: true,
+  },
 })
