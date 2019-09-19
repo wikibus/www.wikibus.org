@@ -4,3 +4,4 @@ dist/
 .sass-cache/
 src/sass/**/*.css
 .env
+.css.map
