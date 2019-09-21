@@ -26,7 +26,24 @@ export class CanvasShell extends CanvasShellBase(
   }
 
   protected renderMain() {
-    return html`<canvas-view .value="${this.model}" ignore-missing template-scope="hydrofoil-shell"></canvas-view>`
+    return html`
+      <canvas-view
+        .value="${this.model}"
+        ignore-missing
+        template-scope="hydrofoil-shell"
+      ></canvas-view>
+    `
+  }
+
+  protected updated(_changedProperties: Map<PropertyKey, unknown>): void {
+    if (this.isLoading === true) {
+      SEMICOLON.initialize.pageTransition()
+    } else {
+      const self = this
+      this.$('.page-transition-wrap').fadeOut('400', function() {
+        self.$(this).remove()
+      })
+    }
   }
 }
 

@@ -24,4 +24,9 @@ export class WikibusShell extends AlcaeusLoader(CanvasShell) {
       resource,
     })
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  public onResourceUrlChanged() {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 }

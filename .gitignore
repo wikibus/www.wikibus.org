@@ -6,4 +6,4 @@ src/sass/**/*.css
 .env
 .css.map
 *.d.ts
-!/typings/
+!/typings/**/*.d.ts

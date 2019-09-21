@@ -19,6 +19,9 @@
     "lit",
     "import"
   ],
+  "globals": {
+    "SEMICOLON": "readonly"
+  },
   "rules": {
     "indent": "off",
     "import/no-unresolved": "warn",
