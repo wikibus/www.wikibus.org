@@ -5,3 +5,5 @@ dist/
 src/sass/**/*.css
 .env
 .css.map
+*.d.ts
+!/typings/

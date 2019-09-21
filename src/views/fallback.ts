@@ -1,7 +1,7 @@
+import { HydraResource } from 'alcaeus/types/Resources'
 import { ViewTemplates } from '@lit-any/views'
 import { html } from 'lit-html'
 import { unsafeHTML } from 'lit-html/directives/unsafe-html'
-import { HydraResource } from 'alcaeus/types/Resources'
 
 function getReplacer() {
   const uris = new Map<string, number>()

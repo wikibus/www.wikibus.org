@@ -1,7 +1,9 @@
 import { LitElement, html, query } from 'lit-element'
 import './wikibus-shell.ts'
 import { WikibusShell } from './wikibus-shell'
-import './views'
+import '../views/index.ts'
+import '../lib/ns.ts'
+import '../lib/types/index.ts'
 
 export default class WikibusEncyclopedia extends LitElement {
   @query('#shell')
