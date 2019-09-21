@@ -1,10 +1,12 @@
 // @ts-ignore
 import * as icons from 'feather-icon-literals'
-import { html } from 'lit-element'
+import { html, TemplateResult } from 'lit-element'
 
 icons.setCustomTemplateLiteralTag(html)
 
-function wrap(featherIcon: Function) {
+export type IconFunction = (size?: number) => TemplateResult
+
+function wrap(featherIcon: Function): IconFunction {
   return (size?: number) => featherIcon({ width: size, height: size })
 }
 
@@ -17,3 +19,6 @@ export const GitHub = wrap(icons.GitHub)
 export const Linkedin = wrap(icons.Linkedin)
 export const BookOpen = wrap(icons.BookOpen)
 export const Pinterest = wrap(icons.Instagram)
+export const Box = wrap(icons.Box)
+export const FileText = wrap(icons.FileText)
+export const Layers = wrap(icons.Layers)
