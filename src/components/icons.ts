@@ -4,10 +4,16 @@ import { html } from 'lit-element'
 
 icons.setCustomTemplateLiteralTag(html)
 
-export const Menu = (size?: number) => icons.Menu({ width: size, height: size })
-export const Search = (size?: number) => icons.Search({ width: size, height: size })
-export const ChevronUp = (size?: number) => icons.ChevronUp({ width: size, height: size })
-export const Facebook = (size?: number) => icons.Facebook({ width: size, height: size })
-export const Twitter = (size?: number) => icons.Twitter({ width: size, height: size })
-export const GitHub = (size?: number) => icons.GitHub({ width: size, height: size })
-export const Linkedin = (size?: number) => icons.Linkedin({ width: size, height: size })
+function wrap(featherIcon: Function) {
+  return (size?: number) => featherIcon({ width: size, height: size })
+}
+
+export const Menu = wrap(icons.Menu)
+export const Search = wrap(icons.Search)
+export const ChevronUp = wrap(icons.ChevronUp)
+export const Facebook = wrap(icons.Facebook)
+export const Twitter = wrap(icons.Twitter)
+export const GitHub = wrap(icons.GitHub)
+export const Linkedin = wrap(icons.Linkedin)
+export const BookOpen = wrap(icons.BookOpen)
+export const Pinterest = wrap(icons.Pinterest)
