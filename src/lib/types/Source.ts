@@ -2,7 +2,7 @@ import { HydraResource } from 'alcaeus/types/Resources'
 import { expand } from '@zazuko/rdf-vocabularies'
 import { Image } from './Image'
 
-export interface Book {
+export interface Source extends HydraResource {
   title: string | null
   image: Image | null
 }
@@ -10,7 +10,7 @@ export interface Book {
 type Constructor<T = {}> = new (...args: any[]) => HydraResource
 
 export function Mixin<B extends Constructor>(Base: B) {
-  return class extends Base implements Book {
+  return class extends Base implements Source {
     public get title() {
       return this.get<string>(expand('dcterms:title'))
     }
@@ -21,4 +21,5 @@ export function Mixin<B extends Constructor>(Base: B) {
   }
 }
 
-export const shouldApply = (r: HydraResource) => r.types.contains(expand('wbo:Book'))
+export const shouldApply = (r: HydraResource) =>
+  r.types.contains(expand('wbo:Book')) || r.types.contains(expand('wbo:Brochure'))

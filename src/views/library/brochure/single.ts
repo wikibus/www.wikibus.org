@@ -6,16 +6,16 @@ import { portfolioSingleGallery } from '../../_partials/portfolioSingleGallery'
 
 ViewTemplates.default.when
   .scopeMatches('wikibus-resource')
-  .valueMatches(rdfType('wbo:Book'))
+  .valueMatches(rdfType('wbo:Brochure'))
   .renders(
     portfolioSingleGallery<Source>({
-      title(book) {
-        return book.title
+      title(brochure) {
+        return brochure.title
       },
-      images(book) {
-        return book.image ? [book.image] : []
+      images(brochure) {
+        return brochure.image ? [brochure.image] : []
       },
-      heading: 'About this book',
+      heading: 'About this brochure',
       excludedProperties: ['schema:image'],
     }),
   )
