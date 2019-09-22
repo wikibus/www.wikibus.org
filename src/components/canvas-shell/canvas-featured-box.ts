@@ -5,6 +5,21 @@ import { Box } from '../icons'
 
 @customElement('canvas-featured-box')
 export class CanvasFeaturedBox extends CanvasShellBase(LitElement) {
+  @property({ type: Boolean })
+  public center = false
+
+  @property({ type: Boolean })
+  public outline = false
+
+  @property({ type: Boolean })
+  public effect = false
+
+  @property({ type: Boolean })
+  public light = false
+
+  @property({ type: Boolean })
+  public dark = false
+
   @property({ type: String })
   public title: string = ''
 
@@ -16,7 +31,13 @@ export class CanvasFeaturedBox extends CanvasShellBase(LitElement) {
 
   public render() {
     return html`
-      <div class="feature-box fbox-center fbox-outline fbox-effect fbox-light">
+      <div
+        class="feature-box ${this.center ? 'fbox-center' : ''} ${this.outline
+          ? 'fbox-outline'
+          : ''} ${this.effect ? 'fbox-effect' : ''} ${this.light ? 'fbox-light' : ''} ${this.dark
+          ? 'fbox-dark'
+          : ''}"
+      >
         <div class="fbox-icon">
           <ld-link resource-url="${this.resourceUrl}">
             <a href="javascript:void(0)"

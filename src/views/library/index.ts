@@ -40,6 +40,9 @@ ViewTemplates.default.when
               links,
               (link, index) => html`
                 <canvas-featured-box
+                  center
+                  effect
+                  outline
                   class="col_one_third ${index % 3 === 0 ? 'col_last' : ''}"
                   .title="${link.supportedProperty.title}"
                   .description="${link.supportedProperty.description}"
