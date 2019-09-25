@@ -28,7 +28,7 @@ ViewTemplates.default.when
 
     return html`
       <canvas-emphasis-title
-        background-image="https://pixabay.com/get/55e4d1454e57ad14f6d1867dda6d49214b6ac3e45657784972267adc93/books-3446451_1920.jpg"
+        background-image="images/emphasis-header/library.jpg"
         heading="wikibus.org library"
         lead="Here you can explore the private collection of books and other physical and electronic media about public transport"
       ></canvas-emphasis-title>
