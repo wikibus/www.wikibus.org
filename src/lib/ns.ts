@@ -1,4 +1,4 @@
-import { prefixes } from '@zazuko/rdf-vocabularies'
+import prefixes from '@zazuko/rdf-vocabularies/lib/es/prefixes'
 
-;(prefixes as any).wbo = 'https://wikibus.org/ontology#'
-;(prefixes as any).wba = 'https://wikibus.org/api#'
+prefixes.wbo = 'https://wikibus.org/ontology#'
+prefixes.wba = 'https://wikibus.org/api#'
