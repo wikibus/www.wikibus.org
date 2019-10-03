@@ -1,3 +1,4 @@
+/* eslint-disable */
 const $ = jQuery.noConflict()
 
 $.fn.inlineStyle = function (prop) {
@@ -1718,259 +1719,6 @@ var SEMICOLON = SEMICOLON || {};
 
   }
 
-  SEMICOLON.portfolio = {
-
-    init() {
-      SEMICOLON.portfolio.ajaxload()
-    },
-
-    gridInit($container) {
-      if (!$().isotope) {
-        console.log('gridInit: Isotope not Defined.')
-        return true
-      }
-
-      if ($container.length < 1) { return true }
-      if ($container.hasClass('customjs')) { return true }
-
-      $container.each(function () {
-        const element = $(this)
-        let elementTransition = element.attr('data-transition')
-        let elementLayoutMode = element.attr('data-layout')
-        let elementStagger = element.attr('data-stagger')
-        let elementOriginLeft = true
-
-        if (!elementTransition) { elementTransition = '0.65s' }
-        if (!elementLayoutMode) { elementLayoutMode = 'masonry' }
-        if (!elementStagger) { elementStagger = 0 }
-        if ($body.hasClass('rtl')) { elementOriginLeft = false }
-
-        setTimeout(() => {
-          if (element.hasClass('portfolio')) {
-            element.isotope({
-              layoutMode: elementLayoutMode,
-              isOriginLeft: elementOriginLeft,
-              transitionDuration: elementTransition,
-              stagger: Number(elementStagger),
-              masonry: {
-                columnWidth: element.find('.portfolio-item:not(.wide)')[0],
-              },
-            })
-          } else {
-            element.isotope({
-              layoutMode: elementLayoutMode,
-              isOriginLeft: elementOriginLeft,
-              transitionDuration: elementTransition,
-            })
-          }
-        }, 300)
-      })
-    },
-
-    filterInit() {
-      if (!$().isotope) {
-        console.log('filterInit: Isotope not Defined.')
-        return true
-      }
-
-      if ($portfolioFilter.length < 1) { return true }
-      if ($portfolioFilter.hasClass('customjs')) { return true }
-
-      $portfolioFilter.each(function () {
-        const element = $(this)
-        const elementContainer = element.attr('data-container')
-        let elementActiveClass = element.attr('data-active-class')
-        const elementDefaultFilter = element.attr('data-default')
-
-        if (!elementActiveClass) { elementActiveClass = 'activeFilter' }
-
-        element.find('a').off('click').on('click', function () {
-          element.find('li').removeClass(elementActiveClass)
-          $(this).parent('li').addClass(elementActiveClass)
-          const selector = $(this).attr('data-filter')
-          $(elementContainer).isotope({ filter: selector })
-          return false
-        })
-
-        if (elementDefaultFilter) {
-          element.find('li').removeClass(elementActiveClass)
-          element.find(`[data-filter="${elementDefaultFilter}"]`).parent('li').addClass(elementActiveClass)
-          $(elementContainer).isotope({ filter: elementDefaultFilter })
-        }
-      })
-    },
-
-    shuffleInit() {
-      if (!$().isotope) {
-        console.log('shuffleInit: Isotope not Defined.')
-        return true
-      }
-
-      if ($('.portfolio-shuffle').length < 1) { return true }
-
-      $('.portfolio-shuffle').off('click').on('click', function () {
-        const element = $(this)
-        const elementContainer = element.attr('data-container')
-
-        $(elementContainer).isotope('shuffle')
-      })
-    },
-
-    portfolioDescMargin() {
-      const $portfolioOverlayEl = $('.portfolio-overlay')
-      if ($portfolioOverlayEl.length > 0) {
-        $portfolioOverlayEl.each(function () {
-          const element = $(this)
-          if (element.find('.portfolio-desc').length > 0) {
-            const portfolioOverlayHeight = element.outerHeight()
-            const portfolioOverlayDescHeight = element.find('.portfolio-desc').outerHeight()
-            if (element.find('a.left-icon').length > 0 || element.find('a.right-icon').length > 0 || element.find('a.center-icon').length > 0) {
-              var portfolioOverlayIconHeight = 40 + 20
-            } else {
-              var portfolioOverlayIconHeight = 0
-            }
-            const portfolioOverlayMiddleAlign = (portfolioOverlayHeight - portfolioOverlayDescHeight - portfolioOverlayIconHeight) / 2
-            element.find('.portfolio-desc').css({ 'margin-top': portfolioOverlayMiddleAlign })
-          }
-        })
-      }
-    },
-
-    arrange() {
-      if ($portfolio.length > 0) {
-        $portfolio.each(function () {
-          const element = $(this)
-          SEMICOLON.initialize.setFullColumnWidth(element)
-        })
-      }
-    },
-
-    ajaxload() {
-      $('.portfolio-ajax .portfolio-item a.center-icon').off('click').on('click', function (e) {
-        const portPostId = $(this).parents('.portfolio-item').attr('id')
-        if (!$(this).parents('.portfolio-item').hasClass('portfolio-active')) {
-          SEMICOLON.portfolio.loadItem(portPostId, prevPostPortId)
-        }
-        e.preventDefault()
-      })
-    },
-
-    newNextPrev(portPostId) {
-      const portNext = SEMICOLON.portfolio.getNextItem(portPostId)
-      const portPrev = SEMICOLON.portfolio.getPrevItem(portPostId)
-      $('#next-portfolio').attr('data-id', portNext)
-      $('#prev-portfolio').attr('data-id', portPrev)
-    },
-
-    loadItem(portPostId, prevPostPortId, getIt) {
-      if (!getIt) { getIt = false }
-      const portNext = SEMICOLON.portfolio.getNextItem(portPostId)
-      const portPrev = SEMICOLON.portfolio.getPrevItem(portPostId)
-      if (getIt == false) {
-        SEMICOLON.portfolio.closeItem()
-        $portfolioAjaxLoader.fadeIn()
-        const portfolioDataLoader = $(`#${portPostId}`).attr('data-loader')
-        $portfolioDetailsContainer.load(portfolioDataLoader, { portid: portPostId, portnext: portNext, portprev: portPrev },
-          () => {
-            SEMICOLON.portfolio.initializeAjax(portPostId)
-            SEMICOLON.portfolio.openItem()
-            $portfolioItems.removeClass('portfolio-active')
-            $(`#${portPostId}`).addClass('portfolio-active')
-          })
-      }
-    },
-
-    closeItem() {
-      if ($portfolioDetails && $portfolioDetails.height() > 32) {
-        $portfolioAjaxLoader.fadeIn()
-        $portfolioDetails.find('#portfolio-ajax-single').fadeOut('600', function () {
-          $(this).remove()
-        })
-        $portfolioDetails.removeClass('portfolio-ajax-opened')
-      }
-    },
-
-    openItem() {
-      const noOfImages = $portfolioDetails.find('img').length
-      let noLoaded = 0
-
-      if (noOfImages > 0) {
-        $portfolioDetails.find('img').on('load', () => {
-          noLoaded++
-          const topOffsetScroll = SEMICOLON.initialize.topScrollOffset()
-          if (noOfImages === noLoaded) {
-            $portfolioDetailsContainer.css({ display: 'block' })
-            $portfolioDetails.addClass('portfolio-ajax-opened')
-            $portfolioAjaxLoader.fadeOut()
-            const t = setTimeout(() => {
-              SEMICOLON.widget.loadFlexSlider()
-              SEMICOLON.initialize.lightbox()
-              SEMICOLON.initialize.resizeVideos()
-              SEMICOLON.widget.masonryThumbs()
-              $('html,body').stop(true).animate({
-                scrollTop: $portfolioDetails.offset().top - topOffsetScroll,
-              }, 900, 'easeOutQuad')
-            }, 500)
-          }
-        })
-      } else {
-        const topOffsetScroll = SEMICOLON.initialize.topScrollOffset()
-        $portfolioDetailsContainer.css({ display: 'block' })
-        $portfolioDetails.addClass('portfolio-ajax-opened')
-        $portfolioAjaxLoader.fadeOut()
-        const t = setTimeout(() => {
-          SEMICOLON.widget.loadFlexSlider()
-          SEMICOLON.initialize.lightbox()
-          SEMICOLON.initialize.resizeVideos()
-          SEMICOLON.widget.masonryThumbs()
-          $('html,body').stop(true).animate({
-            scrollTop: $portfolioDetails.offset().top - topOffsetScroll,
-          }, 900, 'easeOutQuad')
-        }, 500)
-      }
-    },
-
-    getNextItem(portPostId) {
-      let portNext = ''
-      const hasNext = $(`#${portPostId}`).next()
-      if (hasNext.length != 0) {
-        portNext = hasNext.attr('id')
-      }
-      return portNext
-    },
-
-    getPrevItem(portPostId) {
-      let portPrev = ''
-      const hasPrev = $(`#${portPostId}`).prev()
-      if (hasPrev.length != 0) {
-        portPrev = hasPrev.attr('id')
-      }
-      return portPrev
-    },
-
-    initializeAjax(portPostId) {
-      prevPostPortId = $(`#${portPostId}`)
-
-      $('#next-portfolio, #prev-portfolio').off('click').on('click', function () {
-        const portPostId = $(this).attr('data-id')
-        $portfolioItems.removeClass('portfolio-active')
-        $(`#${portPostId}`).addClass('portfolio-active')
-        SEMICOLON.portfolio.loadItem(portPostId, prevPostPortId)
-        return false
-      })
-
-      $('#close-portfolio').off('click').on('click', () => {
-        $portfolioDetailsContainer.fadeOut('600', () => {
-          $portfolioDetails.find('#portfolio-ajax-single').remove()
-        })
-        $portfolioDetails.removeClass('portfolio-ajax-opened')
-        $portfolioItems.removeClass('portfolio-active')
-        return false
-      })
-    },
-
-  }
-
   SEMICOLON.widget = {
 
     init() {
@@ -2130,12 +1878,12 @@ var SEMICOLON = SEMICOLON || {};
               SEMICOLON.initialize.lightbox()
               $('.flex-prev').html('<i class="icon-angle-left"></i>')
               $('.flex-next').html('<i class="icon-angle-right"></i>')
-              SEMICOLON.portfolio.portfolioDescMargin()
+              // SEMICOLON.portfolio.portfolioDescMargin()
             },
             after() {
               if ($('.grid-container').hasClass('portfolio-full')) {
                 $('.grid-container.portfolio-full').isotope('layout')
-                SEMICOLON.portfolio.portfolioDescMargin()
+                // SEMICOLON.portfolio.portfolioDescMargin()
               }
               if ($('.post-grid').hasClass('post-masonry-full')) {
                 $('.post-grid.post-masonry-full').isotope('layout')
@@ -3401,8 +3149,6 @@ var SEMICOLON = SEMICOLON || {};
         SEMICOLON.initialize.stickyFooter()
         SEMICOLON.slider.sliderParallaxDimensions()
         SEMICOLON.slider.captionPosition()
-        SEMICOLON.portfolio.arrange()
-        SEMICOLON.portfolio.portfolioDescMargin()
         SEMICOLON.widget.tabsResponsiveResize()
         SEMICOLON.widget.tabsJustify()
         SEMICOLON.widget.html5Video()
@@ -3509,11 +3255,6 @@ var SEMICOLON = SEMICOLON || {};
       SEMICOLON.initialize.verticalMiddle()
       SEMICOLON.initialize.stickFooterOnSmall()
       SEMICOLON.initialize.stickyFooter()
-      SEMICOLON.portfolio.gridInit($gridContainer)
-      SEMICOLON.portfolio.filterInit()
-      SEMICOLON.portfolio.shuffleInit()
-      SEMICOLON.portfolio.arrange()
-      SEMICOLON.portfolio.portfolioDescMargin()
       SEMICOLON.widget.parallax()
       SEMICOLON.widget.loadFlexSlider()
       SEMICOLON.widget.html5Video()
@@ -3559,12 +3300,12 @@ var SEMICOLON = SEMICOLON || {};
   var $sliderElement = $('.slider-element')
   var swiperSlider = ''
   var $pageTitle = $('#page-title')
-  var $portfolioItems = $('.portfolio-ajax').find('.portfolio-item')
-  var $portfolioDetails = $('#portfolio-ajax-wrap')
-  var $portfolioDetailsContainer = $('#portfolio-ajax-container')
-  var $portfolioAjaxLoader = $('#portfolio-ajax-loader')
-  var $portfolioFilter = $('.portfolio-filter,.custom-filter')
-  var prevPostPortId = ''
+  const $portfolioItems = $('.portfolio-ajax').find('.portfolio-item')
+  const $portfolioDetails = $('#portfolio-ajax-wrap')
+  const $portfolioDetailsContainer = $('#portfolio-ajax-container')
+  const $portfolioAjaxLoader = $('#portfolio-ajax-loader')
+  const $portfolioFilter = $('.portfolio-filter,.custom-filter')
+  const prevPostPortId = ''
   var $topSearch = $('#top-search')
   var $topCart = $('#top-cart')
   var $verticalMiddleEl = $('.vertical-middle')

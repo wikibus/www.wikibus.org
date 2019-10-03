@@ -1,19 +1,23 @@
 import { HydrofoilShell } from '@hydrofoil/hydrofoil-shell/hydrofoil-shell'
 import { ResourceScope, ReflectedInHistory } from 'ld-navigation'
-import { html } from 'lit-element'
+import { html, property } from 'lit-element'
 import './canvas-gototop.ts'
 import './canvas-footer.ts'
 import './canvas-view.ts'
 import './canvas-header.ts'
 import CanvasShellBase from './CanvasShellBase'
 import 'ld-navigation/ld-link'
+import { State } from '../../lib/state'
 
 export class CanvasShell extends CanvasShellBase(
   ReflectedInHistory(ResourceScope(HydrofoilShell)),
 ) {
+  @property({ type: Object })
+  public appState?: State
+
   protected render() {
     return html`
-      <canvas-header .model="${this.model}"></canvas-header>
+      <canvas-header .model="${this.appState}"></canvas-header>
 
       <section id="content">
         ${super.render()}
@@ -28,7 +32,7 @@ export class CanvasShell extends CanvasShellBase(
   protected renderMain() {
     return html`
       <canvas-view
-        .value="${this.model}"
+        .value="${this.appState}"
         ignore-missing
         template-scope="hydrofoil-shell"
       ></canvas-view>

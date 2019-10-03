@@ -19,7 +19,7 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
   public model: { menu?: Record<string, any> } = {}
 
   private get __menu() {
-    if (!this.model.menu) {
+    if (!this.model || !this.model.menu) {
       return []
     }
 

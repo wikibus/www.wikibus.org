@@ -4,19 +4,20 @@ import { WikibusShell } from './wikibus-shell'
 import '../views/index.ts'
 import '../lib/ns.ts'
 import '../lib/types/index.ts'
+import { states } from '../lib/state'
 
 export default class WikibusEncyclopedia extends LitElement {
   @query('#shell')
   private __shell: WikibusShell | null = null
 
-  protected firstUpdated() {
-    if (this.__shell) {
-      this.__shell.model = {
-        menu: {
-          Library: process.env.API_LIBRARY,
-        },
+  protected async firstUpdated() {
+    // eslint-disable-next-line array-callback-return
+    ;(await states).map(value => {
+      console.log(value)
+      if (this.__shell) {
+        this.__shell.appState = { ...value }
       }
-    }
+    })
   }
 
   protected createRenderRoot() {
@@ -25,7 +26,9 @@ export default class WikibusEncyclopedia extends LitElement {
 
   protected render() {
     return html`
-      <wikibus-shell id="shell"> </wikibus-shell>
+      <wikibus-shell id="shell">
+        Your content will arrive shortly.
+      </wikibus-shell>
     `
   }
 }

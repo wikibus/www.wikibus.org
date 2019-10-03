@@ -2,6 +2,7 @@ import { customElement } from 'lit-element'
 import AlcaeusLoader from '@hydrofoil/alcaeus-loader'
 import { CanvasShell } from './canvas-shell'
 import { WikibusStateMapper } from '../lib/WikibusStateMapper'
+import { actions } from '../lib/state'
 
 @customElement('wikibus-shell')
 export class WikibusShell extends AlcaeusLoader(CanvasShell) {
@@ -18,11 +19,9 @@ export class WikibusShell extends AlcaeusLoader(CanvasShell) {
 
   protected async loadResourceInternal(url: string) {
     const resource = await super.loadResourceInternal(url)
+    ;(await actions).setResource(resource)
 
-    return Promise.resolve({
-      ...this.model,
-      resource,
-    })
+    return resource
   }
 
   // eslint-disable-next-line class-methods-use-this

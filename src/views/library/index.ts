@@ -7,9 +7,10 @@ import { repeat } from 'lit-html/directives/repeat'
 import { html } from 'lit-html'
 import { rdfType } from '../matchers'
 import { propertyIcon } from './property-icons'
+import { wikibusResource } from '../scopes'
 
 ViewTemplates.default.when
-  .scopeMatches('wikibus-resource')
+  .scopeMatches(wikibusResource)
   .valueMatches(rdfType('wba:EntryPoint'))
   .renders((value: HydraResource, next) => {
     import('../../components/canvas-shell/canvas-featured-box')

@@ -2,6 +2,8 @@ import { HydraResource } from 'alcaeus/types/Resources'
 import { ViewTemplates } from '@lit-any/views'
 import { html } from 'lit-html'
 import { unsafeHTML } from 'lit-html/directives/unsafe-html'
+import { wikibusResource } from './scopes'
+import { State } from '../lib/state'
 
 function getReplacer() {
   const uris = new Map<string, number>()
@@ -29,11 +31,11 @@ function getReplacer() {
 
 ViewTemplates.default.when
   .scopeMatches('hydrofoil-shell')
-  .valueMatches((v: any) => v.resource)
-  .renders((value: any, next) => next(value.resource, 'wikibus-resource'))
+  .valueMatches((v: State) => !!v.resource)
+  .renders((value: State, next) => next(value.resource, wikibusResource))
 
 ViewTemplates.default.when
-  .scopeMatches('wikibus-resource')
+  .scopeMatches(wikibusResource)
   .valueMatches(() => true)
   .renders(
     value =>
