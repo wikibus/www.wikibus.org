@@ -8,8 +8,8 @@ export const template = html`
     <div class="content-wrap">
       <div class="container clearfix">
         <div class="heading-block center nobottomborder">
-          <h1>Content unavailable</h1>
-          <span>Please check back in sometime.</span>
+          <h1>This content is not available</h1>
+          <span>Please check back in the future.</span>
         </div>
 
         <div class="col_one_third topmargin">
@@ -18,7 +18,7 @@ export const template = html`
               ${AlertTriangle(size)}
             </div>
             <h3>Why am I seeing this?</h3>
-            <p>It takes a lot of effort to build this site.</p>
+            <p>Not all features of this website are implemented yet.</p>
           </div>
         </div>
 
@@ -28,7 +28,7 @@ export const template = html`
               ${Clock(size)}
             </div>
             <h3>How long will it take?</h3>
-            <p>Hard to tell. I'm working hard.</p>
+            <p>Hard to tell. I'm working on it.</p>
           </div>
         </div>
 
@@ -38,7 +38,7 @@ export const template = html`
               ${Share2(size)}
             </div>
             <h3>What can I do now?</h3>
-            <p>In the mean time check our social links below ${CornerRightDown()}</p>
+            <p>In the mean time visit our social links below ${CornerRightDown()}</p>
           </div>
         </div>
       </div>
