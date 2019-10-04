@@ -7,3 +7,11 @@
   API_LIBRARY = "https://sources.wikibus.org/"
   API_DATA_SHEETS = "https://sheets.wikibus.org/"
   API_FALLBACK = "https://www.wikbus.org/"
+
+[context.branch-deploy]
+  command = "echo branch"
+
+[context.branch-deploy.environment]
+  API_LIBRARY = "https://sources.test.wikibus.org/"
+  API_DATA_SHEETS = "https://sheets.wikibus.org/"
+  API_FALLBACK = "https://www.wikbus.org/"
