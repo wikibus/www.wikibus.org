@@ -45,7 +45,7 @@ export class CanvasFooter extends CanvasShellBase(LitElement) {
                 </a>
 
                 <a
-                  href="https://github.com/wikibus"
+                  href="https://github.com/wikibus/www.wikibus.org"
                   class="social-icon si-small si-borderless nobottommargin si-github"
                 >
                   ${GitHub(this.iconSize)}
