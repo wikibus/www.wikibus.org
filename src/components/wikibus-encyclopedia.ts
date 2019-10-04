@@ -27,7 +27,11 @@ export default class WikibusEncyclopedia extends LitElement {
   protected render() {
     return html`
       <wikibus-shell id="shell">
-        Your content will arrive shortly.
+        <canvas-emphasis-title
+          background-image="images/emphasis-header/yellow-trams.jpg"
+          heading="Don't go away"
+          lead="Your content will arrive shortly"
+        ></canvas-emphasis-title>
       </wikibus-shell>
     `
   }
