@@ -87,6 +87,7 @@ export class CanvasPortfolio extends CanvasShellBase(LitElement) {
     if (!$container || !this.__initialized) return
 
     $container.isotope('reloadItems')
+    this.gridInit()
   }
 
   // eslint-disable-next-line class-methods-use-this
