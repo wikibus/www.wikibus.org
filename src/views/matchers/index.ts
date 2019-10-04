@@ -10,7 +10,7 @@ export function collectionOf(type: string) {
   const matchesType = rdfType('hydra:Collection')
 
   return (state: State) => {
-    const collection = state.resource as Collection
+    const collection = state.core.resource as Collection
 
     return (
       collection &&

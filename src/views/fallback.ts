@@ -6,8 +6,8 @@ import { State } from '../lib/state'
 
 ViewTemplates.default.when
   .scopeMatches('hydrofoil-shell')
-  .valueMatches((v: State) => !!v.resource && !v.debug)
-  .renders((state: State, next) => next(state.resource, wikibusResource))
+  .valueMatches((v: State) => !!v.core.resource && !v.core.debug)
+  .renders((state: State, next) => next(state.core.resource, wikibusResource))
 
 ViewTemplates.default.when
   .scopeMatches(wikibusResource)

@@ -17,7 +17,7 @@ export class CanvasShell extends CanvasShellBase(
 
   protected render() {
     return html`
-      <canvas-header .model="${this.appState}"></canvas-header>
+      <canvas-header .model="${this.appState ? this.appState.core : {}}"></canvas-header>
 
       <section id="content">
         ${super.render()}

@@ -1,107 +1,37 @@
-import { Collection, HydraResource, PartialCollectionView } from 'alcaeus/types/Resources'
+import { HydraResource } from 'alcaeus/types/Resources'
 import flyd from 'flyd'
 import meiosisPatchinko from 'meiosis-setup/patchinko'
 import O from 'patchinko/immutable'
+import * as core from './state/core'
+import * as gallery from './state/gallery'
 
 export interface State<T extends HydraResource | null = HydraResource | null> {
-  debug: boolean
-  menu: Record<string, string | undefined>
-  resource: T
-  resourceUrlOverride: string | null
-  gallery: {
-    collectionId: string
-    resources: any[]
-    nextPage: HydraResource | null
-    prevPage: HydraResource | null
-  }
+  core: core.State<T>
+  gallery: gallery.State
 }
 
-function getPage(resource: Collection, rel: 'next' | 'previous') {
-  if (resource.views && resource.views.length > 0) {
-    if (rel in resource.views[0]) {
-      return ((resource.views[0] as PartialCollectionView)[rel] as HydraResource) || null
-    }
-  }
-
-  return null
-}
-
-interface StateUpdate {
-  <T extends HydraResource>(state: Partial<State<T>>): void
-}
-
-const nullState = {
-  debug: false,
-  menu: {
-    Library: process.env.API_LIBRARY,
-  },
-  resource: null,
-  resourceUrlOverride: null,
-  gallery: {
-    collectionId: '',
-    resources: [],
-    nextPage: null,
-    prevPage: null,
-  },
-}
-
-const app = {
+const appMeiosis = {
   Initial(): State {
-    return nullState
+    return {
+      core: core.Initial(),
+      gallery: gallery.Initial(),
+    }
   },
   Actions(update: flyd.Stream<Partial<State>>) {
     return {
-      setDebug(debug: boolean) {
-        update({
-          debug,
-        })
-      },
-      setResource(resource: HydraResource) {
-        update({
-          resource,
-          resourceUrlOverride: null,
-          gallery: nullState.gallery,
-        })
-      },
-      replaceGallery(resource: Collection) {
-        update({
-          gallery: {
-            collectionId: resource.id,
-            resources: resource.members,
-            prevPage: getPage(resource, 'previous'),
-            nextPage: getPage(resource, 'next'),
-          },
-        })
-      },
-      async appendToGallery(nextPage: HydraResource | null) {
-        if (!nextPage) return
-        const nextPageResponse = (await nextPage.load()).root as Collection
-
-        update({
-          resourceUrlOverride: nextPage.id,
-          gallery: O({
-            resources: O((current: any) => [...current, ...nextPageResponse.members]),
-            nextPage: getPage(nextPageResponse, 'next'),
-          }),
-        })
-      },
-      async prependToGallery(prevPage: HydraResource | null) {
-        if (!prevPage) return
-        const prevPageResponse = (await prevPage.load()).root as Collection
-
-        update({
-          resourceUrlOverride: prevPage.id,
-          gallery: O({
-            resources: O((current: any) => [...prevPageResponse.members, ...current]),
-            prevPage: getPage(prevPageResponse, 'previous'),
-          }),
-        })
-      },
+      core: core.Actions(patch => update({ core: O(patch) })),
+      gallery: gallery.Actions(patch => update({ gallery: O(patch) })),
     }
   },
 }
 
-const setup = meiosisPatchinko<State, ReturnType<typeof app.Actions>>({ stream: flyd, O, app })
+const setup = meiosisPatchinko<State, ReturnType<typeof appMeiosis.Actions>>({
+  stream: flyd,
+  O,
+  app: appMeiosis,
+})
 
-export const states = setup.then(value => value.states)
-export const actions = setup.then(value => value.actions)
+export const app = setup.then(({ states, actions }) => ({
+  states,
+  actions,
+}))

@@ -2,14 +2,26 @@ import { html } from 'lit-html'
 import { Collection, HydraResource } from 'alcaeus/types/Resources'
 import { RenderFunc } from '@lit-any/views/lib'
 import { PortfolioItem } from '../../components/canvas-shell/canvas-portfolio'
-import { State, actions } from '../../lib/state'
+import { app, State } from '../../lib/state'
 
 function loadPreviousPage(state: State) {
-  return async () => (await actions).prependToGallery(state.gallery.prevPage)
+  return async () => {
+    const { actions } = await app
+    if (state.gallery.prevPage) {
+      actions.gallery.prependToGallery(state.gallery.prevPage)
+      actions.core.overrideResourceUrl(state.gallery.prevPage.id)
+    }
+  }
 }
 
 function loadNextPage(state: State) {
-  return async () => (await actions).appendToGallery(state.gallery.nextPage)
+  return async () => {
+    const { actions } = await app
+    if (state.gallery.nextPage) {
+      actions.gallery.appendToGallery(state.gallery.nextPage)
+      actions.core.overrideResourceUrl(state.gallery.nextPage.id)
+    }
+  }
 }
 
 export function portfolioGallery<T extends HydraResource>(options: {
@@ -18,8 +30,8 @@ export function portfolioGallery<T extends HydraResource>(options: {
   import('../../components/canvas-shell/canvas-portfolio')
 
   return (state: State<Collection>) => {
-    if (state.gallery.collectionId !== state.resource.id) {
-      actions.then(a => a.replaceGallery(state.resource as Collection))
+    if (state.gallery.collectionId !== state.core.resource.id) {
+      app.then(a => a.actions.gallery.replaceGallery(state.core.resource as Collection))
     }
 
     return html`

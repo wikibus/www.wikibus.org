@@ -4,7 +4,7 @@ import { WikibusShell } from './wikibus-shell'
 import '../views/index.ts'
 import '../lib/ns.ts'
 import '../lib/types/index.ts'
-import { actions, State, states } from '../lib/state'
+import { app, State } from '../lib/state'
 import './canvas-shell/canvas-emphasis-title.ts'
 
 export default class WikibusEncyclopedia extends LitElement {
@@ -16,20 +16,20 @@ export default class WikibusEncyclopedia extends LitElement {
       super.connectedCallback()
     }
 
-    const stateStream = await states
+    const { states } = await app
 
-    stateStream.map(console.log)
-    stateStream.map(
-      this.withShell((shell, value) => {
-        if (value.resourceUrlOverride) {
+    states.map(console.log)
+    states.map(
+      this.withShell((shell, state) => {
+        if (state.core.resourceUrlOverride) {
           // eslint-disable-next-line no-param-reassign
-          shell.url = value.resourceUrlOverride
-          shell.reflectUrlInState(value.resourceUrlOverride)
+          shell.url = state.core.resourceUrlOverride
+          shell.reflectUrlInState(state.core.resourceUrlOverride)
         }
       }),
     )
 
-    stateStream.map(
+    states.map(
       this.withShell((shell, state) => {
         // eslint-disable-next-line no-param-reassign
         shell.appState = state
@@ -56,7 +56,7 @@ export default class WikibusEncyclopedia extends LitElement {
   @property({ type: Boolean })
   private get debug() {
     if (this.__shell && this.__shell.appState) {
-      return this.__shell.appState.debug
+      return this.__shell.appState.core.debug
     }
 
     return false
@@ -64,7 +64,7 @@ export default class WikibusEncyclopedia extends LitElement {
 
   // eslint-disable-next-line class-methods-use-this
   private set debug(value: boolean) {
-    actions.then(a => a.setDebug(value))
+    app.then(({ actions }) => actions.core.setDebug(value))
   }
 
   private withShell(fun: (shell: WikibusShell, state: State) => void) {
