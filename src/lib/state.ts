@@ -7,6 +7,7 @@ export interface State<T extends HydraResource | null = HydraResource | null> {
   debug: boolean
   menu: Record<string, string | undefined>
   resource: T
+  resourceUrlOverride: string | null
   gallery: {
     collectionId: string
     resources: any[]
@@ -35,6 +36,7 @@ const nullState = {
     Library: process.env.API_LIBRARY,
   },
   resource: null,
+  resourceUrlOverride: null,
   gallery: {
     collectionId: '',
     resources: [],
@@ -57,6 +59,7 @@ const app = {
       setResource(resource: HydraResource) {
         update({
           resource,
+          resourceUrlOverride: null,
           gallery: nullState.gallery,
         })
       },
@@ -75,6 +78,7 @@ const app = {
         const nextPageResponse = (await nextPage.load()).root as Collection
 
         update({
+          resourceUrlOverride: nextPage.id,
           gallery: O({
             resources: O((current: any) => [...current, ...nextPageResponse.members]),
             nextPage: getPage(nextPageResponse, 'next'),
@@ -86,6 +90,7 @@ const app = {
         const prevPageResponse = (await prevPage.load()).root as Collection
 
         update({
+          resourceUrlOverride: prevPage.id,
           gallery: O({
             resources: O((current: any) => [...prevPageResponse.members, ...current]),
             prevPage: getPage(prevPageResponse, 'previous'),

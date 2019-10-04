@@ -4,21 +4,37 @@ import { WikibusShell } from './wikibus-shell'
 import '../views/index.ts'
 import '../lib/ns.ts'
 import '../lib/types/index.ts'
-import { actions, states } from '../lib/state'
+import { actions, State, states } from '../lib/state'
 import './canvas-shell/canvas-emphasis-title.ts'
 
 export default class WikibusEncyclopedia extends LitElement {
   @query('#shell')
   private __shell: WikibusShell | null = null
 
-  protected async firstUpdated() {
-    // eslint-disable-next-line array-callback-return
-    ;(await states).map(value => {
-      console.log(value)
-      if (this.__shell) {
-        this.__shell.appState = value
-      }
-    })
+  public async connectedCallback() {
+    if (super.connectedCallback) {
+      super.connectedCallback()
+    }
+
+    const stateStream = await states
+
+    stateStream.map(console.log)
+    stateStream.map(
+      this.withShell((shell, value) => {
+        if (value.resourceUrlOverride) {
+          // eslint-disable-next-line no-param-reassign
+          shell.url = value.resourceUrlOverride
+          shell.reflectUrlInState(value.resourceUrlOverride)
+        }
+      }),
+    )
+
+    stateStream.map(
+      this.withShell((shell, state) => {
+        // eslint-disable-next-line no-param-reassign
+        shell.appState = state
+      }),
+    )
   }
 
   protected createRenderRoot() {
@@ -49,6 +65,14 @@ export default class WikibusEncyclopedia extends LitElement {
   // eslint-disable-next-line class-methods-use-this
   private set debug(value: boolean) {
     actions.then(a => a.setDebug(value))
+  }
+
+  private withShell(fun: (shell: WikibusShell, state: State) => void) {
+    return (state: State) => {
+      if (this.__shell) {
+        fun(this.__shell, state)
+      }
+    }
   }
 }
 
