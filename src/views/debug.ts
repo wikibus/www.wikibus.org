@@ -32,7 +32,7 @@ ViewTemplates.default.when
   .scopeMatches('hydrofoil-shell')
   .valueMatches((v: State) => v.core.debug)
   .renders(
-    value => html`
-      <pre>${unsafeHTML(JSON.stringify(value.resource, getReplacer(), 2))}</pre>
+    (value: State) => html`
+      <pre>${unsafeHTML(JSON.stringify(value.core.resource, getReplacer(), 2))}</pre>
     `,
   )

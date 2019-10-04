@@ -2,7 +2,6 @@ import { html } from 'lit-html'
 import { RenderFunc } from '@lit-any/views/lib'
 import { expand } from '@zazuko/rdf-vocabularies'
 import { HydraResource } from 'alcaeus/types/Resources'
-import { pageTitle } from './pageTitle'
 import { Image } from '../../lib/types/Image'
 
 interface Options<T> {
@@ -20,7 +19,7 @@ export function portfolioSingleGallery<T extends HydraResource>(options: Options
     }
 
     return html`
-      ${pageTitle(options.title(resource) || resource.id)}
+      ${next(resource, 'page-title')}
       <section id="content">
         <div class="content-wrap">
           <div class="container clearfix">

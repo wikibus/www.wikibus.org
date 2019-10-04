@@ -29,12 +29,13 @@ export function portfolioGallery<T extends HydraResource>(options: {
 }): RenderFunc {
   import('../../components/canvas-shell/canvas-portfolio')
 
-  return (state: State<Collection>) => {
+  return (state: State<Collection>, next) => {
     if (state.gallery.collectionId !== state.core.resource.id) {
       app.then(a => a.actions.gallery.replaceGallery(state.core.resource as Collection))
     }
 
     return html`
+      ${next(state.core.resource, 'page-title')}
       <section id="content">
         <div class="content-wrap">
           <div class="container clearfix">
