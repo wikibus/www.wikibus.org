@@ -36,7 +36,7 @@
     "feather-icon-literals": "^1.0.0-rc.7",
     "flyd": "^0.2.8",
     "iso-language-codes": "^1.0.5",
-    "ld-navigation": "^1.0.0-3",
+    "ld-navigation": "^1.0.0",
     "lit-element": "^2.2.1",
     "lit-html": "^1.1.2",
     "meiosis-setup": "^2.0.0",

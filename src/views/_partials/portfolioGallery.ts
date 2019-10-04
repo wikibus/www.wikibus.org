@@ -35,11 +35,14 @@ export function portfolioGallery<T extends HydraResource>(options: {
     }
 
     return html`
-      <section id="content" @ld-navigated="${(e: Event) => e.stopPropagation()}">
+      <section id="content">
         <div class="content-wrap">
           <div class="container clearfix">
             <div class="center" ?hidden="${!state.gallery.prevPage}">
-              <ld-link resource-url="${state.gallery.prevPage && state.gallery.prevPage.id}">
+              <ld-link
+                resource-url="${state.gallery.prevPage && state.gallery.prevPage.id}"
+                disabled
+              >
                 <a
                   @click="${loadPreviousPage(state)}"
                   class="button button-full button-dark button-rounded load-next-portfolio"
@@ -50,7 +53,10 @@ export function portfolioGallery<T extends HydraResource>(options: {
             <canvas-portfolio .items="${state.gallery.resources.map(options.mapMember)}">
             </canvas-portfolio>
             <div class="center" ?hidden="${!state.gallery.nextPage}">
-              <ld-link resource-url="${state.gallery.nextPage && state.gallery.nextPage.id}">
+              <ld-link
+                resource-url="${state.gallery.nextPage && state.gallery.nextPage.id}"
+                disabled
+              >
                 <a
                   @click="${loadNextPage(state)}"
                   class="button button-full button-dark button-rounded load-next-portfolio"
