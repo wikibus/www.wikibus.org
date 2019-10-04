@@ -8,10 +8,7 @@
   API_DATA_SHEETS = "https://sheets.wikibus.org/"
   API_FALLBACK = "https://www.wikbus.org/"
 
-[context.branch-deploy]
-  command = "npm run build"
-
-[context.branch-deploy.environment]
+[context.develop.environment]
   API_LIBRARY = "https://sources.test.wikibus.org/"
   API_DATA_SHEETS = "https://sheets.wikibus.org/"
   API_FALLBACK = "https://www.wikbus.org/"
