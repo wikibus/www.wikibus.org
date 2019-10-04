@@ -1,10 +1,11 @@
-import { LitElement, html, query } from 'lit-element'
+import { LitElement, html, query, property } from 'lit-element'
 import './wikibus-shell.ts'
 import { WikibusShell } from './wikibus-shell'
 import '../views/index.ts'
 import '../lib/ns.ts'
 import '../lib/types/index.ts'
-import { states } from '../lib/state'
+import { actions, states } from '../lib/state'
+import './canvas-shell/canvas-emphasis-title.ts'
 
 export default class WikibusEncyclopedia extends LitElement {
   @query('#shell')
@@ -15,7 +16,7 @@ export default class WikibusEncyclopedia extends LitElement {
     ;(await states).map(value => {
       console.log(value)
       if (this.__shell) {
-        this.__shell.appState = { ...value }
+        this.__shell.appState = value
       }
     })
   }
@@ -34,6 +35,20 @@ export default class WikibusEncyclopedia extends LitElement {
         ></canvas-emphasis-title>
       </wikibus-shell>
     `
+  }
+
+  @property({ type: Boolean })
+  private get debug() {
+    if (this.__shell && this.__shell.appState) {
+      return this.__shell.appState.debug
+    }
+
+    return false
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private set debug(value: boolean) {
+    actions.then(a => a.setDebug(value))
   }
 }
 

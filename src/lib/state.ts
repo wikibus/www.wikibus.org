@@ -4,6 +4,7 @@ import meiosisPatchinko from 'meiosis-setup/patchinko'
 import O from 'patchinko/immutable'
 
 export interface State<T extends HydraResource | null = HydraResource | null> {
+  debug: boolean
   menu: Record<string, string | undefined>
   resource: T
   gallery: {
@@ -29,6 +30,7 @@ interface StateUpdate {
 }
 
 const nullState = {
+  debug: false,
   menu: {
     Library: process.env.API_LIBRARY,
   },
@@ -45,8 +47,13 @@ const app = {
   Initial(): State {
     return nullState
   },
-  Actions(update: any) {
+  Actions(update: flyd.Stream<Partial<State>>) {
     return {
+      setDebug(debug: boolean) {
+        update({
+          debug,
+        })
+      },
       setResource(resource: HydraResource) {
         update({
           resource,
