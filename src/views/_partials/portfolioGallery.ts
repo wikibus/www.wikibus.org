@@ -7,7 +7,7 @@ import { app, State } from '../../lib/state'
 function loadPreviousPage(state: State) {
   return async () => {
     const { actions } = await app
-    if (state.gallery.prevPage) {
+    if (state.gallery.prevPage && !state.gallery.prevPageLoading) {
       actions.gallery.prependToGallery(state.gallery.prevPage)
       actions.core.overrideResourceUrl(state.gallery.prevPage.id)
     }
@@ -17,7 +17,7 @@ function loadPreviousPage(state: State) {
 function loadNextPage(state: State) {
   return async () => {
     const { actions } = await app
-    if (state.gallery.nextPage) {
+    if (state.gallery.nextPage && !state.gallery.nextPageLoading) {
       actions.gallery.appendToGallery(state.gallery.nextPage)
       actions.core.overrideResourceUrl(state.gallery.nextPage.id)
     }
@@ -43,7 +43,7 @@ export function portfolioGallery<T extends HydraResource>(options: {
                 <a
                   @click="${loadPreviousPage(state)}"
                   class="button button-full button-dark button-rounded load-next-portfolio"
-                  >Previous page...</a
+                  >Previous page...${state.gallery.prevPageLoading ? ' (loading)' : ''}</a
                 >
               </ld-link>
             </div>
@@ -54,7 +54,7 @@ export function portfolioGallery<T extends HydraResource>(options: {
                 <a
                   @click="${loadNextPage(state)}"
                   class="button button-full button-dark button-rounded load-next-portfolio"
-                  >Next page...</a
+                  >Next page...${state.gallery.nextPageLoading ? ' (loading)' : ''}</a
                 >
               </ld-link>
             </div>

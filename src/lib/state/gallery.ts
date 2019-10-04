@@ -6,6 +6,8 @@ export interface State {
   resources: any[]
   nextPage: HydraResource | null
   prevPage: HydraResource | null
+  nextPageLoading: boolean
+  prevPageLoading: boolean
 }
 
 export function Initial(): State {
@@ -14,6 +16,8 @@ export function Initial(): State {
     resources: [],
     nextPage: null,
     prevPage: null,
+    nextPageLoading: false,
+    prevPageLoading: false,
   }
 }
 
@@ -38,19 +42,27 @@ export function Actions(update: (patch: Partial<State>) => void) {
       })
     },
     async appendToGallery(nextPage: HydraResource) {
+      update({
+        nextPageLoading: true,
+      })
       const nextPageResponse = (await nextPage.load()).root as Collection
 
       update({
         resources: O((current: any) => [...current, ...nextPageResponse.members]),
         nextPage: getPage(nextPageResponse, 'next'),
+        nextPageLoading: false,
       })
     },
     async prependToGallery(prevPage: HydraResource) {
+      update({
+        prevPageLoading: true,
+      })
       const prevPageResponse = (await prevPage.load()).root as Collection
 
       update({
         resources: O((current: any) => [...prevPageResponse.members, ...current]),
         prevPage: getPage(prevPageResponse, 'previous'),
+        prevPageLoading: false,
       })
     },
   }
