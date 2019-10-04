@@ -9,7 +9,7 @@
   API_FALLBACK = "https://www.wikbus.org/"
 
 [context.branch-deploy]
-  command = "echo branch"
+  command = "npm run build"
 
 [context.branch-deploy.environment]
   API_LIBRARY = "https://sources.test.wikibus.org/"
