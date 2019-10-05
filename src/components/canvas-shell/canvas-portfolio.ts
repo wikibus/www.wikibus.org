@@ -97,25 +97,26 @@ export class CanvasPortfolio extends CanvasShellBase(LitElement) {
     }
 
     return html`
-      <a href="${image.contentUrl}" class="left-icon" data-lightbox="image">
+      <a href="${image.contentUrl}" class="left-icon" data-lightbox="image" target="_blank">
         ${ZoomIn()}
       </a>
     `
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private renderPortfolioItem(item: PortfolioItem) {
     return html`
       <article class="portfolio-item pf-media pf-icons" title="${item.title}">
         <div class="portfolio-image">
-          <a href="portfolio-single.html">
-            <img
-              @load="${this.layout}"
-              src="${(item.image && item.image.thumbnail && item.image.thumbnail.contentUrl) ||
-                this.fallbackImage}"
-              alt="${item.title}"
-            />
-          </a>
+          <ld-link resource-url="${item.id}">
+            <a>
+              <img
+                @load="${this.layout}"
+                src="${(item.image && item.image.thumbnail && item.image.thumbnail.contentUrl) ||
+                  this.fallbackImage}"
+                alt="${item.title}"
+              />
+            </a>
+          </ld-link>
           <div class="portfolio-overlay">
             ${this.renderMagnifierLink(item.image)}
             <ld-link resource-url="${item.id}">
