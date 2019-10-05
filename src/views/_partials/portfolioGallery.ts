@@ -1,8 +1,14 @@
+import { Vocab } from 'alcaeus'
 import { html } from 'lit-html'
 import { Collection, HydraResource } from 'alcaeus/types/Resources'
 import { RenderFunc } from '@lit-any/views/lib'
 import { PortfolioItem } from '../../components/canvas-shell/canvas-portfolio'
 import { app, State } from '../../lib/state'
+import '../../components/url-template-form.ts'
+
+interface GalleryOptions<T> {
+  mapMember: (member: T) => PortfolioItem
+}
 
 function loadPreviousPage(state: State) {
   return async () => {
@@ -24,47 +30,72 @@ function loadNextPage(state: State) {
   }
 }
 
-export function portfolioGallery<T extends HydraResource>(options: {
-  mapMember: (member: T) => PortfolioItem
-}): RenderFunc {
+function galleryContents<T>(state: State, options: GalleryOptions<T>) {
+  return html`
+    <div class="center" ?hidden="${!state.gallery.prevPage}">
+      <ld-link resource-url="${state.gallery.prevPage && state.gallery.prevPage.id}" disabled>
+        <a
+          @click="${loadPreviousPage(state)}"
+          class="button button-full button-dark button-rounded load-next-portfolio"
+          >Previous page...${state.gallery.prevPageLoading ? ' (loading)' : ''}</a
+        >
+      </ld-link>
+    </div>
+    <canvas-portfolio .items="${state.gallery.resources.map(options.mapMember)}">
+    </canvas-portfolio>
+    <div class="center" ?hidden="${!state.gallery.nextPage}">
+      <ld-link resource-url="${state.gallery.nextPage && state.gallery.nextPage.id}" disabled>
+        <a
+          @click="${loadNextPage(state)}"
+          class="button button-full button-dark button-rounded load-next-portfolio"
+          >Next page...${state.gallery.nextPageLoading ? ' (loading)' : ''}</a
+        >
+      </ld-link>
+    </div>
+  `
+}
+
+function sidebar(state: State<Collection>) {
+  return html`
+    <div class="sidebar nobottommargin">
+      <div class="sidebar-widgets-wrap">
+        <div class="widget quick-contact-widget form-widget clearfix">
+          <h4>Search</h4>
+          <url-template-form
+            .template="${state.core.resource[Vocab('search')]}"
+            .value="${state.core.resource['http://hydra-ex.rest/vocab/currentMappings']}"
+          ></url-template-form>
+        </div>
+      </div>
+    </div>
+  `
+}
+
+export function portfolioGallery<T extends HydraResource>(options: GalleryOptions<T>): RenderFunc {
   import('../../components/canvas-shell/canvas-portfolio')
 
   return (state: State<Collection>, next) => {
     if (state.gallery.collectionId !== state.core.resource.id) {
-      app.then(a => a.actions.gallery.replaceGallery(state.core.resource as Collection))
+      app.then(a => a.actions.gallery.replaceGallery(state.core.resource))
     }
+
+    const hasSearch = Vocab('search') in state.core.resource
 
     return html`
       ${next(state.core.resource, 'page-title')}
       <section id="content">
         <div class="content-wrap">
           <div class="container clearfix">
-            <div class="center" ?hidden="${!state.gallery.prevPage}">
-              <ld-link
-                resource-url="${state.gallery.prevPage && state.gallery.prevPage.id}"
-                disabled
-              >
-                <a
-                  @click="${loadPreviousPage(state)}"
-                  class="button button-full button-dark button-rounded load-next-portfolio"
-                  >Previous page...${state.gallery.prevPageLoading ? ' (loading)' : ''}</a
-                >
-              </ld-link>
-            </div>
-            <canvas-portfolio .items="${state.gallery.resources.map(options.mapMember)}">
-            </canvas-portfolio>
-            <div class="center" ?hidden="${!state.gallery.nextPage}">
-              <ld-link
-                resource-url="${state.gallery.nextPage && state.gallery.nextPage.id}"
-                disabled
-              >
-                <a
-                  @click="${loadNextPage(state)}"
-                  class="button button-full button-dark button-rounded load-next-portfolio"
-                  >Next page...${state.gallery.nextPageLoading ? ' (loading)' : ''}</a
-                >
-              </ld-link>
-            </div>
+            ${hasSearch
+              ? html`
+                  ${sidebar(state)}
+                  <div class="postcontent nobottommargin col_last">
+                    ${galleryContents(state, options)}
+                  </div>
+                `
+              : html`
+                  ${galleryContents(state, options)}
+                `}
           </div>
         </div>
       </section>

@@ -30,6 +30,7 @@
   "dependencies": {
     "@hydrofoil/alcaeus-loader": "^0.3.2",
     "@hydrofoil/hydrofoil-shell": "^0.2.4",
+    "@lit-any/forms": "^0.10.1",
     "@lit-any/views": "^0.9.4",
     "@zazuko/rdf-vocabularies": "^2019.9.24",
     "alcaeus": "^0.9.1",
