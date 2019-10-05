@@ -61,7 +61,7 @@ export class CanvasPortfolio extends CanvasShellBase(LitElement) {
         }
 
         .portfolio-overlay svg {
-          margins-top: -5px;
+          margin-top: -5px;
         }
       `,
     ]
