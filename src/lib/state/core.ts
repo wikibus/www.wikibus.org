@@ -1,20 +1,46 @@
-import { HydraResource } from 'alcaeus/types/Resources'
+import { HydraResource, SupportedProperty } from 'alcaeus/types/Resources'
+import { Hydra } from 'alcaeus'
 
 export interface State<T extends HydraResource | null = HydraResource | null> {
   debug: boolean
-  menu: Record<string, string | undefined>
+  entrypoints: Map<SupportedProperty, string>
+  menu: Record<string, string>
   resource: T
   resourceUrlOverride: string | null
+  rootUri: string
 }
 
-export function Initial(): State {
+export async function Initial(): Promise<State> {
+  const rootUri = process.env.API_ROOT
+  if (!rootUri) {
+    throw new Error('Failed to initialize app. API_ROOT environment variable was not set')
+  }
+
+  const response = await Hydra.loadResource(rootUri)
+  if (!response.root) {
+    throw new Error('Failed to initialize app. Could not fetch root entrypoint')
+  }
+
+  const entrypoints = response.root.getLinks().reduce((map, { supportedProperty, resources }) => {
+    map.set(supportedProperty, resources[0].id)
+    return map
+  }, new Map<SupportedProperty, string>())
+
+  const menu = response.root.getLinks().reduce(
+    (map, { supportedProperty, resources }) => ({
+      ...map,
+      [supportedProperty.title]: resources[0].id,
+    }),
+    {},
+  )
+
   return {
     debug: false,
-    menu: {
-      Library: process.env.API_LIBRARY,
-    },
+    entrypoints,
+    menu,
     resource: null,
     resourceUrlOverride: null,
+    rootUri,
   }
 }
 

@@ -15,19 +15,11 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
   @property({ type: Boolean })
   public primaryMenuOpen = false
 
+  @property({ type: String })
+  public home: string = ''
+
   @property({ type: Object })
-  public model: { menu?: Record<string, any> } = {}
-
-  private get __menu() {
-    if (!this.model || !this.model.menu) {
-      return []
-    }
-
-    return Object.entries(this.model.menu).map(entry => ({
-      label: entry[0],
-      url: entry[1],
-    }))
-  }
+  public menu: Record<string, any> = {}
 
   public connectedCallback() {
     if (super.connectedCallback) {
@@ -67,10 +59,10 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private __renderMenuItem(item: any) {
+  private __renderMenuItem([label, url]: [string, string]) {
     return html`
       <li>
-        <ld-link resource-url="${item.url}">${item.label}</ld-link>
+        <ld-link resource-url="${url}">${label}</ld-link>
       </li>
     `
   }
@@ -87,20 +79,22 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
             <div id="primary-menu-trigger">${Menu(iconSize)}</div>
 
             <div id="logo">
-              <a href="/" class="standard-logo" data-dark-logo="/images/logo-dark.png"
-                ><img src="/images/logo.png" alt="Canvas Logo"
-              /></a>
-              <a href="/" class="retina-logo" data-dark-logo="/images/logo-dark@2x.png"
-                ><img src="/images/logo@2x.png" alt="Canvas Logo"
-              /></a>
+              <ld-link resource-url="${this.home}">
+                <a href="/" class="standard-logo" data-dark-logo="/images/logo-dark.png"
+                  ><img src="/images/logo.png" alt="Canvas Logo"
+                /></a>
+              </ld-link>
+              <ld-link resource-url="${this.home}">
+                <a href="/" class="retina-logo" data-dark-logo="/images/logo-dark@2x.png"
+                  ><img src="/images/logo@2x.png" alt="Canvas Logo"
+                /></a>
+              </ld-link>
             </div>
 
             <nav id="primary-menu">
               <ul>
-                <li>
-                  <a href="/"><div>Home</div></a>
-                </li>
-                ${repeat(this.__menu, this.__renderMenuItem)}
+                ${this.__renderMenuItem(['Home', this.home])}
+                ${repeat(Object.entries(this.menu), this.__renderMenuItem)}
               </ul>
 
               <div id="top-search">

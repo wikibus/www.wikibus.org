@@ -1,19 +1,53 @@
 import { customElement } from 'lit-element'
 import AlcaeusLoader from '@hydrofoil/alcaeus-loader'
+import { expand } from '@zazuko/rdf-vocabularies'
 import { CanvasShell } from './canvas-shell'
 import { WikibusStateMapper } from '../lib/WikibusStateMapper'
 import { app } from '../lib/state'
+import '../lib/ns'
+import { State } from '../lib/state/core'
+
+const knownApis = new Map<string, string>()
+knownApis.set(expand('wba:library'), 'library')
+
+function getKnownApis(state: State): Record<string, string> {
+  return [...state.entrypoints.entries()].reduce(
+    (apis, [sp, entrypoint]) => {
+      const linkId = knownApis.get(sp.property.id)
+
+      if (linkId) {
+        return { ...apis, [linkId]: entrypoint }
+      }
+
+      return apis
+    },
+    {
+      home: state.rootUri,
+    },
+  )
+}
 
 @customElement('wikibus-shell')
 export class WikibusShell extends AlcaeusLoader(CanvasShell) {
+  private __apis: Record<string, string> = {}
+
+  private __rooUri: string = ''
+
+  public async connectedCallback() {
+    const { states } = await app
+    this.__apis = getKnownApis(states.val.core)
+    this.__rooUri = states.val.core.rootUri
+
+    if (super.connectedCallback) {
+      super.connectedCallback()
+    }
+  }
+
   public createStateMapper() {
     return new WikibusStateMapper({
       useHashFragment: this.usesHashFragment,
-      baseUrl: process.env.API_FALLBACK,
-      apis: {
-        library: process.env.API_LIBRARY,
-        'data-sheets': process.env.API_DATA_SHEETS,
-      },
+      baseUrl: this.__rooUri,
+      apis: this.__apis,
     })
   }
 

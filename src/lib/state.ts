@@ -11,9 +11,9 @@ export interface State<T extends HydraResource | null = HydraResource | null> {
 }
 
 const appMeiosis = {
-  Initial(): State {
+  async Initial(): Promise<State> {
     return {
-      core: core.Initial(),
+      core: await core.Initial(),
       gallery: gallery.Initial(),
     }
   },

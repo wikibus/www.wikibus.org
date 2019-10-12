@@ -31,7 +31,10 @@ export class CanvasShell extends CanvasShellBase(
 
   protected render() {
     return html`
-      <canvas-header .model="${this.appState ? this.appState.core : {}}"></canvas-header>
+      <canvas-header
+        .menu="${this.appState ? this.appState.core.menu : {}}"
+        .home="${this.appState ? this.appState.core.rootUri : ''}"
+      ></canvas-header>
 
       <section id="content">
         ${super.render()}
