@@ -18,7 +18,6 @@ export class CanvasEmphasisTitle extends CanvasShellBase(LitElement) {
       css`
         .section {
           padding: 80px 0px;
-          background-position: 0px 12.7349px;
         }
       `,
     ]
