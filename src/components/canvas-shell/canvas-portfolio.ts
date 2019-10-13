@@ -29,8 +29,7 @@ export class CanvasPortfolio extends CanvasShellBase(LitElement) {
 
   private __initialized = false
 
-  private fallbackImage =
-    'http://themes.semicolonweb.com/html/canvas/images/portfolio/masonry/4/2.jpg'
+  private fallbackImage = 'images/portfolio-gallery/book-stack.jpg'
 
   public connectedCallback() {
     if (super.connectedCallback) {

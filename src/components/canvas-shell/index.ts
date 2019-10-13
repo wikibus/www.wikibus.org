@@ -32,8 +32,9 @@ export class CanvasShell extends CanvasShellBase(
   protected render() {
     return html`
       <canvas-header
-        .menu="${this.appState ? this.appState.core.menu : {}}"
-        .home="${this.appState ? this.appState.core.rootUri : ''}"
+        .menu="${this.appState ? this.appState.menu.items : {}}"
+        .home="${this.appState ? this.appState.core.homeEntrypoint.id : ''}"
+        .current="${this.appState ? this.appState.menu.current : {}}"
       ></canvas-header>
 
       <section id="content">

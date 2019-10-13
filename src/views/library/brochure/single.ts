@@ -3,10 +3,10 @@ import { rdfType } from '../../matchers'
 import { Source } from '../../../lib/types/Source'
 import '../../../components/canvas-shell/canvas-fslider'
 import { portfolioSingleGallery } from '../../_partials/portfolioSingleGallery'
-import { wikibusResource } from '../../scopes'
+import { resourceMain } from '../../scopes'
 
 ViewTemplates.default.when
-  .scopeMatches(wikibusResource)
+  .scopeMatches(resourceMain)
   .valueMatches(rdfType('wbo:Brochure'))
   .renders(
     portfolioSingleGallery<Source>({

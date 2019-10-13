@@ -22,7 +22,7 @@ function getKnownApis(state: State): Record<string, string> {
       return apis
     },
     {
-      home: state.rootUri,
+      home: state.homeEntrypoint.id,
     },
   )
 }
@@ -36,7 +36,7 @@ export class WikibusShell extends AlcaeusLoader(CanvasShell) {
   public async connectedCallback() {
     const { states } = await app
     this.__apis = getKnownApis(states.val.core)
-    this.__rooUri = states.val.core.rootUri
+    this.__rooUri = states.val.core.homeEntrypoint.id
 
     if (super.connectedCallback) {
       super.connectedCallback()

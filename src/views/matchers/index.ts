@@ -1,6 +1,5 @@
 import { Collection, HydraResource, SupportedProperty } from 'alcaeus/types/Resources'
 import { expand } from '@zazuko/rdf-vocabularies'
-import { State } from '../../lib/state'
 
 export function rdfType(type: string) {
   return (value: HydraResource) => value && value.types && value.types.contains(expand(type))
@@ -9,8 +8,8 @@ export function rdfType(type: string) {
 export function collectionOf(type: string) {
   const matchesType = rdfType('hydra:Collection')
 
-  return (state: State) => {
-    const collection = state.core.resource as Collection
+  return (resource: HydraResource) => {
+    const collection = resource as Collection
 
     return (
       collection &&

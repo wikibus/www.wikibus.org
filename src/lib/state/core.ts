@@ -4,10 +4,9 @@ import { Hydra } from 'alcaeus'
 export interface State<T extends HydraResource | null = HydraResource | null> {
   debug: boolean
   entrypoints: Map<SupportedProperty, string>
-  menu: Record<string, string>
   resource: T
   resourceUrlOverride: string | null
-  rootUri: string
+  homeEntrypoint: HydraResource
 }
 
 export async function Initial(): Promise<State> {
@@ -26,21 +25,12 @@ export async function Initial(): Promise<State> {
     return map
   }, new Map<SupportedProperty, string>())
 
-  const menu = response.root.getLinks().reduce(
-    (map, { supportedProperty, resources }) => ({
-      ...map,
-      [supportedProperty.title]: resources[0].id,
-    }),
-    {},
-  )
-
   return {
     debug: false,
     entrypoints,
-    menu,
     resource: null,
     resourceUrlOverride: null,
-    rootUri,
+    homeEntrypoint: response.root,
   }
 }
 

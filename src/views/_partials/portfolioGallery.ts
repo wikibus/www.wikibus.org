@@ -55,15 +55,15 @@ function galleryContents<T>(state: State, options: GalleryOptions<T>) {
   `
 }
 
-function sidebar(state: State<Collection>) {
+function sidebar(resource: Collection) {
   return html`
     <div class="sidebar nobottommargin">
       <div class="sidebar-widgets-wrap">
         <div class="widget quick-contact-widget form-widget clearfix">
           <h4>Search</h4>
           <url-template-form
-            .template="${state.core.resource[Vocab('search')]}"
-            .value="${state.core.resource['http://hydra-ex.rest/vocab/currentMappings']}"
+            .template="${resource[Vocab('search')]}"
+            .value="${resource['http://hydra-ex.rest/vocab/currentMappings']}"
           ></url-template-form>
         </div>
       </div>
@@ -74,31 +74,12 @@ function sidebar(state: State<Collection>) {
 export function portfolioGallery<T extends HydraResource>(options: GalleryOptions<T>): RenderFunc {
   import('../../components/canvas-shell/canvas-portfolio')
 
-  return (state: State<Collection>, next) => {
-    if (state.gallery.collectionId !== state.core.resource.id) {
-      app.then(a => a.actions.gallery.replaceGallery(state.core.resource))
-    }
-
-    const hasSearch = Vocab('search') in state.core.resource
-
-    return html`
-      ${next(state.core.resource, 'page-title')}
-      <section id="content">
-        <div class="content-wrap">
-          <div class="container clearfix">
-            ${hasSearch
-              ? html`
-                  ${sidebar(state)}
-                  <div class="postcontent nobottommargin col_last">
-                    ${galleryContents(state, options)}
-                  </div>
-                `
-              : html`
-                  ${galleryContents(state, options)}
-                `}
-          </div>
-        </div>
-      </section>
-    `
-  }
+  return (resource: Collection, next, scope, { state }: { state: State<Collection> }) => html`
+    <div class="container clearfix">
+      ${sidebar(resource)}
+      <div class="postcontent nobottommargin col_last">
+        ${galleryContents(state, options)}
+      </div>
+    </div>
+  `
 }

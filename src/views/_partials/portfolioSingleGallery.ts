@@ -19,33 +19,28 @@ export function portfolioSingleGallery<T extends HydraResource>(options: Options
     }
 
     return html`
-      ${next(resource, 'page-title')}
-      <section id="content">
-        <div class="content-wrap">
-          <div class="container clearfix">
-            <div class="col_two_third portfolio-single-image nobottommargin">
-              <canvas-fslider
-                no-arrows
-                thumbs
-                animation="fade"
-                .images="${options.images(resource)}"
-              ></canvas-fslider>
-            </div>
-
-            <div class="col_one_third portfolio-single-content col_last nobottommargin">
-              <div class="fancy-title title-bottom-border">
-                <h2>${options.heading}</h2>
-              </div>
-
-              <ul class="portfolio-meta bottommargin">
-                ${next(resource, 'portfolio-properties', { except })}
-              </ul>
-            </div>
-
-            <div class="clear"></div>
-          </div>
+      <div class="container clearfix">
+        <div class="col_two_third portfolio-single-image nobottommargin">
+          <canvas-fslider
+            no-arrows
+            thumbs
+            animation="fade"
+            .images="${options.images(resource)}"
+          ></canvas-fslider>
         </div>
-      </section>
+
+        <div class="col_one_third portfolio-single-content col_last nobottommargin">
+          <div class="fancy-title title-bottom-border">
+            <h2>${options.heading}</h2>
+          </div>
+
+          <ul class="portfolio-meta bottommargin">
+            ${next(resource, 'portfolio-properties', { except })}
+          </ul>
+        </div>
+
+        <div class="clear"></div>
+      </div>
     `
   }
 }

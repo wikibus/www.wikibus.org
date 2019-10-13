@@ -19,6 +19,11 @@ export class CanvasEmphasisTitle extends CanvasShellBase(LitElement) {
         .section {
           padding: 80px 0px;
         }
+
+        .emphasis-title {
+          text-shadow: 1px 1px #777;
+          background-color: rgb(255, 255, 255, 0.3);
+        }
       `,
     ]
   }

@@ -18,6 +18,9 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
   @property({ type: String })
   public home: string = ''
 
+  @property({ type: String })
+  public current: string = ''
+
   @property({ type: Object })
   public menu: Record<string, any> = {}
 
@@ -58,10 +61,9 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
     )
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private __renderMenuItem([label, url]: [string, string]) {
     return html`
-      <li>
+      <li class="${label === this.current ? 'current' : ''}">
         <ld-link resource-url="${url}">${label}</ld-link>
       </li>
     `
@@ -93,8 +95,7 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
 
             <nav id="primary-menu">
               <ul>
-                ${this.__renderMenuItem(['Home', this.home])}
-                ${repeat(Object.entries(this.menu), this.__renderMenuItem)}
+                ${repeat(Object.entries(this.menu), this.__renderMenuItem.bind(this))}
               </ul>
 
               <div id="top-search">

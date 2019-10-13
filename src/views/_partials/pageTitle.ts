@@ -1,6 +1,7 @@
 import { html } from 'lit-html'
 import { DocumentedResource, HydraResource } from 'alcaeus/types/Resources'
 import { ViewTemplates } from '@lit-any/views'
+import { pageTitle } from '../scopes'
 
 function renderTitle(title: string, description?: string) {
   return html`
@@ -18,7 +19,7 @@ function renderTitle(title: string, description?: string) {
 }
 
 ViewTemplates.default.when
-  .scopeMatches('page-title')
+  .scopeMatches(pageTitle)
   .valueMatches(v => typeof v === 'object')
   .renders((resource: HydraResource, next) => {
     if ('title' in resource) {
@@ -32,6 +33,6 @@ ViewTemplates.default.when
   })
 
 ViewTemplates.default.when
-  .scopeMatches('page-title')
+  .scopeMatches(pageTitle)
   .valueMatches(v => typeof v === 'string')
   .renders(title => renderTitle(title))

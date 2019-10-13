@@ -2,9 +2,10 @@ import { ViewTemplates } from '@lit-any/views'
 import { collectionOf } from '../../matchers'
 import { portfolioGallery } from '../../_partials/portfolioGallery'
 import { Source } from '../../../lib/types/Source'
+import { resourceMain } from '../../scopes'
 
 ViewTemplates.default.when
-  .scopeMatches('hydrofoil-shell')
+  .scopeMatches(resourceMain)
   .valueMatches(collectionOf('wbo:Book'))
   .renders(
     portfolioGallery<Source>({
