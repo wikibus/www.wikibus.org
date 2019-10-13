@@ -1,6 +1,6 @@
 import './debug.ts'
 import './entrypoint/index.ts'
-import './library/index.ts'
+import './portfolio-gallery/index.ts'
 import './portfolio/index.ts'
-import './_partials/pageTitle.ts'
+import './page-title/index.ts'
 import './fallback.ts'

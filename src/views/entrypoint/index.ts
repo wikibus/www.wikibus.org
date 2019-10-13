@@ -3,24 +3,9 @@ import { HydraResource, SupportedProperty } from 'alcaeus/types/Resources'
 import { IResource } from 'alcaeus/types/Resources/Resource'
 import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
-import { ifDefined } from 'lit-html/directives/if-defined'
 import { rdfType } from '../matchers'
-import { resourceMain, pageTitle } from '../scopes'
+import { resourceMain } from '../scopes'
 import { propertyIcon } from '../library/property-icons'
-import { State } from '../../lib/state'
-
-ViewTemplates.default.when
-  .scopeMatches(pageTitle)
-  .valueMatches(rdfType('wba:EntryPoint'))
-  .renders(
-    (value: HydraResource, next, scope, { state }: { state: State }) => html`
-      <canvas-emphasis-title
-        background-image="${state.pageTitle.background}"
-        heading="${ifDefined(value.title)}"
-        lead="${ifDefined(value.description)}"
-      ></canvas-emphasis-title>
-    `,
-  )
 
 ViewTemplates.default.when
   .scopeMatches(resourceMain)

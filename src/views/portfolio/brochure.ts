@@ -1,9 +1,9 @@
 import { ViewTemplates } from '@lit-any/views'
-import { rdfType } from '../../matchers'
-import { Source } from '../../../lib/types/Source'
-import '../../../components/canvas-shell/canvas-fslider'
-import { portfolioSingleGallery } from '../../_partials/portfolioSingleGallery'
-import { resourceMain } from '../../scopes'
+import { rdfType } from '../matchers'
+import { Source } from '../../lib/types/Source'
+import '../../components/canvas-shell/canvas-fslider.ts'
+import { portfolioSingleGallery } from './portfolioSingleGallery'
+import { resourceMain } from '../scopes'
 
 ViewTemplates.default.when
   .scopeMatches(resourceMain)

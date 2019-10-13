@@ -2,7 +2,7 @@ import { ViewTemplates } from '@lit-any/views'
 import { html } from 'lit-html'
 import { until } from 'lit-html/directives/until'
 import { resourceMain, pageTitle } from './scopes'
-import { State } from '../lib/state'
+import { State, app } from '../lib/state'
 
 ViewTemplates.default.when
   .scopeMatches('hydrofoil-shell')
@@ -21,8 +21,14 @@ ViewTemplates.default.when
 ViewTemplates.default.when
   .scopeMatches(resourceMain)
   .valueMatches(() => true)
-  .renders(() => {
+  .renders((resource, next, scope, { state }) => {
     const loaded = import('./maintenance')
+
+    app.then(({ actions }) => {
+      if (!state.pageTitle.hidden) {
+        actions.pageTitle.hide()
+      }
+    })
 
     return html`
       ${until(loaded.then(i => i.template), '')}
