@@ -34,7 +34,7 @@ ViewTemplates.default.when
               center
               effect
               outline
-              class="col_one_third ${index % 3 === 0 ? 'col_last' : ''}"
+              class="col_one_third ${index % 3 === 2 ? 'col_last' : ''}"
               .title="${link.supportedProperty.title}"
               .description="${link.supportedProperty.description}"
               .resourceUrl="${link.resource.id}"
