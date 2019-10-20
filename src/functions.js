@@ -3177,7 +3177,6 @@ var SEMICOLON = SEMICOLON || {};
 
     init() {
       SEMICOLON.initialize.init()
-      SEMICOLON.header.init()
       if ($slider.length > 0 || $sliderElement.length > 0) { SEMICOLON.slider.init() }
       if ($portfolio.length > 0) { SEMICOLON.portfolio.init() }
       SEMICOLON.widget.init()

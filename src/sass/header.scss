@@ -829,7 +829,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
 	padding: 10px 80px 10px 0;
 	height: 100%;
 	background-color: transparent;
-	color: #333;
+  color: var(--body-color);
 	font-weight: 700;
 	margin-top: 0 !important;
 	font-family: $heading-font;
@@ -846,16 +846,16 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
 
 #top-search form input{
 	&::-moz-placeholder {
-		color: #555;
+    color: var(--body-color);
 		opacity: 1;
 		text-transform: uppercase;
 	}
 	&:-ms-input-placeholder {
-		color: #555;
+		color: var(--body-color);
 		text-transform: uppercase;
 	}
 	&::-webkit-input-placeholder {
-		color: #555;
+    color: var(--body-color);
 		text-transform: uppercase;
 	}
 }

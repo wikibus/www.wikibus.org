@@ -59,6 +59,9 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
         },
       }),
     )
+
+    SEMICOLON.header.init()
+    SEMICOLON.widget.extras()
   }
 
   private __renderMenuItem([label, url]: [string, string]) {
@@ -99,7 +102,7 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
               </ul>
 
               <div id="top-search">
-                <a href="#" id="top-search-trigger"> ${Search(iconSize)}</a>
+                <a href="javascript:void(0)" id="top-search-trigger"> ${Search(iconSize)}</a>
                 <form action="search.html" method="get">
                   <input
                     type="text"
