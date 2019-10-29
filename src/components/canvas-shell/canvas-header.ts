@@ -1,7 +1,7 @@
-import { customElement, html, LitElement, property } from 'lit-element'
+import { css, customElement, html, LitElement, property } from 'lit-element'
 import { repeat } from 'lit-html/directives/repeat'
 // @ts-ignore
-import { Menu, Search, User } from '../icons'
+import { Menu, Search, User, Loader } from '../icons'
 import CanvasShellBase from './CanvasShellBase'
 import './canvas-dropdown'
 import './canvas-view'
@@ -24,6 +24,29 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
 
   @property({ type: Object })
   public menu: Record<string, any> = {}
+
+  @property({ type: Boolean })
+  public authReady: boolean = false
+
+  public static get styles() {
+    return [
+      super.styles || [],
+      css`
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(359deg);
+          }
+        }
+
+        .spin svg {
+          animation: spin 2s linear infinite;
+        }
+      `,
+    ]
+  }
 
   public connectedCallback() {
     if (super.connectedCallback) {
@@ -98,8 +121,10 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
             </div>
 
             <div id="top-account" class="dropdown">
-              <canvas-dropdown>
-                <span slot="toggle">${User(iconSize)}</span>
+              <canvas-dropdown ?disabled="${!this.authReady}">
+                <span slot="toggle" class="${this.authReady ? '' : 'spin'}">
+                  ${this.authReady ? User(iconSize) : Loader(iconSize)}
+                </span>
                 <slot name="profile-menu"></slot>
               </canvas-dropdown>
             </div>

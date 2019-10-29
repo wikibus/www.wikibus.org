@@ -35,11 +35,13 @@ export class CanvasShell extends CanvasShellBase(
         .menu="${this.appState ? this.appState.menu.items : {}}"
         .home="${this.appState ? this.appState.core.homeEntrypoint.id : ''}"
         .current="${this.appState ? this.appState.menu.current : {}}"
+        .authReady="${this.appState && typeof this.appState.auth.isAuthenticated === 'boolean'}"
       >
         <canvas-view
           .value="${this.appState}"
           template-scope="profile-menu"
           slot="profile-menu"
+          ignore-missing
         ></canvas-view>
       </canvas-header>
 

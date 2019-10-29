@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { css, customElement, html, LitElement, query } from 'lit-element'
+import { css, customElement, html, LitElement, property, query } from 'lit-element'
 import { IronDropdownElement } from '@polymer/iron-dropdown/iron-dropdown.js'
 import '@polymer/iron-dropdown/iron-dropdown.js'
 import CanvasShellBase from './CanvasShellBase'
@@ -9,17 +9,15 @@ export class CanvasDropdown extends CanvasShellBase(LitElement) {
   @query('iron-dropdown')
   private dropdown?: IronDropdownElement
 
+  @property({ type: Boolean })
+  public disabled = false
+
   public static get styles() {
     return [
       super.styles || [],
       css`
         :host {
           display: inline-block;
-        }
-
-        ul {
-          position: relative;
-          top: 32px;
         }
       `,
     ]
@@ -36,15 +34,19 @@ export class CanvasDropdown extends CanvasShellBase(LitElement) {
       >
         <slot name="toggle"></slot>
       </a>
-      <iron-dropdown horizontal-align="right" vertical-align="top" allow-outside-scroll>
-        <ul class="list-group" aria-labelledby="dropdownMenu1" slot="dropdown-content">
-          <slot></slot>
-        </ul>
-      </iron-dropdown>
+      <div>
+        <iron-dropdown horizontal-align="right" vertical-align="top" allow-outside-scroll>
+          <ul class="list-group" aria-labelledby="dropdownMenu1" slot="dropdown-content">
+            <slot></slot>
+          </ul>
+        </iron-dropdown>
+      </div>
     `
   }
 
   private __open() {
-    this.dropdown!.open()
+    if (!this.disabled) {
+      this.dropdown!.toggle()
+    }
   }
 }

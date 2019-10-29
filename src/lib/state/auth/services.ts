@@ -64,6 +64,7 @@ export const services = [
 
       update({
         auth: O({
+          isAuthenticated: false,
           client,
         }),
       })

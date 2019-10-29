@@ -5,7 +5,7 @@ import { app, State } from '../lib/state'
 
 ViewTemplates.default.when
   .scopeMatches('profile-menu')
-  .valueMatches((value: State) => !value.auth.isAuthenticated)
+  .valueMatches((value: State) => value.auth.isAuthenticated === false)
   .renders((state: State) => {
     const profileMenu = app.then(({ actions }) => {
       const resource = state.core.resource || state.core.homeEntrypoint
@@ -26,7 +26,7 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches('profile-menu')
-  .valueMatches((value: State) => value.auth.isAuthenticated)
+  .valueMatches((value: State) => value.auth.isAuthenticated === true)
   .renders(() => {
     const profileMenu = app.then(
       ({ actions }) =>
