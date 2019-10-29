@@ -41,7 +41,7 @@ export class CanvasFooter extends CanvasShellBase(LitElement) {
                   href="https://pinterest.com/wikibus/"
                   class="social-icon si-small si-borderless nobottommargin si-pinterest"
                 >
-                  ${Pinterest(this.iconSize)}
+                  ${Pinterest}
                 </a>
 
                 <a
