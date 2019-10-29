@@ -103,10 +103,10 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
 
               <div id="top-search">
                 <a href="javascript:void(0)" id="top-search-trigger"> ${Search(iconSize)}</a>
-                <form action="search.html" method="get">
+                <form method="get">
                   <input
                     type="text"
-                    name="q"
+                    name="title"
                     class="form-control"
                     value=""
                     placeholder="Type &amp; Hit Enter.."
