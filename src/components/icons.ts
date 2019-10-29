@@ -1,6 +1,8 @@
 // @ts-ignore
 import * as icons from 'feather-icon-literals'
+import SimplePinterest from 'simple-icons/icons/pinterest'
 import { html, TemplateResult } from 'lit-element'
+import { unsafeHTML } from 'lit-html/directives/unsafe-html'
 
 icons.setCustomTemplateLiteralTag(html)
 
@@ -18,7 +20,9 @@ export const Twitter = wrap(icons.Twitter)
 export const GitHub = wrap(icons.GitHub)
 export const Linkedin = wrap(icons.Linkedin)
 export const BookOpen = wrap(icons.BookOpen)
-export const Pinterest = wrap(icons.Instagram)
+export const Pinterest = html`
+  ${unsafeHTML(SimplePinterest.svg)}
+`
 export const Box = wrap(icons.Box)
 export const FileText = wrap(icons.FileText)
 export const Layers = wrap(icons.Layers)
