@@ -1,8 +1,9 @@
 import { customElement, html, LitElement, property } from 'lit-element'
 import { repeat } from 'lit-html/directives/repeat'
 // @ts-ignore
-import { Menu, Search } from '../icons'
+import { Menu, Search, User } from '../icons'
 import CanvasShellBase from './CanvasShellBase'
+import './canvas-dropdown'
 import './canvas-view'
 
 const iconSize = 17
@@ -94,6 +95,13 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
                   ><img src="/images/logo@2x.png" alt="Canvas Logo"
                 /></a>
               </ld-link>
+            </div>
+
+            <div id="top-account" class="dropdown">
+              <canvas-dropdown>
+                <span slot="toggle">${User(iconSize)}</span>
+                <slot name="profile-menu"></slot>
+              </canvas-dropdown>
             </div>
 
             <nav id="primary-menu">

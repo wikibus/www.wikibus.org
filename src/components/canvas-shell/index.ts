@@ -35,7 +35,13 @@ export class CanvasShell extends CanvasShellBase(
         .menu="${this.appState ? this.appState.menu.items : {}}"
         .home="${this.appState ? this.appState.core.homeEntrypoint.id : ''}"
         .current="${this.appState ? this.appState.menu.current : {}}"
-      ></canvas-header>
+      >
+        <canvas-view
+          .value="${this.appState}"
+          template-scope="profile-menu"
+          slot="profile-menu"
+        ></canvas-view>
+      </canvas-header>
 
       <section id="content">
         ${super.render()}
