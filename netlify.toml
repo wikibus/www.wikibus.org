@@ -4,7 +4,7 @@
   status = 200
 
 [build.environment]
-  API_ROOT = "https://wikibus-bff-production.herokuapp.com/"
-
-[context.develop.environment]
   API_ROOT = "https://wikibus-bff-staging.herokuapp.com/"
+
+[context.master.environment]
+  API_ROOT = "https://wikibus-bff-production.herokuapp.com/"
