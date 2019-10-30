@@ -1,17 +1,28 @@
 import { customElement, html, LitElement, property } from 'lit-element'
+import { repeat } from 'lit-html/directives/repeat'
 // @ts-ignore
 import { Menu, Search } from '../icons'
 import CanvasShellBase from './CanvasShellBase'
+import './canvas-view'
 
 const iconSize = 17
 
 @customElement('canvas-header')
-export class CanvasFooter extends CanvasShellBase(LitElement) {
+export class CanvasHeader extends CanvasShellBase(LitElement) {
   @property({ type: Boolean })
   public topSearchOpen = false
 
   @property({ type: Boolean })
   public primaryMenuOpen = false
+
+  @property({ type: String })
+  public home: string = ''
+
+  @property({ type: String })
+  public current: string = ''
+
+  @property({ type: Object })
+  public menu: Record<string, any> = {}
 
   public connectedCallback() {
     if (super.connectedCallback) {
@@ -48,6 +59,17 @@ export class CanvasFooter extends CanvasShellBase(LitElement) {
         },
       }),
     )
+
+    SEMICOLON.header.init()
+    SEMICOLON.widget.extras()
+  }
+
+  private __renderMenuItem([label, url]: [string, string]) {
+    return html`
+      <li class="${label === this.current ? 'current' : ''}">
+        <ld-link resource-url="${url}">${label}</ld-link>
+      </li>
+    `
   }
 
   public render() {
@@ -62,41 +84,25 @@ export class CanvasFooter extends CanvasShellBase(LitElement) {
             <div id="primary-menu-trigger">${Menu(iconSize)}</div>
 
             <div id="logo">
-              <a href="/" class="standard-logo" data-dark-logo="/images/logo-dark.png"
-                ><img src="/images/logo.png" alt="Canvas Logo"
-              /></a>
-              <a href="/" class="retina-logo" data-dark-logo="/images/logo-dark@2x.png"
-                ><img src="/images/logo@2x.png" alt="Canvas Logo"
-              /></a>
+              <ld-link resource-url="${this.home}">
+                <a href="/" class="standard-logo" data-dark-logo="/images/logo-dark.png"
+                  ><img src="/images/logo.png" alt="Canvas Logo"
+                /></a>
+              </ld-link>
+              <ld-link resource-url="${this.home}">
+                <a href="/" class="retina-logo" data-dark-logo="/images/logo-dark@2x.png"
+                  ><img src="/images/logo@2x.png" alt="Canvas Logo"
+                /></a>
+              </ld-link>
             </div>
 
             <nav id="primary-menu">
               <ul>
-                <li>
-                  <a href="index.html"><div>Home</div></a>
-                </li>
-                <li class="current">
-                  <a href="#"><div>Features</div></a>
-                </li>
-                <li class="mega-menu">
-                  <a href="#"><div>Pages</div></a>
-                </li>
-                <li class="mega-menu">
-                  <a href="#"><div>Portfolio</div></a>
-                </li>
-                <li class="mega-menu">
-                  <a href="#"><div>Blog</div></a>
-                </li>
-                <li>
-                  <a href="shop.html"><div>Shop</div></a>
-                </li>
-                <li class="mega-menu">
-                  <a href="#"><div>Shortcodes</div></a>
-                </li>
+                ${repeat(Object.entries(this.menu), this.__renderMenuItem.bind(this))}
               </ul>
 
               <div id="top-search">
-                <a href="#" id="top-search-trigger"> ${Search(iconSize)}</a>
+                <a href="javascript:void(0)" id="top-search-trigger"> ${Search(iconSize)}</a>
                 <form action="search.html" method="get">
                   <input
                     type="text"

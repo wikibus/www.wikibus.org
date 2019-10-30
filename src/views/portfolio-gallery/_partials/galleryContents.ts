@@ -1,0 +1,53 @@
+import { html } from 'lit-html'
+import { PortfolioItem } from '../../../components/canvas-shell/canvas-portfolio'
+import { app, State } from '../../../lib/state'
+import '../../../components/url-template-form.ts'
+
+interface GalleryOptions<T> {
+  mapMember: (member: T) => PortfolioItem
+}
+
+function loadPreviousPage(state: State) {
+  return async () => {
+    const { actions } = await app
+    if (state.gallery.prevPage && !state.gallery.prevPageLoading) {
+      actions.gallery.prependToGallery(state.gallery.prevPage)
+      actions.core.overrideResourceUrl(state.gallery.prevPage.id)
+    }
+  }
+}
+
+function loadNextPage(state: State) {
+  return async () => {
+    const { actions } = await app
+    if (state.gallery.nextPage && !state.gallery.nextPageLoading) {
+      actions.gallery.appendToGallery(state.gallery.nextPage)
+      actions.core.overrideResourceUrl(state.gallery.nextPage.id)
+    }
+  }
+}
+
+export function galleryContents<T>(state: State, options: GalleryOptions<T>) {
+  return html`
+    <div class="center" ?hidden="${!state.gallery.prevPage}">
+      <ld-link resource-url="${state.gallery.prevPage && state.gallery.prevPage.id}" disabled>
+        <a
+          @click="${loadPreviousPage(state)}"
+          class="button button-full button-dark button-rounded load-next-portfolio"
+          >Previous page...${state.gallery.prevPageLoading ? ' (loading)' : ''}</a
+        >
+      </ld-link>
+    </div>
+    <canvas-portfolio .items="${state.gallery.resources.map(options.mapMember)}">
+    </canvas-portfolio>
+    <div class="center" ?hidden="${!state.gallery.nextPage}">
+      <ld-link resource-url="${state.gallery.nextPage && state.gallery.nextPage.id}" disabled>
+        <a
+          @click="${loadNextPage(state)}"
+          class="button button-full button-dark button-rounded load-next-portfolio"
+          >Next page...${state.gallery.nextPageLoading ? ' (loading)' : ''}</a
+        >
+      </ld-link>
+    </div>
+  `
+}

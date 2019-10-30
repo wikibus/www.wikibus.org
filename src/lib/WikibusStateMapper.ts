@@ -40,7 +40,7 @@ export class WikibusStateMapper extends StateMapper {
     // eslint-disable-next-line no-restricted-syntax
     for (const api of this.__apis) {
       const path = api.mapper.getStatePath(resourceUrl)
-      if (!path.startsWith('/http://')) {
+      if (!path.match(/\/https?:\/\//)) {
         return `/${api.path}${path}`
       }
     }

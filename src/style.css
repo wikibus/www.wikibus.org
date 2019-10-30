@@ -968,7 +968,8 @@ body.stretched #header.full-header .container {
 #primary-menu > ul > li:first-child {
   margin-left: 0; }
 
-#primary-menu ul li > a {
+#primary-menu ul li > a,
+#primary-menu ul li > ld-link {
   display: block;
   line-height: 22px;
   padding: 39px 15px;
@@ -980,7 +981,8 @@ body.stretched #header.full-header .container {
   font-family: "Raleway", sans-serif;
   -webkit-transition: margin 0.4s ease, padding 0.4s ease;
   -o-transition: margin 0.4s ease, padding 0.4s ease;
-  transition: margin 0.4s ease, padding 0.4s ease; }
+  transition: margin 0.4s ease, padding 0.4s ease;
+  cursor: pointer; }
 
 #primary-menu ul li > a span {
   display: none; }
@@ -999,7 +1001,9 @@ body.stretched #header.full-header .container {
   margin: 0 0 0 5px; }
 
 #primary-menu ul li:hover > a,
-#primary-menu ul li.current > a {
+#primary-menu ul li:hover > ld-link,
+#primary-menu ul li.current > a,
+#primary-menu ul li.current > ld-link {
   color: var(--theme-color); }
 
 body.no-superfish #primary-menu li:hover > ul:not(.mega-menu-column),
@@ -1851,6 +1855,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
   height: 40px;
   margin-top: 12px; }
 
+#header.sticky-header:not(.static-sticky) #primary-menu > ul > li > ld-link,
 #header.sticky-header:not(.static-sticky) #primary-menu > ul > li > a {
   padding-top: 19px;
   padding-bottom: 19px; }

@@ -1,6 +1,6 @@
 import { customElement, html, LitElement, property } from 'lit-element'
 import CanvasShellBase from './CanvasShellBase'
-import { Facebook, GitHub, Linkedin, Twitter } from '../icons'
+import { Facebook, GitHub, Linkedin, Pinterest, Twitter } from '../icons'
 
 @customElement('canvas-footer')
 export class CanvasFooter extends CanvasShellBase(LitElement) {
@@ -38,7 +38,14 @@ export class CanvasFooter extends CanvasShellBase(LitElement) {
                 </a>
 
                 <a
-                  href="https://github.com/wikibus"
+                  href="https://pinterest.com/wikibus/"
+                  class="social-icon si-small si-borderless nobottommargin si-pinterest"
+                >
+                  ${Pinterest}
+                </a>
+
+                <a
+                  href="https://github.com/wikibus/www.wikibus.org"
                   class="social-icon si-small si-borderless nobottommargin si-github"
                 >
                   ${GitHub(this.iconSize)}

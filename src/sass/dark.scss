@@ -716,10 +716,13 @@ body.top-search-open .dark #header-wrap:not(.not-dark) #top-search a,
 .dark .social-icon {
 	color: #DDD !important;
 	border-color: #DDD;
+  svg {
+    height: 20px;
+  }
 }
 
-.dark #footer .social-icon.si-borderless,
-#footer.dark .social-icon.si-borderless { color: #777 !important; }
+.dark #footer .social-icon.si-borderless:not(:hover),
+#footer.dark .social-icon.si-borderless:not(:hover) { color: #777 !important; fill: #777; }
 
 .dark .si-dark {
 	background-color: rgba(0,0,0,0.2);

@@ -19,8 +19,10 @@
     "lit",
     "import"
   ],
+  "globals": {
+    "SEMICOLON": "readonly"
+  },
   "rules": {
-    "indent": "off",
     "import/no-unresolved": "warn",
     "import/extensions": "off",
     "space-before-function-paren": [
@@ -34,7 +36,7 @@
       "always-multiline"
     ],
     "@typescript-eslint/no-var-requires": "warn",
-    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/indent": "off",
     "@typescript-eslint/member-delimiter-style": [
       "error",
       {

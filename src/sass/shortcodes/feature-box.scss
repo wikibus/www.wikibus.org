@@ -211,7 +211,7 @@
 			padding: 0;
 			i { line-height: 62px !important; }
 		}
-		&.fbox-large .fbox-icon i { line-height: 94px !important; }
+		&.fbox-large .fbox-icon i { line-height: 78px !important; }
 	}
 }
 
@@ -335,7 +335,7 @@
 		}
 		&.fbox-outline {
 			.fbox-icon {
-				i { line-height: 88px; }
+				i { line-height: 80px; }
 			}
 		}
 		p {
@@ -367,7 +367,7 @@
 			}
 		}
 		&.fbox-light {
-			.fbox-icon i { line-height: 94px; }
+			.fbox-icon i { line-height: 78px; }
 			.fbox-outline {
 				.fbox-icon i { line-height: 86px; }
 				.fbox-large {
@@ -379,7 +379,7 @@
 		}
 		&.fbox-border {
 			.fbox-icon {
-				i { line-height: 94px !important; }
+				i { line-height: 78px !important; }
 			}
 		}
 		&.fbox-large {

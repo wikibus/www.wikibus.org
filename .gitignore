@@ -4,3 +4,6 @@ dist/
 .sass-cache/
 src/sass/**/*.css
 .env
+.css.map
+*.d.ts
+!/typings/**/*.d.ts

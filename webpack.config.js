@@ -34,6 +34,10 @@ module.exports = merge(config, {
   module: {
     rules: [
       {
+        test: /\.nq$/,
+        use: ['raw-loader'],
+      },
+      {
         test: /\.css$/i,
         use: ['raw-loader'],
       },
@@ -42,5 +46,8 @@ module.exports = merge(config, {
         use: ['raw-loader', 'sass-loader'],
       },
     ],
+  },
+  node: {
+    crypto: true,
   },
 })
