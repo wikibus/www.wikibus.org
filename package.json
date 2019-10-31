@@ -44,7 +44,8 @@
     "lit-html": "^1.1.2",
     "meiosis-setup": "^2.0.0",
     "once": "^1.4.0",
-    "patchinko": "^4.2.0"
+    "patchinko": "^4.2.0",
+    "simple-icons": "^1.19.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.5.5",
