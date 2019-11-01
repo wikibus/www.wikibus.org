@@ -26,10 +26,10 @@ export class CanvasButton extends CanvasShellBase(LitElement) {
   public label?: string
 
   @property({ type: Boolean, attribute: 'three-d' })
-  public threeDimensional: boolean = false
+  public threeDimensional = false
 
   @property({ type: Boolean })
-  public rounded: boolean = false
+  public rounded = false
 
   @property({ type: Object })
   public icon: () => string = () => ''
@@ -49,8 +49,8 @@ export class CanvasButton extends CanvasShellBase(LitElement) {
       <a
         href="javascript:void(0)"
         class="button ${this.threeDimensional ? 'button-3d' : ''} ${this.rounded
-          ? 'button-rounded'
-          : ''} button-${this.color} ${this.__buttonLight}"
+  ? 'button-rounded'
+  : ''} button-${this.color} ${this.__buttonLight}"
         >${this.icon()} ${this.label}</a
       >
     `

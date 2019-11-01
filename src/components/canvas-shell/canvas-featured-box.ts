@@ -21,10 +21,10 @@ export class CanvasFeaturedBox extends CanvasShellBase(LitElement) {
   public dark = false
 
   @property({ type: String })
-  public title: string = ''
+  public title = ''
 
   @property({ type: String })
-  public description: string = ''
+  public description = ''
 
   @property({ type: String })
   public resourceUrl?: string
@@ -33,10 +33,10 @@ export class CanvasFeaturedBox extends CanvasShellBase(LitElement) {
     return html`
       <div
         class="feature-box ${this.center ? 'fbox-center' : ''} ${this.outline
-          ? 'fbox-outline'
-          : ''} ${this.effect ? 'fbox-effect' : ''} ${this.light ? 'fbox-light' : ''} ${this.dark
-          ? 'fbox-dark'
-          : ''}"
+  ? 'fbox-outline'
+  : ''} ${this.effect ? 'fbox-effect' : ''} ${this.light ? 'fbox-light' : ''} ${this.dark
+  ? 'fbox-dark'
+  : ''}"
       >
         <div class="fbox-icon">
           <ld-link resource-url="${this.resourceUrl}">

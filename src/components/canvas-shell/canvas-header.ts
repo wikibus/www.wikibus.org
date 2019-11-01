@@ -1,6 +1,5 @@
 import { customElement, html, LitElement, property } from 'lit-element'
 import { repeat } from 'lit-html/directives/repeat'
-// @ts-ignore
 import { Menu, Search } from '../icons'
 import CanvasShellBase from './CanvasShellBase'
 import './canvas-view'
@@ -16,10 +15,10 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
   public primaryMenuOpen = false
 
   @property({ type: String })
-  public home: string = ''
+  public home = ''
 
   @property({ type: String })
-  public current: string = ''
+  public current = ''
 
   @property({ type: Object })
   public menu: Record<string, any> = {}

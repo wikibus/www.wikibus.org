@@ -16,10 +16,10 @@ ViewTemplates.default.when.scopeMatches(pageTitleInternal).renders(({ title, des
         <div class="container clearfix">
           <h1>${title}</h1>
           ${description
-            ? html`
+    ? html`
                 <span>${description}</span>
               `
-            : ''}
+    : ''}
         </div>
       </section>
     `,
