@@ -31,7 +31,7 @@ function getKnownApis(state: State): Record<string, string> {
 export class WikibusShell extends AlcaeusLoader(CanvasShell) {
   private __apis: Record<string, string> = {}
 
-  private __rooUri: string = ''
+  private __rooUri = ''
 
   public async connectedCallback() {
     const { states } = await app

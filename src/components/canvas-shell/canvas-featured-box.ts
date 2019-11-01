@@ -21,10 +21,10 @@ export class CanvasFeaturedBox extends CanvasShellBase(LitElement) {
   public dark = false
 
   @property({ type: String })
-  public title: string = ''
+  public title = ''
 
   @property({ type: String })
-  public description: string = ''
+  public description = ''
 
   @property({ type: String })
   public resourceUrl?: string

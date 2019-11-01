@@ -1,6 +1,5 @@
 import { css, customElement, html, LitElement, property } from 'lit-element'
 import { repeat } from 'lit-html/directives/repeat'
-// @ts-ignore
 import { Menu, Search, User, Loader } from '../icons'
 import CanvasShellBase from './CanvasShellBase'
 import './canvas-dropdown'
@@ -17,16 +16,16 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
   public primaryMenuOpen = false
 
   @property({ type: String })
-  public home: string = ''
+  public home = ''
 
   @property({ type: String })
-  public current: string = ''
+  public current = ''
 
   @property({ type: Object })
   public menu: Record<string, any> = {}
 
   @property({ type: Boolean })
-  public authReady: boolean = false
+  public authReady = false
 
   public static get styles() {
     return [
@@ -136,10 +135,10 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
 
               <div id="top-search">
                 <a href="javascript:void(0)" id="top-search-trigger"> ${Search(iconSize)}</a>
-                <form action="search.html" method="get">
+                <form method="get">
                   <input
                     type="text"
-                    name="q"
+                    name="title"
                     class="form-control"
                     value=""
                     placeholder="Type &amp; Hit Enter.."

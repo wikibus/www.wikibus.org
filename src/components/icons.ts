@@ -1,4 +1,3 @@
-// @ts-ignore
 import * as icons from 'feather-icon-literals'
 import SimplePinterest from 'simple-icons/icons/pinterest'
 import { html, TemplateResult } from 'lit-element'
