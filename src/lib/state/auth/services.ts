@@ -45,7 +45,7 @@ export const services = [
           const result = await client.handleRedirectCallback()
           update({
             auth: O({
-              isAuthenticated,
+              isAuthenticated: true,
               client,
               token: await client.getTokenSilently(),
             }),
