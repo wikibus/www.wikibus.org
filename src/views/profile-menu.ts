@@ -10,12 +10,10 @@ ViewTemplates.default.when
     const profileMenu = app.then(({ actions }) => {
       const resource = state.core.resource || state.core.homeEntrypoint
       return html`
-        <a
-          class="list-group-item tleft py-2"
-          href="javascript:void(0)"
-          @click="${() => actions.auth.login(resource)}"
-          >Login <i class="icon-signout"></i
-        ></a>
+        <bs-dropdown-item-button
+          @bs-dropdown-item-click="${() => actions.auth.login(resource)}"
+          title="Login"
+        ></bs-dropdown-item-button>
       `
     })
 
@@ -31,12 +29,10 @@ ViewTemplates.default.when
     const profileMenu = app.then(
       ({ actions }) =>
         html`
-          <a
-            class="list-group-item tleft py-2"
-            href="javascript:void(0)"
-            @click="${actions.auth.logout}"
-            >Logout <i class="icon-signout"></i
-          ></a>
+          <bs-dropdown-item-button
+            @bs-dropdown-item-click="${actions.auth.logout}"
+            title="Logout"
+          ></bs-dropdown-item-button>
         `,
     )
     return html`
