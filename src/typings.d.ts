@@ -1,3 +1,5 @@
 declare module '*.scss'
 declare module '*.css'
 declare module 'feather-icon-literals'
+declare module '@lit-element-bootstrap/alert'
+declare module '@lit-element-bootstrap/modal'

@@ -1,6 +1,6 @@
-import { css, customElement, html, LitElement, property } from 'lit-element'
+import { customElement, html, LitElement, property } from 'lit-element'
 import { repeat } from 'lit-html/directives/repeat'
-import { Menu, Search, User, Loader } from '../icons'
+import { Menu, Search, User } from '../icons'
 import CanvasShellBase from './CanvasShellBase'
 import './canvas-dropdown'
 import './canvas-view'
@@ -27,24 +27,9 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
   @property({ type: Boolean })
   public authReady = false
 
-  public static get styles() {
-    return [
-      super.styles || [],
-      css`
-        @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(359deg);
-          }
-        }
-
-        .spin svg {
-          animation: spin 2s linear infinite;
-        }
-      `,
-    ]
+  public constructor() {
+    super()
+    import('./canvas-spinner')
   }
 
   public connectedCallback() {
@@ -121,8 +106,12 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
 
             <div id="top-account" class="dropdown">
               <canvas-dropdown ?disabled="${!this.authReady}">
-                <span slot="toggle" class="${this.authReady ? '' : 'spin'}">
-                  ${this.authReady ? User(iconSize) : Loader(iconSize)}
+                <span slot="toggle">
+                  ${this.authReady
+                    ? User(iconSize)
+                    : html`
+                        <canvas-spinner .size="${iconSize}"></canvas-spinner>
+                      `}
                 </span>
                 <slot name="profile-menu"></slot>
               </canvas-dropdown>
