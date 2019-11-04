@@ -88,7 +88,7 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
   private __renderProfileDropdown() {
     return html`
       <bs-dropdown>
-        <bs-button small secondary dropdown-toggle>
+        <bs-button small secondary dropdown-toggle ?disabled="${!this.authReady}">
           ${this.authReady
             ? User(iconSize)
             : html`

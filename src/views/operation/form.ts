@@ -49,9 +49,11 @@ ViewTemplates.default.when
     import('../../components/canvas-shell/canvas-modal')
     import('../../components/canvas-shell/canvas-spinner')
 
+    if (!op.operation) return html``
+
     return html`
       <canvas-modal
-        heading="${op.operation && op.operation.title}"
+        heading="${op.operation.title || 'Form'}"
         ?opened="${state.core.operationForm.opened}"
         @closed="${updateState}"
       >
