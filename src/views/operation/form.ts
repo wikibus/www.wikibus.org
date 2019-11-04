@@ -2,6 +2,7 @@ import { ViewTemplates } from '@lit-any/views'
 import { html } from 'lit-html'
 import { until } from 'lit-html/directives/until'
 import { IOperation } from 'alcaeus/types/Resources'
+import { ifDefined } from 'lit-html/directives/if-defined'
 import { operationForm } from '../scopes'
 import { State, app } from '../../lib/state'
 import { OperationFormState } from '../../lib/state/core'
@@ -49,21 +50,13 @@ ViewTemplates.default.when
     import('../../components/canvas-shell/canvas-modal')
     import('../../components/canvas-shell/canvas-spinner')
 
-    if (!op.operation) return html``
-
     return html`
       <canvas-modal
-        heading="${op.operation.title || 'Form'}"
+        heading="${ifDefined(op.operation && op.operation.title)}"
         ?opened="${state.core.operationForm.opened}"
         @closed="${updateState}"
       >
-        ${op.error ? renderError(op.error) : html``}
-        ${until(
-          formLoaded,
-          html`
-            <p>Form loading</p>
-          `,
-        )}
+        ${op.error ? renderError(op.error) : html``} ${until(formLoaded, html``)}
         ${op.invoking
           ? html`
               <canvas-spinner size="30"></canvas-spinner> Please wait
