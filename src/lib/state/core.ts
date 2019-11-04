@@ -68,13 +68,14 @@ export function Actions(update: (patch: Partial<State> | StateModification) => v
         resourceUrlOverride: url,
       })
     },
-    showOperationForm(operation: IOperation, resource?: HydraResource) {
+    showOperationForm(operation: IOperation) {
       update({
         operationForm: O<OperationFormState>({
           opened: true,
           invoking: false,
           operation,
-          value: { ...resource },
+          value: undefined,
+          error: undefined,
         }),
       })
     },
@@ -85,16 +86,17 @@ export function Actions(update: (patch: Partial<State> | StateModification) => v
         }),
       })
     },
-    invokeOperation(operation: IOperation, body: object) {
+    invokeOperation(operation: IOperation, value: object) {
       update({
         operationForm: O<OperationFormState>({
           invoking: true,
           error: undefined,
+          value,
         }),
       })
 
       return operation
-        .invoke(JSON.stringify(body))
+        .invoke(JSON.stringify(value))
         .then(response => {
           if (response.xhr.ok) {
             update({

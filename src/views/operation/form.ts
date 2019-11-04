@@ -44,6 +44,7 @@ ViewTemplates.default.when
           ?no-clear-button="${op.invoking}"
           .operation="${op.operation}"
           @submit="${invokeOperation(op.operation)}"
+          .value="${ifDefined(op.value)}"
         ></canvas-operation-form>
       `
     })

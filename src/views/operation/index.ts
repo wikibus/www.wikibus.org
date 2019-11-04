@@ -15,7 +15,7 @@ function openOperationForm(op: OperationTriggerModel) {
   return async () => {
     const { actions } = await app
 
-    actions.core.showOperationForm(op.operation, op.resource)
+    actions.core.showOperationForm(op.operation)
   }
 }
 
