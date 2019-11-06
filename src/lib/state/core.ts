@@ -104,7 +104,7 @@ export function Actions(update: (patch: Partial<State> | StateModification) => v
                 opened: false,
               }),
               resource: response.root,
-              resourceUrlOverride: null,
+              resourceUrlOverride: response.root && response.root.id,
             })
           }
 
