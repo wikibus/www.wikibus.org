@@ -28,8 +28,8 @@ ViewTemplates.default.when
     return html`
       <div class="container clearfix">
         ${repeat(
-    links,
-    (link, index) => html`
+          links,
+          (link, index) => html`
             <canvas-featured-box
               center
               effect
@@ -42,7 +42,7 @@ ViewTemplates.default.when
               ${next(link.supportedProperty, propertyIcon)}
             </canvas-featured-box>
           `,
-  )}
+        )}
       </div>
     `
   })

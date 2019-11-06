@@ -1,10 +1,16 @@
 import { customElement, html, LitElement, property } from 'lit-element'
 import { repeat } from 'lit-html/directives/repeat'
-import { Menu, Search } from '../icons'
+import { until } from 'lit-html/directives/until'
+import { Menu, Search, User } from '../icons'
 import CanvasShellBase from './CanvasShellBase'
 import './canvas-view'
 
 const iconSize = 17
+
+const dropdownLoaded = Promise.all([
+  import('@lit-element-bootstrap/dropdown'),
+  import('@lit-element-bootstrap/button'),
+])
 
 @customElement('canvas-header')
 export class CanvasHeader extends CanvasShellBase(LitElement) {
@@ -22,6 +28,14 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
 
   @property({ type: Object })
   public menu: Record<string, any> = {}
+
+  @property({ type: Boolean })
+  public authReady = false
+
+  public constructor() {
+    super()
+    import('./canvas-spinner')
+  }
 
   public connectedCallback() {
     if (super.connectedCallback) {
@@ -71,6 +85,23 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
     `
   }
 
+  private __renderProfileDropdown() {
+    return html`
+      <bs-dropdown>
+        <bs-button small secondary dropdown-toggle ?disabled="${!this.authReady}">
+          ${this.authReady
+            ? User(iconSize)
+            : html`
+                <canvas-spinner .size="${iconSize}"></canvas-spinner>
+              `}
+        </bs-button>
+        <bs-dropdown-menu down x-placement="bottom">
+          <slot name="profile-menu"></slot>
+        </bs-dropdown-menu>
+      </bs-dropdown>
+    `
+  }
+
   public render() {
     return html`
       <header
@@ -93,6 +124,10 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
                   ><img src="/images/logo@2x.png" alt="Canvas Logo"
                 /></a>
               </ld-link>
+            </div>
+
+            <div id="top-account">
+              ${until(dropdownLoaded.then(this.__renderProfileDropdown.bind(this)), html``)}
             </div>
 
             <nav id="primary-menu">

@@ -20,16 +20,16 @@ ViewTemplates.default.when
 
     return html`
       ${repeat(
-    properties,
-    pair =>
-      html`
+        properties,
+        pair =>
+          html`
             <li>
               <span>${pair.supportedProperty.title}:</span> ${repeat(pair.objects, o =>
-  next(o, 'portfolio-property'),
-)}
+                next(o, 'portfolio-property'),
+              )}
             </li>
           `,
-  )}
+      )}
     `
   })
 

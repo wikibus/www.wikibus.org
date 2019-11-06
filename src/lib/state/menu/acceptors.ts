@@ -14,7 +14,7 @@ const populateMenu = onChange(
     )
 
     return {
-      menu: O({
+      menu: O<typeof state.menu>({
         items: {
           Home: state.core.homeEntrypoint.id,
           ...menu,
@@ -36,7 +36,7 @@ const selectCurrentMenuItem = (state: State): Partial<State> => {
   )
 
   return {
-    menu: O({
+    menu: O<typeof state.menu>({
       current: currentMenuItem ? currentMenuItem[0] : '',
     }),
   }

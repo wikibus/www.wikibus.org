@@ -5,6 +5,7 @@ import * as core from './state/core'
 import * as gallery from './state/gallery'
 import * as pageTitle from './state/page-title'
 import * as menu from './state/menu'
+import * as auth from './state/auth'
 import { State } from './state/index'
 
 export { State } from './state/index'
@@ -16,6 +17,7 @@ const appMeiosis = {
       gallery: gallery.Initial(),
       pageTitle: pageTitle.Initial(),
       menu: menu.Initial(),
+      auth: await auth.Initial(),
     }
   },
   Actions(update: flyd.Stream<Partial<State>>) {
@@ -23,9 +25,11 @@ const appMeiosis = {
       core: core.Actions(patch => update({ core: O(patch) })),
       gallery: gallery.Actions(patch => update({ gallery: O(patch) })),
       pageTitle: pageTitle.Actions(patch => update({ pageTitle: O(patch) })),
+      auth: auth.Actions(patch => update({ auth: O(patch) })),
     }
   },
   acceptors: [...pageTitle.acceptors, ...menu.acceptors, ...gallery.acceptors],
+  services: [...auth.services],
 }
 
 const setup = meiosisPatchinko<State, ReturnType<typeof appMeiosis.Actions>>({
