@@ -33,17 +33,10 @@ export class WikibusShell extends AlcaeusLoader(CanvasShell) {
 
   private __rooUri = ''
 
-  public async connectedCallback() {
+  public async createStateMapper() {
     const { states } = await app
     this.__apis = getKnownApis(states.val.core)
     this.__rooUri = states.val.core.homeEntrypoint.id
-
-    if (super.connectedCallback) {
-      super.connectedCallback()
-    }
-  }
-
-  public createStateMapper() {
     return new WikibusStateMapper({
       useHashFragment: this.usesHashFragment,
       baseUrl: this.__rooUri,
