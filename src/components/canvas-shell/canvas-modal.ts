@@ -1,6 +1,11 @@
 import { css, customElement, html, LitElement, property, query } from 'lit-element'
 import CanvasShellBase from './CanvasShellBase'
-import '@lit-element-bootstrap/modal'
+
+interface BsModal {
+  open(): void
+  close(): void
+  opened: boolean
+}
 
 @customElement('canvas-modal')
 export class CanvasModal extends CanvasShellBase(LitElement) {
@@ -22,28 +27,45 @@ export class CanvasModal extends CanvasShellBase(LitElement) {
   public opened = false
 
   @query('bs-modal')
-  private __modal?: any
+  private __modal?: BsModal
+
+  @property({ type: Boolean })
+  private __modalLoaded = false
+
+  public connectedCallback() {
+    super.connectedCallback && super.connectedCallback()
+
+    import('@lit-element-bootstrap/modal').then(() => {
+      this.__modalLoaded = true
+    })
+  }
 
   protected updated(_changedProperties: Map<PropertyKey, unknown>): void {
     if (_changedProperties.has('opened')) {
       if (this.opened) {
-        this.__modal.open()
-      } else if (this.__modal.opened) {
+        this.__modal && this.__modal.open()
+      } else if (this.__modal && this.__modal.opened) {
         this.__modal.close()
       }
     }
   }
 
-  protected firstUpdated() {
-    this.__modal!.addEventListener('bs.modal.close', () => {
-      this.opened = false
-      this.dispatchEvent(new CustomEvent('closed'))
-    })
+  private __onClosed() {
+    this.opened = false
+    this.dispatchEvent(new CustomEvent('closed'))
   }
 
   public render() {
+    if (this.__modalLoaded) {
+      return this.__renderBsModal()
+    }
+
+    return html``
+  }
+
+  private __renderBsModal() {
     return html`
-      <bs-modal backdrop>
+      <bs-modal backdrop @bs.modal.close="${this.__onClosed}">
         <bs-modal-header slot="header">
           <h4>${this.heading}</h4>
         </bs-modal-header>
