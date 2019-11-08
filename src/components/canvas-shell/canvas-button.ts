@@ -1,4 +1,5 @@
 import { customElement, html, LitElement, property } from 'lit-element'
+import { BsButtonMixin } from '@lit-element-bootstrap/button/bs-button-mixin.js'
 import CanvasShellBase from './CanvasShellBase'
 
 type Color =
@@ -18,7 +19,7 @@ type Color =
   | 'dirtygreen'
 
 @customElement('canvas-button')
-export class CanvasButton extends CanvasShellBase(LitElement) {
+export class CanvasButton extends BsButtonMixin(CanvasShellBase(LitElement)) {
   @property({ type: String })
   public color: Color = 'white'
 
@@ -26,10 +27,13 @@ export class CanvasButton extends CanvasShellBase(LitElement) {
   public label?: string
 
   @property({ type: Boolean, attribute: 'three-d' })
-  public threeDimensional: boolean = false
+  public threeDimensional = false
 
   @property({ type: Boolean })
-  public rounded: boolean = false
+  public rounded = false
+
+  @property({ type: Boolean, reflect: true, attribute: 'dropdown-toggle' })
+  public dropdownToggle = false
 
   @property({ type: Object })
   public icon: () => string = () => ''
@@ -46,13 +50,14 @@ export class CanvasButton extends CanvasShellBase(LitElement) {
 
   protected render() {
     return html`
-      <a
-        href="javascript:void(0)"
+      <button
         class="button ${this.threeDimensional ? 'button-3d' : ''} ${this.rounded
           ? 'button-rounded'
-          : ''} button-${this.color} ${this.__buttonLight}"
-        >${this.icon()} ${this.label}</a
+          : ''} button-${this.color} ${this.__buttonLight}
+        ${this.dropdownToggle ? 'dropdown-toggle' : ''}"
       >
+        ${this.icon()} ${this.label}
+      </button>
     `
   }
 }

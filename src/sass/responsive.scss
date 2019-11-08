@@ -655,7 +655,7 @@
 		transition: margin .4s ease;
 	}
 
-	#top-search a { right: 43px; }
+	#top-search a { right: 43px; top: -3px; }
 
 	#side-panel-trigger { right: 71px; }
 
@@ -806,6 +806,7 @@
 		&:not(.static-sticky) #logo img { height: 40px; margin-top: 12px; }
 
 		&:not(.static-sticky) #primary-menu-trigger { top: 5px; }
+		&:not(.static-sticky) #top-account { margin: 15px 0; }
 
 		#primary-menu > ul,
 		#primary-menu > .container > ul {

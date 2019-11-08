@@ -1,6 +1,7 @@
 import { customElement } from 'lit-element'
 import AlcaeusLoader from '@hydrofoil/alcaeus-loader'
 import { expand } from '@zazuko/rdf-vocabularies'
+import { StateMapper } from 'ld-navigation'
 import { CanvasShell } from './canvas-shell'
 import { WikibusStateMapper } from '../lib/WikibusStateMapper'
 import { app } from '../lib/state'
@@ -31,24 +32,24 @@ function getKnownApis(state: State): Record<string, string> {
 export class WikibusShell extends AlcaeusLoader(CanvasShell) {
   private __apis: Record<string, string> = {}
 
-  private __rooUri: string = ''
-
-  public async connectedCallback() {
-    const { states } = await app
-    this.__apis = getKnownApis(states.val.core)
-    this.__rooUri = states.val.core.homeEntrypoint.id
-
-    if (super.connectedCallback) {
-      super.connectedCallback()
-    }
-  }
+  private __rooUri = ''
 
   public createStateMapper() {
-    return new WikibusStateMapper({
-      useHashFragment: this.usesHashFragment,
-      baseUrl: this.__rooUri,
-      apis: this.__apis,
-    })
+    return app
+      .then(({ states }) => {
+        this.__apis = getKnownApis(states.val.core)
+        this.__rooUri = states.val.core.homeEntrypoint.id
+        return new WikibusStateMapper({
+          useHashFragment: this.usesHashFragment,
+          baseUrl: this.__rooUri,
+          apis: this.__apis,
+        })
+      })
+      .catch(e => {
+        this.state = 'error'
+        this.lastError = e
+        return new StateMapper()
+      })
   }
 
   protected async loadResourceInternal(url: string) {

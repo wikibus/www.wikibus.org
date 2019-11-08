@@ -27,7 +27,7 @@ export class CanvasShell extends CanvasShellBase(
   public appState?: State
 
   @property({ type: Boolean })
-  private __errorDetailsVisible: boolean = false
+  private __errorDetailsVisible = false
 
   protected render() {
     return html`
@@ -35,7 +35,15 @@ export class CanvasShell extends CanvasShellBase(
         .menu="${this.appState ? this.appState.menu.items : {}}"
         .home="${this.appState ? this.appState.core.homeEntrypoint.id : ''}"
         .current="${this.appState ? this.appState.menu.current : {}}"
-      ></canvas-header>
+        .authReady="${this.appState && typeof this.appState.auth.isAuthenticated === 'boolean'}"
+      >
+        <canvas-view
+          .value="${this.appState}"
+          template-scope="profile-menu"
+          slot="profile-menu"
+          ignore-missing
+        ></canvas-view>
+      </canvas-header>
 
       <section id="content">
         ${super.render()}
@@ -97,6 +105,7 @@ export class CanvasShell extends CanvasShellBase(
     if (this.isLoading === true) {
       SEMICOLON.initialize.pageTransition()
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
       const self = this
       this.$('.page-transition-wrap').fadeOut('400', function() {
         self.$(this).remove()

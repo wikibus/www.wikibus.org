@@ -3,56 +3,19 @@
   "extends": [
     "@open-wc/eslint-config",
     "eslint-config-prettier",
-    "plugin:@typescript-eslint/recommended",
-    "standard"
+    "@zazuko"
   ],
   "env": {
     "browser": true
   },
-  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2017,
-    "sourceType": "module"
+    "project": "./tsconfig.json"
   },
   "plugins": [
-    "@typescript-eslint/eslint-plugin",
     "lit",
     "import"
   ],
   "globals": {
     "SEMICOLON": "readonly"
-  },
-  "rules": {
-    "import/no-unresolved": "warn",
-    "import/extensions": "off",
-    "space-before-function-paren": [
-      "error",
-      {
-        "named": "never"
-      }
-    ],
-    "comma-dangle": [
-      "error",
-      "always-multiline"
-    ],
-    "@typescript-eslint/no-var-requires": "warn",
-    "@typescript-eslint/indent": "off",
-    "@typescript-eslint/member-delimiter-style": [
-      "error",
-      {
-        "multiline": {
-          "delimiter": "none"
-        }
-      }
-    ]
-  },
-  "overrides": [
-    {
-      "files": ["*.js"],
-      "rules": {
-        "@typescript-eslint/no-var-requires": "off",
-        "import/no-extraneous-dependencies": "off"
-      }
-    }
-  ]
+  }
 }

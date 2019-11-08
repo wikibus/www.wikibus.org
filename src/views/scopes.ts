@@ -1,3 +1,6 @@
 export const resourceMain = 'wikibus-resource'
 export const pageTitle = 'wikibus-page-title'
 export const portfolioGalleryMember = 'portfolio-gallery-member'
+export const operationTrigger = 'operation-trigger'
+export const operationForm = 'operation-form'
+export const operationSelector = 'operation-selector'

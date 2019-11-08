@@ -1,4 +1,3 @@
-// @ts-ignore
 import * as icons from 'feather-icon-literals'
 import SimplePinterest from 'simple-icons/icons/pinterest'
 import { html, TemplateResult } from 'lit-element'
@@ -32,3 +31,5 @@ export const AlertTriangle = wrap(icons.AlertTriangle)
 export const Share2 = wrap(icons.Share2)
 export const Clock = wrap(icons.Clock)
 export const CornerRightDown = wrap(icons.CornerRightDown)
+export const User = wrap(icons.User)
+export const Loader = wrap(icons.Loader)

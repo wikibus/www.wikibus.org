@@ -13,16 +13,16 @@ export interface PortfolioItem {
 @customElement('canvas-portfolio')
 export class CanvasPortfolio extends CanvasShellBase(LitElement) {
   @property({ type: String })
-  public transition: string = '0.65s'
+  public transition = '0.65s'
 
   @property({ type: String })
-  public layoutMode: string = 'masonry'
+  public layoutMode = 'masonry'
 
   @property({ type: Number })
-  public stagger: number = 0
+  public stagger = 0
 
   @property({ type: Boolean, attribute: 'origin-left' })
-  public originLeft: boolean = true
+  public originLeft = true
 
   @property({ type: Array, attribute: false })
   public items: PortfolioItem[] = []

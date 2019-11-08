@@ -781,7 +781,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #primary-menu.style-2.cente
 	@include transition(color .3s ease-in-out);
 }
 
-#top-search a { z-index: 11; }
+#top-search a { z-index: 11; top: -3px; }
 
 #top-search a i {
 	position: absolute;

@@ -1,7 +1,7 @@
 import { ViewTemplates } from '@lit-any/views'
 import { html } from 'lit-html'
 import { until } from 'lit-html/directives/until'
-import { resourceMain, pageTitle } from './scopes'
+import { resourceMain, pageTitle, operationForm } from './scopes'
 import { State, app } from '../lib/state'
 
 ViewTemplates.default.when
@@ -9,6 +9,7 @@ ViewTemplates.default.when
   .valueMatches((v: State) => !!v.core.resource && !v.core.debug)
   .renders(
     (state: State, next) => html`
+      ${next(state.core.operationForm, operationForm, { state })}
       ${next(state.core.resource, pageTitle, { state })}
       <section id="content">
         <div class="content-wrap">
