@@ -1,6 +1,7 @@
 import { HydraResource, IOperation, SupportedProperty } from 'alcaeus/types/Resources'
 import { Hydra } from 'alcaeus'
 import O from 'patchinko/immutable'
+import { IHydraResponse } from 'alcaeus/types/HydraResponse'
 
 type StateModification = (s: State) => State | Promise<State>
 
@@ -27,7 +28,12 @@ export async function Initial(): Promise<State> {
     throw new Error('Failed to initialize app. API_ROOT environment variable was not set')
   }
 
-  const response = await Hydra.loadResource(rootUri)
+  let response: IHydraResponse
+  try {
+    response = await Hydra.loadResource(rootUri)
+  } catch (e) {
+    throw new Error('Failed to initialize app. Could not fetch root entrypoint')
+  }
   if (!response.root) {
     throw new Error('Failed to initialize app. Could not fetch root entrypoint')
   }
