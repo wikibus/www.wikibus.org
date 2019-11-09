@@ -28,7 +28,7 @@ const appMeiosis = {
       auth: auth.Actions(patch => update({ auth: O(patch) })),
     }
   },
-  acceptors: [...pageTitle.acceptors, ...menu.acceptors, ...gallery.acceptors],
+  acceptors: [...pageTitle.acceptors, ...menu.acceptors, ...gallery.acceptors, ...auth.acceptors],
   services: [...auth.services],
 }
 

@@ -2,7 +2,6 @@ import createAuth0Client from '@auth0/auth0-spa-js'
 import go from 'ld-navigation/fireNavigation'
 import once from 'once'
 import O from 'patchinko/immutable'
-import { Hydra } from 'alcaeus'
 import { ServiceParams } from '../index'
 
 const configureClient = () => {
@@ -51,10 +50,6 @@ export const services = [
               token: await client.getTokenSilently(),
             }),
           })
-
-          Hydra.defaultHeaders = {
-            Authorization: `Bearer ${await client.getTokenSilently()}`,
-          }
 
           if (result.appState.resourceUrl) {
             go(result.appState.resourceUrl)
