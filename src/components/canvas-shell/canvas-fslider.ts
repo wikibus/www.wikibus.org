@@ -1,16 +1,20 @@
-import { customElement, html, LitElement, property, queryAll } from 'lit-element'
+import { customElement, html, LitElement, property, queryAll, css } from 'lit-element'
 import { repeat } from 'lit-html/directives/repeat'
 import { ifDefined } from 'lit-html/directives/if-defined'
 import CanvasShellBase from './CanvasShellBase'
 import { Image } from '../../lib/types/Image'
+import CanvasLightboxMixin from './CanvasLightboxMixin'
 
 @customElement('canvas-fslider')
-export class CanvasFslider extends CanvasShellBase(LitElement) {
+export class CanvasFslider extends CanvasLightboxMixin(CanvasShellBase(LitElement)) {
   @queryAll('.flexslider')
   private __flexslider?: HTMLDivElement[]
 
   @property({ type: Array })
   public images: Image[] = []
+
+  @property({ type: Object })
+  public primaryImage: Image | null = null
 
   @property()
   public animation = 'slide'
@@ -54,8 +58,20 @@ export class CanvasFslider extends CanvasShellBase(LitElement) {
   @property({ type: Boolean })
   public thumbs = true
 
+  public static get styles() {
+    return [
+      super.styles || [],
+      css`
+        .flexslider {
+          height: auto !important;
+        }
+      `,
+    ]
+  }
+
   protected firstUpdated(): void {
     const $flexSliderEl = this.$(this.renderRoot).find('.flexslider')
+    this._initLightbox()
     if ($flexSliderEl.length > 0) {
       $flexSliderEl.each((i, e) => {
         const $flexsSlider = this.$(e) as any
@@ -80,7 +96,6 @@ export class CanvasFslider extends CanvasShellBase(LitElement) {
             // SEMICOLON.initialize.verticalMiddle()
             slider.parent().removeClass('preloader2')
             // const t = setTimeout(() => { $('.grid-container').isotope('layout') }, 1200)
-            // SEMICOLON.initialize.lightbox()
             // $('.flex-prev').html('<i class="icon-angle-left"></i>')
             // $('.flex-next').html('<i class="icon-angle-right"></i>')
             // SEMICOLON.portfolio.portfolioDescMargin()
@@ -102,7 +117,7 @@ export class CanvasFslider extends CanvasShellBase(LitElement) {
   protected render() {
     return html`
       <div class="flexslider">
-        <div class="slider-wrap">
+        <div class="slider-wrap" data-lightbox="gallery">
           ${repeat(this.images, CanvasFslider.__slide)}
         </div>
       </div>
@@ -114,7 +129,9 @@ export class CanvasFslider extends CanvasShellBase(LitElement) {
 
     return html`
       <div class="slide" data-thumb="${ifDefined(thumbnailUrl)}">
-        <a href="javascript:void(0)"><img src="${image.contentUrl}" alt=""/></a>
+        <a data-lightbox="gallery-item" href="${image.contentUrl}"
+          ><img src="${image.contentUrl}" alt=""
+        /></a>
       </div>
     `
   }

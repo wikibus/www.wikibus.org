@@ -6,7 +6,7 @@ import rs from '../../sass/responsive.scss'
 
 type ShellConstructor = new (...args: any[]) => LitElement
 
-interface CanvasShellBase {
+export interface CanvasShellBase {
   $: JQueryStatic
 }
 

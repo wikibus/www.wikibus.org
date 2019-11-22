@@ -1,6 +1,5 @@
 import { html } from 'lit-html'
 import { RenderFunc } from '@lit-any/views/lib'
-import { expand } from '@zazuko/rdf-vocabularies'
 import { HydraResource } from 'alcaeus/types/Resources'
 import { Image } from '../../lib/types/Image'
 import { operationSelector } from '../scopes'
@@ -9,15 +8,15 @@ interface Options<T> {
   heading: string
   title(resource: T): string | null
   images(resource: T): Image[]
-  excludedProperties?: string[]
+  primaryImage(resource: T): Image | null
 }
 
 export function portfolioSingleGallery<T extends HydraResource>(options: Options<T>): RenderFunc {
   return (resource: T, next) => {
-    let except = []
-    if (options.excludedProperties) {
-      except = options.excludedProperties.map(prop => expand(prop))
-    }
+    const except = resource
+      .getProperties()
+      .filter(prop => !prop.supportedProperty.readable)
+      .map(prop => prop.supportedProperty.property.id)
 
     return html`
       <div class="container clearfix">
@@ -27,6 +26,7 @@ export function portfolioSingleGallery<T extends HydraResource>(options: Options
             thumbs
             animation="fade"
             .images="${options.images(resource)}"
+            .primaryImage="${options.primaryImage(resource)}"
           ></canvas-fslider>
         </div>
 

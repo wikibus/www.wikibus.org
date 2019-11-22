@@ -19,22 +19,15 @@ function openOperationForm(op: OperationTriggerModel) {
   }
 }
 
-function nonGetOperations(op: IOperation) {
-  return (op.method || '').toUpperCase() !== 'GET'
-}
-
 ViewTemplates.default.when
   .scopeMatches(operationSelector)
-  .valueMatches(
-    (resource: HydraResource) =>
-      !!resource && resource.operations.filter(nonGetOperations).length > 0,
-  )
+  .valueMatches((resource: HydraResource) => !!resource && resource.findOperationsDeep().length > 0)
   .renders(
     (resource: HydraResource, next) => html`
       <bs-dropdown>
         <bs-button dropdown-toggle label="Operations" color="aqua" primary>Operations</bs-button>
         <bs-dropdown-menu down x-placement="bottom-start">
-          ${repeat(resource.operations.filter(nonGetOperations), operation =>
+          ${repeat(resource.findOperationsDeep(), operation =>
             next({ resource, operation }, operationTrigger),
           )}
         </bs-dropdown-menu>

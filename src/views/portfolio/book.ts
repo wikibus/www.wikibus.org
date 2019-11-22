@@ -14,9 +14,11 @@ ViewTemplates.default.when
         return book.title
       },
       images(book) {
-        return book.image ? [book.image] : []
+        return book.images
       },
       heading: 'About this book',
-      excludedProperties: ['schema:image'],
+      primaryImage(resource) {
+        return resource.primaryImage
+      },
     }),
   )
