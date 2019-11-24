@@ -33,6 +33,8 @@ export default class WikibusEncyclopedia extends LitElement {
       this.withShell((shell, state) => {
         // eslint-disable-next-line no-param-reassign
         shell.appState = state
+        // eslint-disable-next-line no-param-reassign
+        shell.isLoading = state.core.isLoading
       }),
     )
   }

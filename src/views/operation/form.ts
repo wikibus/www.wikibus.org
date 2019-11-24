@@ -7,6 +7,8 @@ import { operationForm } from '../scopes'
 import { State, app } from '../../lib/state'
 import { OperationFormState } from '../../lib/state/core'
 
+const formElement = '__operation-form-element'
+
 async function updateState() {
   const { actions } = await app
   actions.core.hideOperationForm()
@@ -32,22 +34,9 @@ function renderError(error: string) {
 ViewTemplates.default.when
   .scopeMatches(operationForm)
   .renders((op: OperationFormState, next, scope, { state }: { state: State }) => {
-    const formLoaded = import('../../components/canvas-shell/canvas-operation-form').then(() => {
-      if (!op.operation) return html``
-
-      return html`
-        <canvas-operation-form
-          no-labels
-          no-legend
-          ?no-submit-button="${op.invoking}"
-          ?no-reset-button="${op.invoking}"
-          ?no-clear-button="${op.invoking}"
-          .operation="${op.operation}"
-          @submit="${invokeOperation(op.operation)}"
-          .value="${ifDefined(op.value)}"
-        ></canvas-operation-form>
-      `
-    })
+    const formLoaded = import('../../components/canvas-shell/canvas-operation-form').then(() =>
+      next(op, formElement),
+    )
     import('../../components/canvas-shell/canvas-modal')
     import('../../components/canvas-shell/canvas-spinner')
 
@@ -66,3 +55,21 @@ ViewTemplates.default.when
       </canvas-modal>
     `
   })
+
+ViewTemplates.default.when.scopeMatches(formElement).renders((op: OperationFormState) => {
+  if (!op.operation) return html``
+
+  return html`
+    <canvas-operation-form
+      no-labels
+      no-legend
+      no-shadow
+      ?no-submit-button="${op.invoking}"
+      ?no-reset-button="${op.invoking}"
+      ?no-clear-button="${op.invoking}"
+      .operation="${op.operation}"
+      @submit="${invokeOperation(op.operation)}"
+      .value="${ifDefined(op.value)}"
+    ></canvas-operation-form>
+  `
+})
