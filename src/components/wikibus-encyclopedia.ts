@@ -55,18 +55,9 @@ export default class WikibusEncyclopedia extends LitElement {
     `
   }
 
-  @property({ type: Boolean })
-  private get debug() {
-    if (this.__shell && this.__shell.appState) {
-      return this.__shell.appState.core.debug
-    }
-
-    return false
-  }
-
   // eslint-disable-next-line class-methods-use-this
-  private set debug(value: boolean) {
-    app.then(({ actions }) => actions.core.setDebug(value))
+  private debug() {
+    app.then(({ actions }) => actions.core.toggleDebug())
   }
 
   private withShell(fun: (shell: WikibusShell, state: State) => void) {

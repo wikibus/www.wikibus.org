@@ -96,9 +96,9 @@ export const services = [
 
 export function Actions(update: (patch: Partial<State> | StateModification) => void) {
   return {
-    setDebug(debug: boolean) {
+    toggleDebug() {
       update({
-        debug,
+        debug: O(debug => !debug),
       })
     },
     setResource(resource: HydraResource) {
