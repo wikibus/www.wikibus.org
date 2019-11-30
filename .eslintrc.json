@@ -3,7 +3,7 @@
   "extends": [
     "@open-wc/eslint-config",
     "eslint-config-prettier",
-    "@zazuko"
+    "@tpluscode"
   ],
   "env": {
     "browser": true
