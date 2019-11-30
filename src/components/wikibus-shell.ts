@@ -1,3 +1,4 @@
+import { IHydraResponse } from 'alcaeus/types/HydraResponse'
 import { customElement } from 'lit-element'
 import AlcaeusLoader from '@hydrofoil/alcaeus-loader'
 import { expand } from '@zazuko/rdf-vocabularies'
@@ -52,12 +53,18 @@ export class WikibusShell extends AlcaeusLoader(CanvasShell) {
       })
   }
 
-  protected async loadResourceInternal(url: string) {
-    const resource = await super.loadResourceInternal(url)
+  protected async onResourceLoaded(resource: IHydraResponse) {
     const { actions } = await app
-    actions.core.setResource(resource)
+    if (resource.root) {
+      actions.core.setResource(resource.root)
+    }
 
-    return resource
+    this.consoleState = {
+      ...this.consoleState,
+      lastResponse: {
+        status: resource.xhr.status,
+      },
+    }
   }
 
   // eslint-disable-next-line class-methods-use-this

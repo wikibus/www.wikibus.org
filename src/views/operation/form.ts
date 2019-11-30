@@ -22,8 +22,6 @@ function invokeOperation(operation: IOperation) {
 }
 
 function renderError(error: string) {
-  import('@lit-element-bootstrap/alert')
-
   return html`
     <bs-alert danger>
       <div slot="message">${error}</div>

@@ -7,7 +7,18 @@ import './canvas-view.ts'
 import './canvas-header.ts'
 import CanvasShellBase from './CanvasShellBase'
 import 'ld-navigation/ld-link'
-import { State } from '../../lib/state'
+
+interface ConsoleState {
+  menu: {
+    items: Record<string, string>
+    current: string
+  }
+  isAuthenticated?: boolean
+  homeEntrypoint: string
+  lastResponse: {
+    status: number
+  }
+}
 
 export class CanvasShell extends CanvasShellBase(
   ReflectedInHistory(ResourceScope(HydrofoilShell)),
@@ -24,7 +35,16 @@ export class CanvasShell extends CanvasShellBase(
   }
 
   @property({ type: Object })
-  public appState?: State
+  public consoleState: ConsoleState = {
+    homeEntrypoint: '',
+    lastResponse: {
+      status: 0,
+    },
+    menu: {
+      current: '',
+      items: {},
+    },
+  }
 
   @property({ type: Boolean })
   private __errorDetailsVisible = false
@@ -32,13 +52,13 @@ export class CanvasShell extends CanvasShellBase(
   protected render() {
     return html`
       <canvas-header
-        .menu="${this.appState ? this.appState.menu.items : {}}"
-        .home="${this.appState ? this.appState.core.homeEntrypoint.id : ''}"
-        .current="${this.appState ? this.appState.menu.current : {}}"
-        .authReady="${this.appState && typeof this.appState.auth.isAuthenticated === 'boolean'}"
+        .menu="${this.consoleState.menu.items}"
+        .home="${this.consoleState.homeEntrypoint}"
+        .current="${this.consoleState.menu.current}"
+        .authReady="${typeof this.consoleState.isAuthenticated !== 'undefined'}"
       >
         <canvas-view
-          .value="${this.appState}"
+          .value="${this.model}"
           template-scope="profile-menu"
           slot="profile-menu"
           ignore-missing
@@ -46,7 +66,11 @@ export class CanvasShell extends CanvasShellBase(
       </canvas-header>
 
       <section id="content">
-        ${super.render()}
+        ${this.isLoading
+          ? html`
+              <slot></slot>
+            `
+          : super.render()}
       </section>
 
       <canvas-footer></canvas-footer>
@@ -58,7 +82,7 @@ export class CanvasShell extends CanvasShellBase(
   protected renderMain() {
     return html`
       <canvas-view
-        .value="${this.appState}"
+        .value="${this.model}"
         ignore-missing
         template-scope="hydrofoil-shell"
       ></canvas-view>
@@ -73,7 +97,7 @@ export class CanvasShell extends CanvasShellBase(
         <div class="content-wrap">
           <div class="container clearfix">
             <div class="col_half nobottommargin">
-              <div class="error404 center">500</div>
+              <div class="error404 center">${this.consoleState.lastResponse.status}</div>
             </div>
             <div class="col_half nobottommargin col_last">
               <div class="heading-block nobottomborder">
@@ -102,14 +126,19 @@ export class CanvasShell extends CanvasShellBase(
   }
 
   protected updated(_changedProperties: Map<PropertyKey, unknown>): void {
-    if (this.isLoading === true) {
-      SEMICOLON.initialize.pageTransition()
-    } else {
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
-      const self = this
-      this.$('.page-transition-wrap').fadeOut('400', function() {
-        self.$(this).remove()
-      })
+    if (_changedProperties.has('consoleState')) {
+      if (this.consoleState.lastResponse.status >= 400) {
+        this.state = 'error'
+      }
+    }
+
+    if (_changedProperties.has('lastError')) {
+      this.consoleState = {
+        ...this.consoleState,
+        lastResponse: {
+          status: 500,
+        },
+      }
     }
   }
 
