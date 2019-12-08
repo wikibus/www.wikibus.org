@@ -23,6 +23,7 @@
     "test:compatibility": "karma start --compatibility all --coverage",
     "test:compatibility:watch": "karma start --compatibility all --auto-watch=true --single-run=false",
     "test:bs": "karma start karma.bs.config.js --compatibility all --coverage",
+    "prestart": "npm rebuild node-sass",
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
     "release": "standard-version"
