@@ -23,6 +23,7 @@ export const Pinterest = html`
   ${unsafeHTML(SimplePinterest.svg)}
 `
 export const Box = wrap(icons.Box)
+export const Instagram = wrap(icons.Instagram)
 export const FileText = wrap(icons.FileText)
 export const Layers = wrap(icons.Layers)
 export const MoreHorizontal = wrap(icons.MoreHorizontal)
