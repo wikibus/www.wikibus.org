@@ -37,7 +37,7 @@
     "@lit-any/views": "^0.9.5",
     "@lit-element-bootstrap/button": "^1.0.0-alpha.7",
     "@lit-element-bootstrap/dropdown": "^1.0.0-alpha.4",
-    "@lit-element-bootstrap/modal": "^1.0.0-alpha.6",
+    "@lit-element-bootstrap/modal": "^1.0.0-alpha.7",
     "@polymer/iron-dropdown": "^3.0.1",
     "@vaadin/vaadin-context-menu": "^4.3.13",
     "@zazuko/rdf-vocabularies": "^2019.9.24",
