@@ -1,7 +1,7 @@
 import { HydraResource } from 'alcaeus/types/Resources'
 import { expand } from '@zazuko/rdf-vocabularies'
 
-export interface Image {
+export interface Image extends HydraResource {
   thumbnail: Image | null
   contentUrl: string
 }

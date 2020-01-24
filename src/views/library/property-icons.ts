@@ -34,4 +34,14 @@ ViewTemplates.default.when
   .valueMatches(supportedProperty('wba:magazines'))
   .renders(renderIcon(Layers))
 
+ViewTemplates.default.when
+  .scopeMatches(propertyIcon)
+  .valueMatches(supportedProperty('wba:library'))
+  .renders(renderIcon(BookOpen))
+
+ViewTemplates.default.when
+  .scopeMatches(propertyIcon)
+  .valueMatches(supportedProperty('wba:dataSheets'))
+  .renders(renderIcon(FileText))
+
 ViewTemplates.default.when.scopeMatches(propertyIcon).renders(renderIcon(Box))

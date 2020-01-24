@@ -10,7 +10,8 @@ import './sidebar.ts'
 
 function mapMember(resource: HydraResource) {
   return {
-    image: resource.image,
+    image:
+      resource[expand('schema:primaryImageOfPage')] || resource.getArray(expand('schema:image'))[0],
     title: resource.title || resource[expand('dcterms:title')] || 'Item',
     id: resource.id,
   } as any

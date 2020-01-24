@@ -1,16 +1,23 @@
-import { customElement, html, LitElement, property, queryAll } from 'lit-element'
+import { customElement, html, LitElement, property, queryAll, css } from 'lit-element'
 import { repeat } from 'lit-html/directives/repeat'
+import { render } from 'lit-html'
 import { ifDefined } from 'lit-html/directives/if-defined'
+import { IOperation } from 'alcaeus/types/Resources'
 import CanvasShellBase from './CanvasShellBase'
 import { Image } from '../../lib/types/Image'
+import CanvasLightboxMixin from './CanvasLightboxMixin'
+import { operationList } from '../../views/scopes'
 
 @customElement('canvas-fslider')
-export class CanvasFslider extends CanvasShellBase(LitElement) {
+export class CanvasFslider extends CanvasLightboxMixin(CanvasShellBase(LitElement)) {
   @queryAll('.flexslider')
   private __flexslider?: HTMLDivElement[]
 
   @property({ type: Array })
   public images: Image[] = []
+
+  @property({ type: Object })
+  public primaryImage: Image | null = null
 
   @property()
   public animation = 'slide'
@@ -54,11 +61,47 @@ export class CanvasFslider extends CanvasShellBase(LitElement) {
   @property({ type: Boolean })
   public thumbs = true
 
+  @property({ type: Array })
+  private __menuOperations: IOperation[] = []
+
+  public static get styles() {
+    return [
+      super.styles || [],
+      css`
+        .flexslider {
+          height: auto !important;
+        }
+      `,
+    ]
+  }
+
+  public connectedCallback() {
+    if (super.connectedCallback) super.connectedCallback()
+
+    import('@vaadin/vaadin-context-menu')
+  }
+
   protected firstUpdated(): void {
+    this.__resetSlider()
+  }
+
+  protected updated(_changedProperties: Map<PropertyKey, unknown>) {
+    if (_changedProperties.has('images')) {
+      const thumbs = this.renderRoot.querySelector('ol.flex-control-thumbs')
+      if (thumbs) {
+        thumbs.remove()
+      }
+      this.__resetSlider()
+    }
+  }
+
+  private __resetSlider() {
     const $flexSliderEl = this.$(this.renderRoot).find('.flexslider')
+    this._initLightbox()
     if ($flexSliderEl.length > 0) {
       $flexSliderEl.each((i, e) => {
         const $flexsSlider = this.$(e) as any
+        $flexsSlider.removeData('flexslider')
         $flexsSlider.flexslider({
           selector: '.slider-wrap > .slide',
           animation: this.animation,
@@ -80,7 +123,6 @@ export class CanvasFslider extends CanvasShellBase(LitElement) {
             // SEMICOLON.initialize.verticalMiddle()
             slider.parent().removeClass('preloader2')
             // const t = setTimeout(() => { $('.grid-container').isotope('layout') }, 1200)
-            // SEMICOLON.initialize.lightbox()
             // $('.flex-prev').html('<i class="icon-angle-left"></i>')
             // $('.flex-next').html('<i class="icon-angle-right"></i>')
             // SEMICOLON.portfolio.portfolioDescMargin()
@@ -101,11 +143,13 @@ export class CanvasFslider extends CanvasShellBase(LitElement) {
 
   protected render() {
     return html`
-      <div class="flexslider">
-        <div class="slider-wrap">
-          ${repeat(this.images, CanvasFslider.__slide)}
+      <vaadin-context-menu .renderer="${CanvasFslider.__contextMenu}">
+        <div class="flexslider">
+          <div class="slider-wrap" data-lightbox="gallery">
+            ${repeat(this.images, CanvasFslider.__slide)}
+          </div>
         </div>
-      </div>
+      </vaadin-context-menu>
     `
   }
 
@@ -114,8 +158,26 @@ export class CanvasFslider extends CanvasShellBase(LitElement) {
 
     return html`
       <div class="slide" data-thumb="${ifDefined(thumbnailUrl)}">
-        <a href="javascript:void(0)"><img src="${image.contentUrl}" alt=""/></a>
+        <a data-lightbox="gallery-item" href="${image.contentUrl}"
+          ><img src="${image.contentUrl}" alt="" ._image="${image}"
+        /></a>
       </div>
     `
+  }
+
+  private static __contextMenu(
+    root: Element,
+    contextMenu: Element,
+    context: { target: { _image: Image } },
+  ) {
+    render(
+      html`
+        <canvas-view
+          .templateScope="${operationList}"
+          .value="${context.target._image}"
+        ></canvas-view>
+      `,
+      root,
+    )
   }
 }

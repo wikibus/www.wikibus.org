@@ -2,6 +2,8 @@ import { HydraResource, IOperation, SupportedProperty } from 'alcaeus/types/Reso
 import { Hydra } from 'alcaeus'
 import O from 'patchinko/immutable'
 import { IHydraResponse } from 'alcaeus/types/HydraResponse'
+import { getRequestBody } from '../hydra/operation'
+import { ServiceParams } from './index'
 
 type StateModification = (s: State) => State | Promise<State>
 
@@ -20,6 +22,8 @@ export interface State<T extends HydraResource | null = HydraResource | null> {
   resourceUrlOverride: string | null
   homeEntrypoint: HydraResource
   operationForm: OperationFormState
+  requestRefresh?: boolean
+  isLoading: boolean
 }
 
 export async function Initial(): Promise<State> {
@@ -46,6 +50,7 @@ export async function Initial(): Promise<State> {
   return {
     debug: false,
     entrypoints,
+    isLoading: false,
     resource: null,
     resourceUrlOverride: null,
     homeEntrypoint: response.root,
@@ -56,11 +61,44 @@ export async function Initial(): Promise<State> {
   }
 }
 
+export const services = [
+  async ({ state, update }: ServiceParams) => {
+    if (state.core.requestRefresh) {
+      update({
+        core: O<State>({
+          requestRefresh: false,
+          isLoading: true,
+        }),
+      })
+
+      if (state.core.resource) {
+        state.core.resource
+          .load()
+          .then(resource => {
+            update({
+              core: O<State>({
+                resource: resource.root,
+                isLoading: false,
+              }),
+            })
+          })
+          .catch(() => {
+            update({
+              core: O<State>({
+                isLoading: false,
+              }),
+            })
+          })
+      }
+    }
+  },
+]
+
 export function Actions(update: (patch: Partial<State> | StateModification) => void) {
   return {
-    setDebug(debug: boolean) {
+    toggleDebug() {
       update({
-        debug,
+        debug: O(debug => !debug),
       })
     },
     setResource(resource: HydraResource) {
@@ -101,17 +139,27 @@ export function Actions(update: (patch: Partial<State> | StateModification) => v
         }),
       })
 
+      const body = getRequestBody(operation, value)
       return operation
-        .invoke(JSON.stringify(value))
+        .invoke(body)
         .then(response => {
           if (response.xhr.ok) {
             update({
               operationForm: O<OperationFormState>({
                 opened: false,
               }),
-              resource: response.root,
-              resourceUrlOverride: response.root && response.root.id,
             })
+
+            if (response.root) {
+              update({
+                resource: response.root,
+                resourceUrlOverride: response.root.id,
+              })
+            } else {
+              update({
+                requestRefresh: true,
+              })
+            }
           }
 
           update({

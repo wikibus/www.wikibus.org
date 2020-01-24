@@ -1,17 +1,21 @@
 import O from 'patchinko/immutable'
 import { expand } from '@zazuko/rdf-vocabularies'
+import { DocumentedResource } from 'alcaeus/types/Resources'
 import { onChange, State } from '../index'
 
 const populateMenu = onChange(
   state => state.core.homeEntrypoint,
   state => {
-    const menu = state.core.homeEntrypoint.getLinks().reduce(
-      (map, { supportedProperty, resources }) => ({
-        ...map,
-        [supportedProperty.title]: resources[0].id,
-      }),
-      {},
-    )
+    const menu = state.core.homeEntrypoint
+      .getLinks()
+      .reduce((map, { supportedProperty, resources }) => {
+        const resource = resources[0] as DocumentedResource
+
+        return {
+          ...map,
+          [resource.title || supportedProperty.title]: resources[0].id,
+        }
+      }, {})
 
     return {
       menu: O<typeof state.menu>({

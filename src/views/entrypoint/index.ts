@@ -1,5 +1,5 @@
 import { ViewTemplates } from '@lit-any/views'
-import { HydraResource, SupportedProperty } from 'alcaeus/types/Resources'
+import { DocumentedResource, HydraResource, SupportedProperty } from 'alcaeus/types/Resources'
 import { IResource } from 'alcaeus/types/Resources/Resource'
 import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
@@ -27,22 +27,23 @@ ViewTemplates.default.when
 
     return html`
       <div class="container clearfix">
-        ${repeat(
-          links,
-          (link, index) => html`
+        ${repeat(links, (link, index) => {
+          const resource = link.resource as DocumentedResource
+
+          return html`
             <canvas-featured-box
               center
               effect
               outline
               class="col_one_third ${index % 3 === 2 ? 'col_last' : ''}"
-              .title="${link.supportedProperty.title}"
-              .description="${link.supportedProperty.description}"
+              .title="${resource.title || link.supportedProperty.title}"
+              .description="${resource.description || link.supportedProperty.description}"
               .resourceUrl="${link.resource.id}"
             >
               ${next(link.supportedProperty, propertyIcon)}
             </canvas-featured-box>
-          `,
-        )}
+          `
+        })}
       </div>
     `
   })

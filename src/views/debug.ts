@@ -8,7 +8,7 @@ function getReplacer() {
   const uris = new Map<string, number>()
 
   return function replacer(i: string, v: string | HydraResource) {
-    if (typeof v === 'object') {
+    if (typeof v === 'object' && !Array.isArray(v)) {
       if (uris.has(v.id)) {
         return {
           '@id': v.id,

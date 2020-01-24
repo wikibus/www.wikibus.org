@@ -14,9 +14,11 @@ ViewTemplates.default.when
         return brochure.title
       },
       images(brochure) {
-        return brochure.image ? [brochure.image] : []
+        return brochure.images
       },
       heading: 'About this brochure',
-      excludedProperties: ['schema:image'],
+      primaryImage(brochure) {
+        return brochure.primaryImage
+      },
     }),
   )

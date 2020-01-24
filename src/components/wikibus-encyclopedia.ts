@@ -1,4 +1,4 @@
-import { LitElement, html, query, property } from 'lit-element'
+import { LitElement, html, query } from 'lit-element'
 import './wikibus-shell.ts'
 import { WikibusShell } from './wikibus-shell'
 import '../views/index.ts'
@@ -32,7 +32,17 @@ export default class WikibusEncyclopedia extends LitElement {
     states.map(
       this.withShell((shell, state) => {
         // eslint-disable-next-line no-param-reassign
-        shell.appState = state
+        shell.model = state
+        // eslint-disable-next-line no-param-reassign
+        shell.isLoading = state.core.isLoading
+
+        // eslint-disable-next-line no-param-reassign
+        shell.consoleState = {
+          ...shell.consoleState,
+          menu: state.menu,
+          isAuthenticated: state.auth.isAuthenticated,
+          homeEntrypoint: state.core.homeEntrypoint.id,
+        }
       }),
     )
   }
@@ -53,18 +63,9 @@ export default class WikibusEncyclopedia extends LitElement {
     `
   }
 
-  @property({ type: Boolean })
-  private get debug() {
-    if (this.__shell && this.__shell.appState) {
-      return this.__shell.appState.core.debug
-    }
-
-    return false
-  }
-
   // eslint-disable-next-line class-methods-use-this
-  private set debug(value: boolean) {
-    app.then(({ actions }) => actions.core.setDebug(value))
+  private debug() {
+    app.then(({ actions }) => actions.core.toggleDebug())
   }
 
   private withShell(fun: (shell: WikibusShell, state: State) => void) {

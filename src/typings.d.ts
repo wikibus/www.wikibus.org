@@ -16,3 +16,4 @@ declare module '@lit-element-bootstrap/button/bs-button-mixin.js' {
   type ReturnConstructor = new (...args: any[]) => LitElement & DropdownButton
   export function BsButtonMixin<B extends Constructor>(Base: B): B & ReturnConstructor
 }
+declare module '@vaadin/vaadin-context-menu'

@@ -29,7 +29,7 @@ const appMeiosis = {
     }
   },
   acceptors: [...pageTitle.acceptors, ...menu.acceptors, ...gallery.acceptors, ...auth.acceptors],
-  services: [...auth.services],
+  services: [...auth.services, ...core.services],
 }
 
 const setup = meiosisPatchinko<State, ReturnType<typeof appMeiosis.Actions>>({
