@@ -24,8 +24,12 @@ ViewTemplates.default.when
         pair =>
           html`
             <li>
-              <span>${pair.supportedProperty.title}:</span> ${repeat(pair.objects, o =>
-                next(o, 'portfolio-property'),
+              <span>${pair.supportedProperty.title}:</span> ${repeat(
+                pair.objects,
+                (o, index) =>
+                  html`
+                    ${next(o, 'portfolio-property')}${index < pair.objects.length - 1 ? ', ' : ''}
+                  `,
               )}
             </li>
           `,
