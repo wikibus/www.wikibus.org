@@ -69,7 +69,7 @@
     "@types/jquery": "^3.3.31",
     "@types/once": "^1.4.0",
     "@types/mergerino": "^0.4.0",
-    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.6.0",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
