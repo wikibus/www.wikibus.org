@@ -5,6 +5,7 @@
 
 [build.environment]
   API_ROOT = "https://wikibus-bff-staging.herokuapp.com/"
+  AUTH0_CLIENT_ID = "A4j5Tdmq1zskLpmawVgB6OABUQr4A9fu"
 
 [context.develop.environment]
   AUTH0_CLIENT_ID = "A4j5Tdmq1zskLpmawVgB6OABUQr4A9fu"
