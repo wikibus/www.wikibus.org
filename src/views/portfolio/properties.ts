@@ -41,8 +41,8 @@ ViewTemplates.default.when
     if (!matches) return ''
 
     const countryCode = matches[1]
-    const languagesLoaded = import('iso-language-codes').then(
-      codes => codes.by639_1[countryCode].nativeName,
+    const languagesLoaded = import('iso-639-1').then(codes =>
+      codes.default.getNativeName(countryCode),
     )
 
     return html`

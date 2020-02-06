@@ -25,7 +25,8 @@
     "test:bs": "karma start karma.bs.config.js --compatibility all --coverage",
     "prestart": "npm rebuild node-sass",
     "start": "webpack-dev-server --mode development",
-    "build": "webpack --mode production",
+    "build": "npm run build:style; webpack --mode production",
+    "build:style": "node-sass src/style.scss > src/style.css",
     "release": "standard-version"
   },
   "dependencies": {
@@ -44,7 +45,8 @@
     "alcaeus": "^0.10.3",
     "feather-icon-literals": "^1.0.0-rc.8",
     "flyd": "^0.2.8",
-    "iso-language-codes": "^1.0.5",
+    "multiselect-combo-box": "^2.2.0",
+    "iso-639-1": "^2.1.0",
     "ld-navigation": "^1.1.1",
     "lit-element": "^2.2.1",
     "lit-html": "^1.1.2",
@@ -78,7 +80,7 @@
     "eslint-plugin-lit": "^1.2.0",
     "husky": "^4.2.1",
     "lint-staged": "^8.0.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "raw-loader": "^3.1.0",
     "sass-loader": "^7.3.1",
     "standard": "^13.1.0",
