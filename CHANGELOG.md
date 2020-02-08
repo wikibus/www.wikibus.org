@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/wikibus/www.wikibus.org/compare/v0.1.1...v0.1.2) (2020-02-08)
+
+
+### Features
+
+* first version of languages form field ([4d54fa8](https://github.com/wikibus/www.wikibus.org/commit/4d54fa84dd9193d7b6024b35d9e9689c4718c0da))
+
+
+### Bug Fixes
+
+* add separator between multiple values ([c25edab](https://github.com/wikibus/www.wikibus.org/commit/c25edab176cce3e17ba1a396252eb377394ea96e))
+* enable form labels ([68f9f14](https://github.com/wikibus/www.wikibus.org/commit/68f9f146d32dd051277abf3bf35bed33c8a8fdef))
+
 ### 0.1.1 (2020-01-24)
 
 
