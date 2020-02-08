@@ -59,7 +59,6 @@ ViewTemplates.default.when.scopeMatches(formElement).renders((op: OperationFormS
 
   return html`
     <canvas-operation-form
-      no-labels
       no-legend
       no-shadow
       ?no-submit-button="${op.invoking}"
