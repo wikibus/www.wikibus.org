@@ -4,10 +4,6 @@ import buttonFactory from '@lit-any/forms/lib/components/button'
 import textboxFactory from '@lit-any/forms/lib/components/textbox'
 
 export const textbox = textboxFactory(() => (f, id, v, set) => html`
-  <label for="template-contactform-name">
-    ${f.title}
-    <small class="text-danger" ?hidden="${!f.required}">*</small>
-  </label>
   <input
     type="text"
     id="${id}"
