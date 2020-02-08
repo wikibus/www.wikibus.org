@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/wikibus/www.wikibus.org/compare/v0.1.2...v0.1.3) (2020-02-08)
+
+
+### Bug Fixes
+
+* remove multiselect combo label ([ed5cbef](https://github.com/wikibus/www.wikibus.org/commit/ed5cbef2c8028e07b617847552327cf47c51a875))
+
 ### [0.1.2](https://github.com/wikibus/www.wikibus.org/compare/v0.1.1...v0.1.2) (2020-02-08)
 
 
