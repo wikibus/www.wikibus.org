@@ -28,7 +28,6 @@ FieldTemplates.default.when
 
       return html`
         <multiselect-combo-box
-          label="${f.title}"
           .items="${c}"
           .selectedItems="${selectedItems}"
           item-id-path="@id"
