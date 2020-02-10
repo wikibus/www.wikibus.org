@@ -41,7 +41,7 @@
     "@lit-element-bootstrap/modal": "^1.0.0-alpha.7",
     "@polymer/iron-dropdown": "^3.0.1",
     "@vaadin/vaadin-context-menu": "^4.3.13",
-    "@zazuko/rdf-vocabularies": "^2019.9.24",
+    "@zazuko/rdf-vocabularies": "^2020.2.3",
     "alcaeus": "^0.10.5",
     "feather-icon-literals": "^1.0.0-rc.8",
     "flyd": "^0.2.8",
