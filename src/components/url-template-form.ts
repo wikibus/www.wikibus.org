@@ -26,7 +26,6 @@ export default class UrlTemplateForm extends CanvasShellBase(LitForm) {
   public constructor() {
     super()
 
-    this.noLabels = true
     this.noResetButton = true
     this.submitButtonLabel = 'Filter'
     this.addEventListener('submit', this.submit.bind(this))
