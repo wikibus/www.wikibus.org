@@ -62,7 +62,7 @@
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.3.4",
     "@open-wc/building-webpack": "^2.1.0",
-    "@open-wc/eslint-config": "^1.0.0",
+    "@open-wc/eslint-config": "^2.0.3",
     "@open-wc/prettier-config": "^0.1.10",
     "@open-wc/testing": "^0.11.1",
     "@open-wc/testing-karma": "^3.2.42",
