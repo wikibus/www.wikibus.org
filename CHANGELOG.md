@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/wikibus/www.wikibus.org/compare/v0.1.3...v0.1.4) (2020-02-11)
+
+
+### Bug Fixes
+
+* display all languages in dropdown ([12249d3](https://github.com/wikibus/www.wikibus.org/commit/12249d34f868c97b6c938313167cb45f03b36a03))
+* enable labels on search form ([e930e12](https://github.com/wikibus/www.wikibus.org/commit/e930e1201376d7db302caa98638deb6039c13908))
+
 ### [0.1.3](https://github.com/wikibus/www.wikibus.org/compare/v0.1.2...v0.1.3) (2020-02-08)
 
 
