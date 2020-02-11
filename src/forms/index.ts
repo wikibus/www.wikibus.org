@@ -12,12 +12,10 @@ FieldTemplates.default.when
     import('multiselect-combo-box/multiselect-combo-box')
 
     const languagesLoaded = import('iso-639-1').then(codes => {
-      const c = codes.default
-        .getLanguages(['en', 'de', 'ru', 'fr', 'cs', 'hu', 'sv', 'fi'])
-        .map(l => ({
-          ...l,
-          '@id': `http://lexvo.org/id/iso639-1/${l.code}`,
-        }))
+      const c = codes.default.getLanguages(codes.default.getAllCodes()).map(l => ({
+        ...l,
+        '@id': `http://lexvo.org/id/iso639-1/${l.code}`,
+      }))
 
       let selectedItems: Array<any>
       if (v) {
