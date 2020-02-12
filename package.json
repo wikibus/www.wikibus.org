@@ -36,7 +36,7 @@
     "@hydrofoil/hydrofoil-shell": "^0.3.2",
     "@lit-any/forms": "^0.12.1",
     "@lit-any/views": "^0.9.5",
-    "@lit-element-bootstrap/button": "^1.0.0-alpha.7",
+    "@lit-element-bootstrap/button": "^1.0.0",
     "@lit-element-bootstrap/dropdown": "^1.0.0-alpha.4",
     "@lit-element-bootstrap/modal": "^1.0.0-alpha.7",
     "@polymer/iron-dropdown": "^3.0.1",
