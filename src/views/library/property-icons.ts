@@ -4,6 +4,7 @@ import { html } from 'lit-html'
 import { RenderFunc } from '@lit-any/views/lib'
 import { supportedProperty } from '../matchers'
 import { BookOpen, Box, FileText, Layers, IconFunction } from '../../components/icons'
+import { wba } from '../../lib/ns'
 
 export const propertyIcon = 'property-icon'
 const defaultSize = 50
@@ -21,27 +22,27 @@ function renderIcon(icon: IconFunction): RenderFunc {
 
 ViewTemplates.default.when
   .scopeMatches(propertyIcon)
-  .valueMatches(supportedProperty('wba:books'))
+  .valueMatches(supportedProperty(wba.books))
   .renders(renderIcon(BookOpen))
 
 ViewTemplates.default.when
   .scopeMatches(propertyIcon)
-  .valueMatches(supportedProperty('wba:brochures'))
+  .valueMatches(supportedProperty(wba.brochures))
   .renders(renderIcon(FileText))
 
 ViewTemplates.default.when
   .scopeMatches(propertyIcon)
-  .valueMatches(supportedProperty('wba:magazines'))
+  .valueMatches(supportedProperty(wba.magazines))
   .renders(renderIcon(Layers))
 
 ViewTemplates.default.when
   .scopeMatches(propertyIcon)
-  .valueMatches(supportedProperty('wba:library'))
+  .valueMatches(supportedProperty(wba.library))
   .renders(renderIcon(BookOpen))
 
 ViewTemplates.default.when
   .scopeMatches(propertyIcon)
-  .valueMatches(supportedProperty('wba:dataSheets'))
+  .valueMatches(supportedProperty(wba.dataSheets))
   .renders(renderIcon(FileText))
 
 ViewTemplates.default.when.scopeMatches(propertyIcon).renders(renderIcon(Box))

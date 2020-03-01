@@ -1,16 +1,15 @@
 import { IHydraResponse } from 'alcaeus/types/HydraResponse'
 import { customElement } from 'lit-element'
 import AlcaeusLoader from '@hydrofoil/alcaeus-loader'
-import { expand } from '@zazuko/rdf-vocabularies'
 import { StateMapper } from 'ld-navigation'
 import { CanvasShell } from './canvas-shell'
 import { WikibusStateMapper } from '../lib/WikibusStateMapper'
 import { app } from '../lib/state'
-import '../lib/ns'
+import { wba } from '../lib/ns'
 import { State } from '../lib/state/core'
 
 const knownApis = new Map<string, string>()
-knownApis.set(expand('wba:library'), 'library')
+knownApis.set(wba.library.value, 'library')
 
 function getKnownApis(state: State): Record<string, string> {
   return [...state.entrypoints.entries()].reduce(

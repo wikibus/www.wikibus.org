@@ -1,5 +1,5 @@
 import { HydraResource } from 'alcaeus/types/Resources'
-import { expand } from '@zazuko/rdf-vocabularies'
+import { schema } from '@tpluscode/rdf-ns-builders'
 
 export interface Image extends HydraResource {
   thumbnail: Image | null
@@ -11,13 +11,13 @@ type Constructor<T = {}> = new (...args: any[]) => HydraResource
 export function Mixin<B extends Constructor>(Base: B) {
   return class extends Base implements Image {
     public get contentUrl() {
-      return this.get<string>(expand('schema:contentUrl')) || ''
+      return this.get<string>(schema.contentUrl.value) || ''
     }
 
     public get thumbnail() {
-      return this.get<Image>(expand('schema:thumbnail'))
+      return this.get<Image>(schema.thumbnail.value)
     }
   }
 }
 
-export const shouldApply = (r: HydraResource) => r.get(expand('schema:contentUrl'))
+export const shouldApply = (r: HydraResource) => r.get(schema.contentUrl.value)

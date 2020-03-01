@@ -1,8 +1,9 @@
 import { html } from 'lit-html'
 import { RenderFunc } from '@lit-any/views/lib'
+import { schema } from '@tpluscode/rdf-ns-builders'
 import { HydraResource } from 'alcaeus/types/Resources'
 import { Image } from '../../lib/types/Image'
-import { operationSelector } from '../scopes'
+import * as scope from '../scopes'
 
 interface Options<T> {
   heading: string
@@ -11,12 +12,17 @@ interface Options<T> {
   primaryImage(resource: T): Image | null
 }
 
+const excludes = [schema.associatedMedia.value]
+
 export function portfolioSingleGallery<T extends HydraResource>(options: Options<T>): RenderFunc {
   return (resource: T, next) => {
-    const except = resource
-      .getProperties()
-      .filter(prop => !prop.supportedProperty.readable)
-      .map(prop => prop.supportedProperty.property.id)
+    const except = [
+      ...excludes,
+      ...resource
+        .getProperties()
+        .filter(prop => !prop.supportedProperty.readable)
+        .map(prop => prop.supportedProperty.property.id),
+    ]
 
     return html`
       <div class="container clearfix">
@@ -31,14 +37,16 @@ export function portfolioSingleGallery<T extends HydraResource>(options: Options
         </div>
 
         <div class="col_one_third portfolio-single-content col_last nobottommargin">
-          ${next(resource, operationSelector)}
+          ${next(resource, scope.operationSelector)}
           <div class="fancy-title title-bottom-border">
             <h2>${options.heading}</h2>
           </div>
 
           <ul class="portfolio-meta bottommargin">
-            ${next(resource, 'portfolio-properties', { except })}
+            ${next(resource, scope.portfolioProperties, { except })}
           </ul>
+
+          ${next(resource, scope.portfolioSpecializedProperties, { except })}
         </div>
 
         <div class="clear"></div>

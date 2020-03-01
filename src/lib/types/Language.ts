@@ -1,6 +1,6 @@
-import { prefixes } from '@zazuko/rdf-vocabularies'
 import { HydraResource } from 'alcaeus/types/Resources'
 import codes from 'iso-639-1'
+import { langIso } from '../ns'
 
 type Constructor<T = {}> = new (...args: any[]) => HydraResource
 
@@ -21,4 +21,4 @@ export function Mixin<B extends Constructor>(Base: B) {
   }
 }
 
-export const shouldApply = (r: HydraResource) => r.id.startsWith(prefixes.langIso)
+export const shouldApply = (r: HydraResource) => r.id.startsWith(langIso().value)
