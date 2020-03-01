@@ -4,14 +4,15 @@ import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
 import { IResource } from 'alcaeus/types/Resources/Resource'
 import { until } from 'lit-html/directives/until'
-import { expand } from '@zazuko/rdf-vocabularies'
+import { schema } from '@tpluscode/rdf-ns-builders'
+import { portfolioProperties, portfolioProperty } from '../scopes'
 
 interface PropertiesOptions {
   except?: string[]
 }
 
 ViewTemplates.default.when
-  .scopeMatches('portfolio-properties')
+  .scopeMatches(portfolioProperties)
   .renders((res: HydraResource, next, scope, params: PropertiesOptions = { except: [] }) => {
     const properties = res
       .getProperties()
@@ -28,7 +29,7 @@ ViewTemplates.default.when
                 pair.objects,
                 (o, index) =>
                   html`
-                    ${next(o, 'portfolio-property')}${index < pair.objects.length - 1 ? ', ' : ''}
+                    ${next(o, portfolioProperty)}${index < pair.objects.length - 1 ? ', ' : ''}
                   `,
               )}
             </li>
@@ -38,7 +39,7 @@ ViewTemplates.default.when
   })
 
 ViewTemplates.default.when
-  .scopeMatches('portfolio-property')
+  .scopeMatches(portfolioProperty)
   .valueMatches((v: IResource) => typeof v === 'object' && /lexvo/.test(v.id))
   .renders(v => {
     const matches = /\/(\w+)$/[Symbol.match](v.id)
@@ -55,16 +56,16 @@ ViewTemplates.default.when
   })
 
 ViewTemplates.default.when
-  .scopeMatches('portfolio-property')
-  .valueMatches((v: IResource) => typeof v === 'object' && expand('schema:name') in v)
+  .scopeMatches(portfolioProperty)
+  .valueMatches((v: IResource) => typeof v === 'object' && schema.name.value in v)
   .renders(
     v =>
       html`
-        ${v[expand('schema:name')]}
+        ${v[schema.name.value]}
       `,
   )
 
-ViewTemplates.default.when.scopeMatches('portfolio-property').renders(
+ViewTemplates.default.when.scopeMatches(portfolioProperty).renders(
   v =>
     html`
       ${v}

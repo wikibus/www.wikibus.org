@@ -1,10 +1,15 @@
 import { IOperation } from 'alcaeus/types/Resources'
-import { expand } from '@zazuko/rdf-vocabularies'
+import { schema } from '@tpluscode/rdf-ns-builders'
 
 export function getRequestBody(operation: IOperation, formValue: any) {
   const fileProperties = operation.expects.supportedProperties
     .filter(sp => sp.writable)
-    .filter(sp => sp.property.range && sp.property.range.id === expand('schema:ImageObject'))
+    .filter(
+      sp =>
+        sp.property.range &&
+        (sp.property.range.id === schema.ImageObject.value ||
+          sp.property.range.id === schema.MediaObject.value),
+    )
     .map(sp => sp.property)
 
   if (fileProperties.length === 0) {

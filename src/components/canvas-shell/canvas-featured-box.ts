@@ -1,4 +1,4 @@
-import { customElement, html, LitElement, property } from 'lit-element'
+import { customElement, html, LitElement, property, css } from 'lit-element'
 import 'ld-navigation/ld-link'
 import CanvasShellBase from './CanvasShellBase'
 import { Box } from '../icons'
@@ -29,7 +29,37 @@ export class CanvasFeaturedBox extends CanvasShellBase(LitElement) {
   @property({ type: String })
   public resourceUrl?: string
 
+  @property({ type: String })
+  public href = ''
+
+  public static get styles() {
+    return [
+      super.styles || [],
+      css`
+        .feature-box:not(.fbox-center) slot#icon::slotted(*) {
+          position: relative;
+          top: -5px;
+          height: 45px;
+        }
+      `,
+    ]
+  }
+
   public render() {
+    let link = html`
+      <a href="${this.href}" target="_blank"
+        ><i><slot id="icon">${Box(50)}</slot></i></a
+      >
+    `
+
+    if (this.resourceUrl) {
+      link = html`
+        <ld-link resource-url="${this.resourceUrl}">
+          ${link}
+        </ld-link>
+      `
+    }
+
     return html`
       <div
         class="feature-box ${this.center ? 'fbox-center' : ''} ${this.outline
@@ -39,14 +69,10 @@ export class CanvasFeaturedBox extends CanvasShellBase(LitElement) {
           : ''}"
       >
         <div class="fbox-icon">
-          <ld-link resource-url="${this.resourceUrl}">
-            <a href="javascript:void(0)"
-              ><i><slot>${Box(50)}</slot></i></a
-            >
-          </ld-link>
+          ${link}
         </div>
         <h3>${this.title}</h3>
-        <p>${this.description}</p>
+        <slot name="description"><p>${this.description}</p></slot>
       </div>
     `
   }

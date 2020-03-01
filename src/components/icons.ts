@@ -1,5 +1,6 @@
 import * as icons from 'feather-icon-literals'
 import SimplePinterest from 'simple-icons/icons/pinterest'
+import SimplePdf from 'simple-icons/icons/adobeacrobatreader'
 import { html, TemplateResult } from 'lit-element'
 import { unsafeHTML } from 'lit-html/directives/unsafe-html'
 
@@ -34,3 +35,6 @@ export const Clock = wrap(icons.Clock)
 export const CornerRightDown = wrap(icons.CornerRightDown)
 export const User = wrap(icons.User)
 export const Loader = wrap(icons.Loader)
+export const Pdf = html`
+  ${unsafeHTML(SimplePdf.svg)}
+`

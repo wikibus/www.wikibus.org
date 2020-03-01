@@ -1,5 +1,5 @@
 import { ViewTemplates } from '@lit-any/views'
-import { expand } from '@zazuko/rdf-vocabularies'
+import { hydra, schema } from '@tpluscode/rdf-ns-builders'
 import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
 import { HydraResource, IOperation } from 'alcaeus/types/Resources'
@@ -23,7 +23,7 @@ function openOperationForm(op: OperationTriggerModel) {
 function findOperations(resource: HydraResource) {
   return resource
     .findOperationsDeep({
-      excludedProperties: [expand('hydra:member'), expand('schema:image')],
+      excludedProperties: [hydra.member.value, schema.image.value],
     })
     .filter(op => !op.target.isAnonymous)
 }
