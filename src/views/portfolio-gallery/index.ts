@@ -1,7 +1,7 @@
 import { ViewTemplates } from '@lit-any/views'
 import { Collection, HydraResource } from 'alcaeus/types/Resources'
 import { html } from 'lit-html'
-import { expand } from '@zazuko/rdf-vocabularies'
+import { dcterms, schema, hydra } from '@tpluscode/rdf-ns-builders'
 import { resourceMain } from '../scopes'
 import { rdfType } from '../matchers'
 import { State } from '../../lib/state'
@@ -10,16 +10,15 @@ import './sidebar.ts'
 
 function mapMember(resource: HydraResource) {
   return {
-    image:
-      resource[expand('schema:primaryImageOfPage')] || resource.getArray(expand('schema:image'))[0],
-    title: resource.title || resource[expand('dcterms:title')] || 'Item',
+    image: resource[schema.primaryImageOfPage.value] || resource.getArray(schema.image.value)[0],
+    title: resource.title || resource[dcterms.title.value] || 'Item',
     id: resource.id,
   } as any
 }
 
 ViewTemplates.default.when
   .scopeMatches(resourceMain)
-  .valueMatches(rdfType('hydra:Collection'))
+  .valueMatches(rdfType(hydra.Collection))
   .renders((resource: Collection, next, scope, { state }: { state: State<Collection> }) => {
     import('../../components/canvas-shell/canvas-portfolio')
 

@@ -5,6 +5,8 @@ import { IHydraResponse } from 'alcaeus/types/HydraResponse'
 import { getRequestBody } from '../hydra/operation'
 import { ServiceParams } from './index'
 
+Hydra.rootSelectors = [Hydra.rootSelectors.pop() as any, ...Hydra.rootSelectors]
+
 type StateModification = (s: State) => State | Promise<State>
 
 export interface OperationFormState {

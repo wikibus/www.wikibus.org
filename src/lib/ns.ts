@@ -1,5 +1,5 @@
-import { prefixes } from '@zazuko/rdf-vocabularies'
+import namespace from '@rdfjs/namespace'
 
-prefixes.wbo = 'https://wikibus.org/ontology#'
-prefixes.wba = 'https://wikibus.org/api#'
-prefixes.langIso = 'http://lexvo.org/id/iso639-1/'
+export const wbo = namespace('https://wikibus.org/ontology#')
+export const wba = namespace('https://wikibus.org/api#')
+export const langIso = namespace('http://lexvo.org/id/iso639-1/')

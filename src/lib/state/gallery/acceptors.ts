@@ -1,5 +1,5 @@
 import O from 'patchinko/immutable'
-import { expand } from '@zazuko/rdf-vocabularies'
+import { hydra } from '@tpluscode/rdf-ns-builders'
 import { Collection } from 'alcaeus/types/Resources'
 import { onChange } from '../index'
 import { getPage } from './helpers'
@@ -9,7 +9,7 @@ const replaceGallery = onChange(
   state => state.core.resource,
   state => {
     const { resource } = state.core
-    if (!resource || !resource.types.includes(expand('hydra:Collection'))) return {}
+    if (!resource || !resource.types.includes(hydra.Collection.value)) return {}
     const collection = resource as Collection
 
     return {

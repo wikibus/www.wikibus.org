@@ -4,10 +4,11 @@ import { Source } from '../../lib/types/Source'
 import '../../components/canvas-shell/canvas-fslider.ts'
 import { portfolioSingleGallery } from './portfolioSingleGallery'
 import { resourceMain } from '../scopes'
+import { wbo } from '../../lib/ns'
 
 ViewTemplates.default.when
   .scopeMatches(resourceMain)
-  .valueMatches(rdfType('wbo:Brochure'))
+  .valueMatches(rdfType(wbo.Brochure))
   .renders(
     portfolioSingleGallery<Source>({
       title(brochure) {

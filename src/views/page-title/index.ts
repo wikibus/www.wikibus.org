@@ -6,6 +6,7 @@ import { until } from 'lit-html/directives/until'
 import { pageTitle } from '../scopes'
 import { rdfType } from '../matchers'
 import { State, app } from '../../lib/state'
+import { wba } from '../../lib/ns'
 
 const pageTitleInternal = 'page-title-internal'
 
@@ -32,7 +33,7 @@ ViewTemplates.default.when.scopeMatches(pageTitleInternal).renders(({ title, des
 
 ViewTemplates.default.when
   .scopeMatches(pageTitle)
-  .valueMatches(rdfType('wba:EntryPoint'))
+  .valueMatches(rdfType(wba.Entrypoint))
   .renders(
     (value: HydraResource, next, scope, { state }: { state: State }) => html`
       <canvas-emphasis-title

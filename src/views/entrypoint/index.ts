@@ -6,10 +6,11 @@ import { repeat } from 'lit-html/directives/repeat'
 import { rdfType } from '../matchers'
 import { resourceMain } from '../scopes'
 import { propertyIcon } from '../library/property-icons'
+import { wba } from '../../lib/ns'
 
 ViewTemplates.default.when
   .scopeMatches(resourceMain)
-  .valueMatches(rdfType('wba:EntryPoint'))
+  .valueMatches(rdfType(wba.EntryPoint))
   .renders((value: HydraResource, next) => {
     import('../../components/canvas-shell/canvas-featured-box')
     import('../../components/canvas-shell/canvas-emphasis-title')

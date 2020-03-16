@@ -1,5 +1,5 @@
 import O from 'patchinko/immutable'
-import { expand } from '@zazuko/rdf-vocabularies'
+import { hydra } from '@tpluscode/rdf-ns-builders'
 import { DocumentedResource } from 'alcaeus/types/Resources'
 import { onChange, State } from '../index'
 
@@ -32,9 +32,8 @@ const selectCurrentMenuItem = (state: State): Partial<State> => {
   const resource = state.core.resource as any
   if (!resource) return {}
 
-  const currentLinkedEntrypoint = resource.apiDocumentation.valueOrThrow()[
-    expand('hydra:entrypoint')
-  ].id
+  const currentLinkedEntrypoint = resource.apiDocumentation.valueOrThrow()[hydra.entrypoint.value]
+    .id
   const currentMenuItem = Object.entries(state.menu.items).find(
     ([key, value]) => value === currentLinkedEntrypoint,
   )
