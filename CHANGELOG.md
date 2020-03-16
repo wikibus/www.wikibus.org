@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/wikibus/www.wikibus.org/compare/v0.1.4...v0.1.5) (2020-03-16)
+
+
+### Features
+
+* link to download PDF ([2780fe0](https://github.com/wikibus/www.wikibus.org/commit/2780fe052b7d4cdae710eaebb7440554bffb0f5e))
+
+
+### Bug Fixes
+
+* redirect target is not respected ([a30f129](https://github.com/wikibus/www.wikibus.org/commit/a30f129a66983b2c6bd9b20316081d92e7119b09))
+
 ### [0.1.4](https://github.com/wikibus/www.wikibus.org/compare/v0.1.3...v0.1.4) (2020-02-11)
 
 
