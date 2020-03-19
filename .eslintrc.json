@@ -17,5 +17,8 @@
   ],
   "globals": {
     "SEMICOLON": "readonly"
+  },
+  "rules": {
+    "array-callback-return": "off"
   }
 }

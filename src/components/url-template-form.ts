@@ -1,6 +1,7 @@
-import { customElement, property } from 'lit-element'
+import { css, customElement, property, unsafeCSS } from 'lit-element'
 import go from 'ld-navigation/fireNavigation'
 import LitForm from '@lit-any/forms/lit-form'
+import radioCheckbox from '../css/components/radio-checkbox.css'
 import CanvasShellBase from './canvas-shell/CanvasShellBase'
 import '../forms/index.ts'
 
@@ -20,6 +21,15 @@ const decorator = {
 
 @customElement('url-template-form')
 export default class UrlTemplateForm extends CanvasShellBase(LitForm) {
+  public static get styles() {
+    return [
+      super.styles || [],
+      css`
+        ${unsafeCSS(radioCheckbox)}
+      `,
+    ] as any
+  }
+
   @property({ type: Object })
   public template: any
 

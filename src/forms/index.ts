@@ -1,6 +1,7 @@
 import { FieldTemplates } from '@lit-any/forms'
+import { checkbox } from '@lit-any/forms/components'
 import { FieldContract } from '@lit-any/forms/lib/formContract'
-import { dcterms, schema } from '@tpluscode/rdf-ns-builders'
+import { dcterms, schema, xsd } from '@tpluscode/rdf-ns-builders'
 import { html } from 'lit-html'
 import { until } from 'lit-html/directives/until'
 import * as CanvasComponents from './CanvasComponents'
@@ -72,3 +73,7 @@ FieldTemplates.default.when
   .renders((f, id, v, set) =>
     UploadComponent(f, set, { accept: 'application/pdf', multiple: true }),
   )
+
+FieldTemplates.default.when
+  .fieldMatches((field: any) => field.type.id === xsd.boolean.value)
+  .rendersComponent(checkbox())
