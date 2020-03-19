@@ -4,12 +4,12 @@ import { WikibusShell } from './wikibus-shell'
 import '../views/index.ts'
 import '../lib/ns.ts'
 import '../lib/types/index.ts'
-import { app, State } from '../lib/state'
+import { app } from '../lib/state'
 import './canvas-shell/canvas-emphasis-title.ts'
 
 export default class WikibusEncyclopedia extends LitElement {
   @query('#shell')
-  private __shell: WikibusShell | null = null
+  private __shell!: WikibusShell
 
   public async connectedCallback() {
     if (super.connectedCallback) {
@@ -18,33 +18,24 @@ export default class WikibusEncyclopedia extends LitElement {
 
     const { states } = await app
 
-    states.map(console.log)
-    states.map(
-      this.withShell((shell, state) => {
-        if (state.core.resourceUrlOverride) {
-          // eslint-disable-next-line no-param-reassign
-          shell.url = state.core.resourceUrlOverride
-          shell.reflectUrlInState(state.core.resourceUrlOverride)
-        }
-      }),
-    )
+    states.map(state => {
+      if (state.core.resourceUrlOverride) {
+        this.__shell.url = state.core.resourceUrlOverride
+        this.__shell.reflectUrlInState(state.core.resourceUrlOverride)
+      }
+    })
 
-    states.map(
-      this.withShell((shell, state) => {
-        // eslint-disable-next-line no-param-reassign
-        shell.model = state
-        // eslint-disable-next-line no-param-reassign
-        shell.isLoading = state.core.isLoading
+    states.map(state => {
+      this.__shell.model = state
+      this.__shell.isLoading = state.core.isLoading
 
-        // eslint-disable-next-line no-param-reassign
-        shell.consoleState = {
-          ...shell.consoleState,
-          menu: state.menu,
-          isAuthenticated: state.auth.isAuthenticated,
-          homeEntrypoint: state.core.homeEntrypoint.id,
-        }
-      }),
-    )
+      this.__shell.consoleState = {
+        ...this.__shell.consoleState,
+        menu: state.menu,
+        isAuthenticated: state.auth.isAuthenticated,
+        homeEntrypoint: state.core.homeEntrypoint.id,
+      }
+    })
   }
 
   protected createRenderRoot() {
@@ -66,14 +57,6 @@ export default class WikibusEncyclopedia extends LitElement {
   // eslint-disable-next-line class-methods-use-this
   private debug() {
     app.then(({ actions }) => actions.core.toggleDebug())
-  }
-
-  private withShell(fun: (shell: WikibusShell, state: State) => void) {
-    return (state: State) => {
-      if (this.__shell) {
-        fun(this.__shell, state)
-      }
-    }
   }
 }
 
