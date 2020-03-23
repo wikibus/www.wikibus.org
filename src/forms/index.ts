@@ -5,6 +5,7 @@ import { dcterms, schema, xsd } from '@tpluscode/rdf-ns-builders'
 import { html } from 'lit-html'
 import { until } from 'lit-html/directives/until'
 import * as CanvasComponents from './CanvasComponents'
+import { typeMatches } from './matchers'
 
 FieldTemplates.default.useComponents(CanvasComponents)
 
@@ -65,15 +66,13 @@ function UploadComponent(
 }
 
 FieldTemplates.default.when
-  .fieldMatches(field => field.type === schema.ImageObject.value)
+  .fieldMatches(typeMatches(schema.ImageObject))
   .renders((f, id, v, set) => UploadComponent(f, set, { accept: 'image/*', multiple: true }))
 
 FieldTemplates.default.when
-  .fieldMatches(field => field.type === schema.MediaObject.value)
+  .fieldMatches(typeMatches(schema.MediaObject))
   .renders((f, id, v, set) =>
     UploadComponent(f, set, { accept: 'application/pdf', multiple: true }),
   )
 
-FieldTemplates.default.when
-  .fieldMatches((field: any) => field.type.id === xsd.boolean.value)
-  .rendersComponent(checkbox())
+FieldTemplates.default.when.fieldMatches(typeMatches(xsd.boolean)).rendersComponent(checkbox())
