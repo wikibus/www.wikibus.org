@@ -7,6 +7,8 @@ import { rdfType } from '../matchers'
 import { State } from '../../lib/state'
 import { galleryContents } from './_partials/galleryContents'
 import './sidebar.ts'
+import { wba } from '../../lib/ns'
+import { collectionTable } from '../collectionTable'
 
 function mapMember(resource: HydraResource) {
   return {
@@ -15,6 +17,21 @@ function mapMember(resource: HydraResource) {
     id: resource.id,
   } as any
 }
+ViewTemplates.default.when
+  .scopeMatches(resourceMain)
+  .valueMatches(rdfType(wba.WishlistCollection))
+  .renders((resource: Collection, next, scope, { state }: { state: State<Collection> }) => {
+    import('../../components/canvas-shell/canvas-portfolio')
+
+    return html`
+      <div class="container clearfix">
+        ${next(resource, 'collection-sidebar')}
+        <div class="postcontent nobottommargin col_last">
+          ${collectionTable(state, next)}
+        </div>
+      </div>
+    `
+  })
 
 ViewTemplates.default.when
   .scopeMatches(resourceMain)

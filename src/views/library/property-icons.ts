@@ -3,7 +3,7 @@ import { SupportedProperty } from 'alcaeus/types/Resources'
 import { html } from 'lit-html'
 import { RenderFunc } from '@lit-any/views/lib'
 import { supportedProperty } from '../matchers'
-import { BookOpen, Box, FileText, Layers, IconFunction } from '../../components/icons'
+import { BookOpen, Box, FileText, Layers, IconFunction, ShoppingCart } from '../../components/icons'
 import { wba } from '../../lib/ns'
 
 export const propertyIcon = 'property-icon'
@@ -44,5 +44,10 @@ ViewTemplates.default.when
   .scopeMatches(propertyIcon)
   .valueMatches(supportedProperty(wba.dataSheets))
   .renders(renderIcon(FileText))
+
+ViewTemplates.default.when
+  .scopeMatches(propertyIcon)
+  .valueMatches(supportedProperty(wba.wishlist))
+  .renders(renderIcon(ShoppingCart))
 
 ViewTemplates.default.when.scopeMatches(propertyIcon).renders(renderIcon(Box))

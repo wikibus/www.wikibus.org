@@ -35,6 +35,7 @@ export const Clock = wrap(icons.Clock)
 export const CornerRightDown = wrap(icons.CornerRightDown)
 export const User = wrap(icons.User)
 export const Loader = wrap(icons.Loader)
+export const ShoppingCart = wrap(icons.ShoppingCart)
 export const Pdf = html`
   ${unsafeHTML(SimplePdf.svg)}
 `
