@@ -56,7 +56,7 @@ export default class WikibusEncyclopedia extends LitElement {
 
   // eslint-disable-next-line class-methods-use-this
   private debug() {
-    app.then(({ actions }) => actions.core.toggleDebug())
+    app.then(({ actions }) => actions.toggleDebug())
   }
 }
 

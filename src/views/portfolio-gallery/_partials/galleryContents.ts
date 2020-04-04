@@ -11,8 +11,8 @@ function loadPreviousPage(state: State) {
   return async () => {
     const { actions } = await app
     if (state.gallery.prevPage && !state.gallery.prevPageLoading) {
-      actions.gallery.prependToGallery(state.gallery.prevPage)
-      actions.core.overrideResourceUrl(state.gallery.prevPage.id)
+      actions.prependToGallery(state.gallery.prevPage)
+      actions.overrideResourceUrl(state.gallery.prevPage.id)
     }
   }
 }
@@ -21,8 +21,8 @@ function loadNextPage(state: State) {
   return async () => {
     const { actions } = await app
     if (state.gallery.nextPage && !state.gallery.nextPageLoading) {
-      actions.gallery.appendToGallery(state.gallery.nextPage)
-      actions.core.overrideResourceUrl(state.gallery.nextPage.id)
+      actions.appendToGallery(state.gallery.nextPage)
+      actions.overrideResourceUrl(state.gallery.nextPage.id)
     }
   }
 }

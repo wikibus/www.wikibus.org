@@ -1,7 +1,8 @@
 import O from 'patchinko/immutable'
 import { hydra } from '@tpluscode/rdf-ns-builders'
 import { DocumentedResource } from 'alcaeus/types/Resources'
-import { onChange, State } from '../index'
+import { onChange } from '../index'
+import { State } from '../../state'
 
 const populateMenu = onChange(
   state => state.core.homeEntrypoint,

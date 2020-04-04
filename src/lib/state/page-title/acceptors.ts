@@ -1,6 +1,5 @@
 import O from 'patchinko/immutable'
 import { onChange } from '../index'
-import { State } from '.'
 
 const setEmphasisBackground = onChange(
   state => (state.core.resource ? state.core.resource.id : ''),
@@ -10,11 +9,11 @@ const setEmphasisBackground = onChange(
     if (resource) {
       const fileName = Object.entries(state.menu.items).find(([, value]) => value === resource.id)
 
-      return {
-        pageTitle: O<State>({
+      return O({
+        pageTitle: O({
           background: `images/emphasis-header/${fileName ? fileName[0].toLowerCase() : 'home'}.jpg`,
         }),
-      }
+      })
     }
 
     return {}
@@ -28,11 +27,11 @@ const unhideTitleOnResourceChange = onChange(
       return {}
     }
 
-    return {
-      pageTitle: O<State>({
+    return O({
+      pageTitle: O({
         hidden: false,
       }),
-    }
+    })
   },
 )
 

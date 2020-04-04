@@ -1,6 +1,6 @@
-import { State } from './State'
+import { PageTitle } from './State'
 
-export function Initial(): State {
+export function Initial(): PageTitle {
   return {
     background: '',
     hidden: false,

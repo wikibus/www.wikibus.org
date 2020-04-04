@@ -1,5 +1,5 @@
-export { Actions } from './Actions'
+export * from './Actions'
 export { Initial } from './Initial'
-export { State } from './State'
+export { Auth } from './State'
 export { services } from './services'
 export { acceptors } from './acceptors'

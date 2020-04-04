@@ -23,7 +23,7 @@ function openOperationForm(op: OperationTriggerModel) {
   return async () => {
     const { actions } = await app
 
-    actions.core.showOperationForm(op.operation)
+    actions.showOperationForm(op.operation)
   }
 }
 

@@ -1,11 +1,11 @@
 export { acceptors } from './acceptors'
 
-export interface State {
+export interface Menu {
   items: Record<string, string>
   current: string
 }
 
-export function Initial(): State {
+export function Initial(): Menu {
   return {
     items: {},
     current: '',

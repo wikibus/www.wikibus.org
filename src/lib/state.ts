@@ -10,6 +10,8 @@ import { State } from './state/index'
 
 export { State } from './state/index'
 
+export type Actions = core.Actions & gallery.Actions & pageTitle.Actions & auth.Actions
+
 const appMeiosis = {
   async Initial(): Promise<State> {
     return {
@@ -20,12 +22,12 @@ const appMeiosis = {
       auth: await auth.Initial(),
     }
   },
-  Actions(update: flyd.Stream<Partial<State>>) {
+  Actions(update: flyd.Stream<Partial<State>>): Actions {
     return {
-      core: core.Actions(patch => update({ core: O(patch) })),
-      gallery: gallery.Actions(patch => update({ gallery: O(patch) })),
-      pageTitle: pageTitle.Actions(patch => update({ pageTitle: O(patch) })),
-      auth: auth.Actions(patch => update({ auth: O(patch) })),
+      ...core.actions(update),
+      ...gallery.actions(update),
+      ...pageTitle.actions(update),
+      ...auth.actions(update),
     }
   },
   acceptors: [...pageTitle.acceptors, ...menu.acceptors, ...gallery.acceptors, ...auth.acceptors],

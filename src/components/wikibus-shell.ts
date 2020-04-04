@@ -6,12 +6,12 @@ import { CanvasShell } from './canvas-shell'
 import { WikibusStateMapper } from '../lib/WikibusStateMapper'
 import { app } from '../lib/state'
 import { wba } from '../lib/ns'
-import { State } from '../lib/state/core'
+import { Core } from '../lib/state/core'
 
 const knownApis = new Map<string, string>()
 knownApis.set(wba.library.value, 'library')
 
-function getKnownApis(state: State): Record<string, string> {
+function getKnownApis(state: Core): Record<string, string> {
   return [...state.entrypoints.entries()].reduce(
     (apis, [sp, entrypoint]) => {
       const linkId = knownApis.get(sp.property.id)
@@ -55,7 +55,7 @@ export class WikibusShell extends AlcaeusLoader(CanvasShell) {
   protected async onResourceLoaded(resource: IHydraResponse) {
     const { actions } = await app
     if (resource.root) {
-      actions.core.setResource(resource.root)
+      actions.setResource(resource.root)
     }
 
     this.consoleState = {

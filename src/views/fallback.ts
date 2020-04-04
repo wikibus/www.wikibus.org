@@ -27,11 +27,14 @@ ViewTemplates.default.when
 
     app.then(({ actions }) => {
       if (!state.pageTitle.hidden) {
-        actions.pageTitle.hide()
+        actions.hidePageTitle()
       }
     })
 
     return html`
-      ${until(loaded.then(i => i.template), '')}
+      ${until(
+        loaded.then(i => i.template),
+        '',
+      )}
     `
   })

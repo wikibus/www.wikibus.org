@@ -1,5 +1,5 @@
-import { State } from './State'
+import { Auth } from './State'
 
-export async function Initial(): Promise<State> {
+export async function Initial(): Promise<Auth> {
   return {}
 }

@@ -1,4 +1,4 @@
-export { State } from './State'
+export { PageTitle } from './State'
 export { Initial } from './Initial'
 export { acceptors } from './acceptors'
-export { Actions } from './Actions'
+export * from './Actions'

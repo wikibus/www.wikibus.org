@@ -36,6 +36,17 @@ export class CanvasFeaturedBox extends CanvasShellBase(LitElement) {
     return [
       super.styles || [],
       css`
+        #icon::slotted(svg:not([fill='none'])) {
+          fill: white;
+        }
+
+        .feature-box:not(.fbox-center) {
+          display: block;
+          height: 64px;
+          margin-top: 4px;
+          margin-bottom: 4px;
+        }
+
         .feature-box:not(.fbox-center) slot#icon::slotted(*) {
           position: relative;
           top: -5px;
@@ -47,10 +58,14 @@ export class CanvasFeaturedBox extends CanvasShellBase(LitElement) {
 
   public render() {
     let link = html`
-      <a href="${this.href}" target="_blank"
-        ><i><slot id="icon">${Box(50)}</slot></i></a
-      >
+      <i><slot id="icon">${Box(50)}</slot></i>
     `
+
+    if (this.href || this.resourceUrl) {
+      link = html`
+        <a href="${this.href}" target="_blank">${link}</a>
+      `
+    }
 
     if (this.resourceUrl) {
       link = html`

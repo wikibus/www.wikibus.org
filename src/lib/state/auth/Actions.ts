@@ -1,26 +1,33 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/camelcase,no-console */
 import { HydraResource } from 'alcaeus/types/Resources'
-import { State } from './State'
+import { State } from '../../state'
 
 type StateModification = (s: State) => State | Promise<State>
 
-export function Actions(update: (patch: Partial<State> | StateModification) => void) {
+export interface Actions {
+  login(resource?: HydraResource): Promise<void>
+  logout(): Promise<void>
+}
+
+export function actions(update: (patch: Partial<State> | StateModification) => void): Actions {
   return {
-    async login(resourceUrl: HydraResource) {
+    async login(resource?: HydraResource) {
       update(async (state: State) => {
-        if (!state.client) {
+        if (!state.auth.client) {
           return state
         }
+
+        const resourceId = (resource || state.core.resource || state.core.homeEntrypoint).id
 
         try {
           console.log('Logging in')
 
           const options = {
             redirect_uri: window.location.origin,
-            appState: { resourceUrl: resourceUrl.id },
+            appState: { resourceUrl: resourceId },
           }
 
-          await state.client.loginWithRedirect(options)
+          await state.auth.client.loginWithRedirect(options)
         } catch (err) {
           console.log('Log in failed', err)
         }
@@ -31,13 +38,13 @@ export function Actions(update: (patch: Partial<State> | StateModification) => v
 
     async logout() {
       update(async state => {
-        if (!state.client) {
+        if (!state.auth.client) {
           return state
         }
 
         try {
           console.log('Logging out')
-          await state.client.logout({
+          await state.auth.client.logout({
             returnTo: window.location.origin,
           })
         } catch (err) {

@@ -11,7 +11,7 @@ ViewTemplates.default.when
       const resource = state.core.resource || state.core.homeEntrypoint
       return html`
         <bs-dropdown-item-button
-          @bs-dropdown-item-click="${() => actions.auth.login(resource)}"
+          @bs-dropdown-item-click="${() => actions.login(resource)}"
           title="Login"
         ></bs-dropdown-item-button>
       `
@@ -30,7 +30,7 @@ ViewTemplates.default.when
       ({ actions }) =>
         html`
           <bs-dropdown-item-button
-            @bs-dropdown-item-click="${actions.auth.logout}"
+            @bs-dropdown-item-click="${actions.logout}"
             title="Logout"
           ></bs-dropdown-item-button>
         `,

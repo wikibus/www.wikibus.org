@@ -11,13 +11,13 @@ const formElement = '__operation-form-element'
 
 async function updateState() {
   const { actions } = await app
-  actions.core.hideOperationForm()
+  actions.hideOperationForm()
 }
 
 function invokeOperation(operation: IOperation) {
   return async (e: CustomEvent) => {
     const { actions } = await app
-    return actions.core.invokeOperation(operation, e.detail.value)
+    return actions.invokeOperation(operation, e.detail.value)
   }
 }
 

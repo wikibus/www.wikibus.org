@@ -4,19 +4,20 @@ import * as gallery from './gallery'
 import * as pageTitle from './page-title'
 import * as menu from './menu'
 import * as auth from './auth'
+import { Actions } from '../state'
 
 export interface State<T extends HydraResource | null = HydraResource | null> {
-  core: core.State<T>
-  gallery: gallery.State
-  pageTitle: pageTitle.State
-  menu: menu.State
-  auth: auth.State
+  core: core.Core<T>
+  gallery: gallery.Gallery
+  pageTitle: pageTitle.PageTitle
+  menu: menu.Menu
+  auth: auth.Auth
 }
 
 export interface ServiceParams {
   state: State
   update: (patch: Partial<State>) => void
-  actions: ReturnType<typeof core.Actions> & ReturnType<typeof auth.Actions>
+  actions: Actions
 }
 
 export function onChange<T>(

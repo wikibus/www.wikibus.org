@@ -1,10 +1,18 @@
-import { State } from './State'
+import O from 'patchinko/immutable'
+import { State } from '../../state'
+import { PageTitle } from './State'
 
-export function Actions(update: (patch: Partial<State>) => void) {
+export interface Actions {
+  hidePageTitle(): void
+}
+
+export function actions(update: (patch: Partial<State>) => void): Actions {
   return {
-    hide() {
+    hidePageTitle() {
       update({
-        hidden: true,
+        pageTitle: O<PageTitle>({
+          hidden: true,
+        }),
       })
     },
   }

@@ -1,6 +1,6 @@
 import { HydraResource } from 'alcaeus/types/Resources'
 
-export interface State {
+export interface Gallery {
   collectionId: string
   resources: any[]
   nextPage: HydraResource | null

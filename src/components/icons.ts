@@ -39,3 +39,8 @@ export const ShoppingCart = wrap(icons.ShoppingCart)
 export const Pdf = html`
   ${unsafeHTML(SimplePdf.svg)}
 `
+export const Command = wrap(icons.Command)
+export const PlusCircle = wrap(icons.PlusCircle)
+export const MinusCircle = wrap(icons.MinusCircle)
+export const UploadCloud = wrap(icons.UploadCloud)
+export const Edit = wrap(icons.Edit)

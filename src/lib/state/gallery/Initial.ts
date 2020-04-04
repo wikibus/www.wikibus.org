@@ -1,6 +1,6 @@
-import { State } from './State'
+import { Gallery } from './State'
 
-export function Initial(): State {
+export function Initial(): Gallery {
   return {
     collectionId: '',
     resources: [],

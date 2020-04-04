@@ -3,7 +3,7 @@ import { hydra } from '@tpluscode/rdf-ns-builders'
 import { Collection } from 'alcaeus/types/Resources'
 import { onChange } from '../index'
 import { getPage } from './helpers'
-import { State } from '.'
+import { Gallery } from './State'
 
 const replaceGallery = onChange(
   state => state.core.resource,
@@ -13,7 +13,7 @@ const replaceGallery = onChange(
     const collection = resource as Collection
 
     return {
-      gallery: O<State>({
+      gallery: O<Gallery>({
         collectionId: resource.id,
         resources: collection.members,
         prevPage: getPage(collection, 'previous'),
