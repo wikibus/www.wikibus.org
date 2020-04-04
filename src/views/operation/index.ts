@@ -3,9 +3,16 @@ import { hydra, schema } from '@tpluscode/rdf-ns-builders'
 import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
 import { HydraResource, IOperation } from 'alcaeus/types/Resources'
-import { operationSelector, operationTrigger, operationList } from '../scopes'
+import {
+  operationSelector,
+  operationTrigger,
+  operationList,
+  portfolioOperationList,
+  operationIcon,
+} from '../scopes'
 import { app } from '../../lib/state'
 import './form'
+import './icons'
 
 interface OperationTriggerModel {
   resource?: HydraResource
@@ -55,6 +62,30 @@ ViewTemplates.default.when.scopeMatches(operationList).renders((resource: HydraR
     ${repeat(operations, operation => next({ resource, operation }, operationTrigger))}
   `
 })
+
+ViewTemplates.default.when
+  .scopeMatches(portfolioOperationList)
+  .renders((resource: HydraResource, next) => {
+    const operations = findOperations(resource)
+
+    return html`
+      ${repeat(
+        operations,
+        operation => html`
+          <canvas-featured-box
+            light
+            effect
+            style="cursor: pointer"
+            title="${operation.title}"
+            @click="${openOperationForm({ operation, resource })}"
+          >
+            ${next(operation, operationIcon)}
+            <p slot="description">${operation.description}</p>
+          </canvas-featured-box>
+        `,
+      )}
+    `
+  })
 
 ViewTemplates.default.when.scopeMatches(operationTrigger).renders(
   (v: OperationTriggerModel) =>

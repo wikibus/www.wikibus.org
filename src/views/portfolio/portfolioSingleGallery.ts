@@ -37,7 +37,6 @@ export function portfolioSingleGallery<T extends HydraResource>(options: Options
         </div>
 
         <div class="col_one_third portfolio-single-content col_last nobottommargin">
-          ${next(resource, scope.operationSelector)}
           <div class="fancy-title title-bottom-border">
             <h2>${options.heading}</h2>
           </div>
@@ -46,6 +45,7 @@ export function portfolioSingleGallery<T extends HydraResource>(options: Options
             ${next(resource, scope.portfolioProperties, { except })}
           </ul>
 
+          ${next(resource, scope.portfolioOperationList)}
           ${next(resource, scope.portfolioSpecializedProperties, { except })}
         </div>
 
