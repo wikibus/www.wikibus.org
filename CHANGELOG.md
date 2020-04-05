@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/wikibus/www.wikibus.org/compare/v0.1.7...v0.1.8) (2020-04-05)
+
+
+### Features
+
+* brochure wishlist table ([a2e4f3c](https://github.com/wikibus/www.wikibus.org/commit/a2e4f3cd98387590c74cd26458d537997c05893f))
+* message bar for operations without dialog ([e63036b](https://github.com/wikibus/www.wikibus.org/commit/e63036bfde2ff6ff4c5158f92f4500e3f000099a))
+* redirect to login when unauthorized for operation ([6190fe5](https://github.com/wikibus/www.wikibus.org/commit/6190fe53490d3a93b91cf8152fa9bed6c673f4f0))
+
 ### [0.1.7](https://github.com/wikibus/www.wikibus.org/compare/v0.1.6...v0.1.7) (2020-03-27)
 
 
