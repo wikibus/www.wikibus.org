@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.9](https://github.com/wikibus/www.wikibus.org/compare/v0.1.8...v0.1.9) (2020-04-05)
+
+
+### Features
+
+* add message to manually refresh after login ([2876caf](https://github.com/wikibus/www.wikibus.org/commit/2876cafd7e6d8de886cf8c8c2284810110757dec))
+
+
+### Bug Fixes
+
+* force reload after authorization ([fe6dc6d](https://github.com/wikibus/www.wikibus.org/commit/fe6dc6df22bf83ef9b4c98a0b95b75f4b757a34f))
+
 ### [0.1.8](https://github.com/wikibus/www.wikibus.org/compare/v0.1.7...v0.1.8) (2020-04-05)
 
 
