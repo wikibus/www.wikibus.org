@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
 import createAuth0Client from '@auth0/auth0-spa-js'
 import go from 'ld-navigation/fireNavigation'
 import once from 'once'
 import O from 'patchinko/immutable'
 import { ServiceParams } from '../index'
+import { Core } from '../core'
 
 const configureClient = () => {
   if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_CLIENT_ID) {
@@ -29,6 +31,9 @@ export const services = [
             isAuthenticated,
             client,
             token: await client.getTokenSilently(),
+          }),
+          core: O<Core>({
+            requestRefresh: true,
           }),
         })
         return

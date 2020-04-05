@@ -75,11 +75,15 @@ export const services = [
       update({
         core: O<Core>({
           requestRefresh: false,
-          isLoading: true,
         }),
       })
 
       if (state.core.resource) {
+        update({
+          core: O<Core>({
+            isLoading: true,
+          }),
+        })
         state.core.resource
           .load()
           .then(resource => {
