@@ -7,6 +7,7 @@ import './canvas-view.ts'
 import './canvas-header.ts'
 import CanvasShellBase from './CanvasShellBase'
 import 'ld-navigation/ld-link'
+import { Message } from './canvas-message'
 
 interface ConsoleState {
   menu: {
@@ -20,12 +21,6 @@ interface ConsoleState {
   }
 }
 
-export interface Message {
-  kind: 'error' | 'warning' | 'info' | 'success' | ''
-  text: string
-  visible: boolean
-}
-
 export class CanvasShell extends CanvasShellBase(
   ReflectedInHistory(ResourceScope(HydrofoilShell)),
 ) {
@@ -35,10 +30,6 @@ export class CanvasShell extends CanvasShellBase(
       css`
         .error404 {
           line-height: 1;
-        }
-
-        .style-msg {
-          margin-bottom: 0;
         }
 
         paper-progress {
@@ -72,6 +63,8 @@ export class CanvasShell extends CanvasShellBase(
   public connectedCallback() {
     if (super.connectedCallback) super.connectedCallback()
     import('@polymer/paper-progress/paper-progress')
+    import('./canvas-button')
+    import('./canvas-message')
   }
 
   protected render() {
@@ -91,13 +84,12 @@ export class CanvasShell extends CanvasShellBase(
       </canvas-header>
 
       <paper-progress indeterminate ?hidden="${!this.showProgressBar}"></paper-progress>
-      <div ?hidden="${!this.message.visible}" class="style-msg ${this.message.kind}msg">
-        <div class="sb-msg">
-          <i class="icon-remove"></i
-          ><strong>${this.message.kind.replace(/^\w/, i => i.toUpperCase())}</strong> ${this.message
-            .text}
-        </div>
-      </div>
+      <canvas-message
+        ?hidden="${!this.message.visible}"
+        kind="${this.message.kind}"
+        text="${this.message.text}"
+      ></canvas-message>
+      <slot name="messages"></slot>
 
       <section id="content">
         ${this.isLoading
@@ -124,8 +116,6 @@ export class CanvasShell extends CanvasShellBase(
   }
 
   protected renderError() {
-    import('./canvas-button')
-
     return html`
       <section id="content">
         <div class="content-wrap">

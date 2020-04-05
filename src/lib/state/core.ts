@@ -5,7 +5,7 @@ import { IHydraResponse } from 'alcaeus/types/HydraResponse'
 import { getRequestBody } from '../hydra/operation'
 import { ServiceParams, State } from './index'
 import * as App from '../state'
-import { Message } from '../../components/canvas-shell'
+import { Message } from '../../components/canvas-shell/canvas-message'
 
 type StateModification = (s: Core) => Core | Promise<Core>
 
@@ -27,6 +27,7 @@ export interface Core<T extends HydraResource | null = HydraResource | null> {
   requestRefresh?: boolean
   isLoading: boolean
   message: Required<Message>
+  showManualRefreshHint: boolean
 }
 
 export async function Initial(): Promise<Core> {
@@ -66,6 +67,7 @@ export async function Initial(): Promise<Core> {
       text: '',
       visible: false,
     },
+    showManualRefreshHint: false,
   }
 }
 
@@ -115,10 +117,19 @@ export interface Actions {
   hideOperationForm(): void
   invokeOperation(operation: IOperation, value?: object): void
   showMessage(text: string, kind: Message['kind']): void
+  reload(): void
 }
 
 export function actions(update: (patch: Partial<State> | StateModification) => void): Actions {
   return {
+    reload() {
+      update({
+        core: O<Core>({
+          requestRefresh: true,
+          showManualRefreshHint: false,
+        }),
+      })
+    },
     showMessage(text: string, kind: Message['kind'] = '') {
       update({
         core: O<Core>({

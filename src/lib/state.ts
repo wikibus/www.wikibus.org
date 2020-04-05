@@ -19,7 +19,7 @@ const appMeiosis = {
       gallery: gallery.Initial(),
       pageTitle: pageTitle.Initial(),
       menu: menu.Initial(),
-      auth: await auth.Initial(),
+      auth: auth.Initial(),
     }
   },
   Actions(update: flyd.Stream<Partial<State>>): Actions {

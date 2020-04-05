@@ -4,4 +4,5 @@ export interface Auth {
   isAuthenticated?: boolean
   client?: Auth0Client
   token?: string
+  userName?: string
 }

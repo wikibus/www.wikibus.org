@@ -5,6 +5,7 @@ import once from 'once'
 import O from 'patchinko/immutable'
 import { ServiceParams } from '../index'
 import { Core } from '../core'
+import { Auth } from '.'
 
 const configureClient = () => {
   if (!process.env.AUTH0_DOMAIN || !process.env.AUTH0_CLIENT_ID) {
@@ -27,13 +28,14 @@ export const services = [
       if (isAuthenticated) {
         console.log('> User is authenticated')
         update({
-          auth: O({
+          auth: O<Auth>({
             isAuthenticated,
             client,
             token: await client.getTokenSilently(),
+            userName: (await client.getUser()).nickname,
           }),
           core: O<Core>({
-            requestRefresh: true,
+            showManualRefreshHint: true,
           }),
         })
         return
