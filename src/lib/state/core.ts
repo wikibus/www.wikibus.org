@@ -5,6 +5,7 @@ import { IHydraResponse } from 'alcaeus/types/HydraResponse'
 import { getRequestBody } from '../hydra/operation'
 import { ServiceParams, State } from './index'
 import * as App from '../state'
+import { Message } from '../../components/canvas-shell'
 
 type StateModification = (s: Core) => Core | Promise<Core>
 
@@ -25,6 +26,7 @@ export interface Core<T extends HydraResource | null = HydraResource | null> {
   operationForm: OperationFormState
   requestRefresh?: boolean
   isLoading: boolean
+  message: Required<Message>
 }
 
 export async function Initial(): Promise<Core> {
@@ -58,6 +60,11 @@ export async function Initial(): Promise<Core> {
     operationForm: {
       invoking: false,
       opened: false,
+    },
+    message: {
+      kind: '',
+      text: '',
+      visible: false,
     },
   }
 }
@@ -103,10 +110,32 @@ export interface Actions {
   showOperationForm(operation: IOperation): void
   hideOperationForm(): void
   invokeOperation(operation: IOperation, value?: object): void
+  showMessage(text: string, kind: Message['kind']): void
 }
 
 export function actions(update: (patch: Partial<State> | StateModification) => void): Actions {
   return {
+    showMessage(text: string, kind: Message['kind'] = '') {
+      update({
+        core: O<Core>({
+          message: {
+            visible: true,
+            text,
+            kind,
+          },
+        }),
+      })
+
+      setTimeout(() => {
+        update({
+          core: O<Core>({
+            message: O<Message>({
+              visible: false,
+            }),
+          }),
+        })
+      }, 2000)
+    },
     toggleDebug() {
       update({
         core: O<Core>({
@@ -172,6 +201,8 @@ export function actions(update: (patch: Partial<State> | StateModification) => v
         .invoke(body)
         .then(response => {
           if (response.xhr.ok) {
+            this.showMessage('Operation complete', 'success')
+
             update({
               core: O<Core>({
                 operationForm: O<OperationFormState>({
@@ -197,6 +228,7 @@ export function actions(update: (patch: Partial<State> | StateModification) => v
           } else if (response.xhr.status === 401) {
             this.login()
           } else {
+            this.showMessage(response.xhr.statusText, 'error')
             update({
               core: O<Core>({
                 operationForm: O<OperationFormState>({

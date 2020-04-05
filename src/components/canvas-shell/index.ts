@@ -20,6 +20,12 @@ interface ConsoleState {
   }
 }
 
+export interface Message {
+  kind: 'error' | 'warning' | 'info' | 'success' | ''
+  text: string
+  visible: boolean
+}
+
 export class CanvasShell extends CanvasShellBase(
   ReflectedInHistory(ResourceScope(HydrofoilShell)),
 ) {
@@ -29,6 +35,14 @@ export class CanvasShell extends CanvasShellBase(
       css`
         .error404 {
           line-height: 1;
+        }
+
+        .style-msg {
+          margin-bottom: 0;
+        }
+
+        paper-progress {
+          width: 100%;
         }
       `,
     ]
@@ -47,7 +61,18 @@ export class CanvasShell extends CanvasShellBase(
   }
 
   @property({ type: Boolean })
+  public showProgressBar = false
+
+  @property()
+  public message: Message = { visible: false, kind: '', text: '' }
+
+  @property({ type: Boolean })
   private __errorDetailsVisible = false
+
+  public connectedCallback() {
+    if (super.connectedCallback) super.connectedCallback()
+    import('@polymer/paper-progress/paper-progress')
+  }
 
   protected render() {
     return html`
@@ -64,6 +89,15 @@ export class CanvasShell extends CanvasShellBase(
           ignore-missing
         ></canvas-view>
       </canvas-header>
+
+      <paper-progress indeterminate ?hidden="${!this.showProgressBar}"></paper-progress>
+      <div ?hidden="${!this.message.visible}" class="style-msg ${this.message.kind}msg">
+        <div class="sb-msg">
+          <i class="icon-remove"></i
+          ><strong>${this.message.kind.replace(/^\w/, i => i.toUpperCase())}</strong> ${this.message
+            .text}
+        </div>
+      </div>
 
       <section id="content">
         ${this.isLoading

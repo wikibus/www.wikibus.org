@@ -28,6 +28,8 @@ export default class WikibusEncyclopedia extends LitElement {
     states.map(state => {
       this.__shell.model = state
       this.__shell.isLoading = state.core.isLoading
+      this.__shell.showProgressBar = state.core.operationForm.invoking
+      this.__shell.message = state.core.message
 
       this.__shell.consoleState = {
         ...this.__shell.consoleState,
