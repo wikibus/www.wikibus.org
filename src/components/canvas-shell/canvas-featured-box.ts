@@ -36,6 +36,15 @@ export class CanvasFeaturedBox extends CanvasShellBase(LitElement) {
     return [
       super.styles || [],
       css`
+        :host {
+          display: block;
+        }
+
+        slot[name='description'] p,
+        slot[name='description']::slotted(p) {
+          line-height: 1.4 !important;
+        }
+
         #icon::slotted(svg:not([fill='none'])) {
           fill: white;
         }
