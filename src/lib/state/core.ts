@@ -118,6 +118,7 @@ export interface Actions {
   invokeOperation(operation: IOperation, value?: object): void
   showMessage(text: string, kind: Message['kind']): void
   reload(): void
+  hideRefreshHint(): void
 }
 
 export function actions(update: (patch: Partial<State> | StateModification) => void): Actions {
@@ -155,6 +156,13 @@ export function actions(update: (patch: Partial<State> | StateModification) => v
       update({
         core: O<Core>({
           debug: O(debug => !debug),
+        }),
+      })
+    },
+    hideRefreshHint() {
+      update({
+        core: O<Core>({
+          showManualRefreshHint: false,
         }),
       })
     },

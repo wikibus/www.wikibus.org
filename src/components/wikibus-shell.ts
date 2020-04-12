@@ -67,7 +67,9 @@ export class WikibusShell extends AlcaeusLoader(CanvasShell) {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  public onResourceUrlChanged() {
+  public async onResourceUrlChanged() {
+    const { actions } = await app
+    actions.hideRefreshHint()
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 }
