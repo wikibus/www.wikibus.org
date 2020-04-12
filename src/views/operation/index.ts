@@ -47,23 +47,28 @@ ViewTemplates.default.when
   .scopeMatches(operationSelector)
   .renders((resource: HydraResource, next) => {
     const operations = findOperations(resource)
+    if (!operations.length) {
+      return ''
+    }
 
     return html`
-      ${repeat(
-        operations,
-        operation => html`
-          <canvas-featured-box
-            light
-            effect
-            style="cursor: pointer"
-            title="${operation.title}"
-            @click="${openOperationForm({ operation, resource })}"
-          >
-            ${next(operation, operationIcon)}
-            <p slot="description">${operation.description}</p>
-          </canvas-featured-box>
-        `,
-      )}
+      <div class="widget clearfix">
+        ${repeat(
+          operations,
+          operation => html`
+            <canvas-featured-box
+              light
+              effect
+              style="cursor: pointer"
+              title="${operation.title}"
+              @click="${openOperationForm({ operation, resource })}"
+            >
+              ${next(operation, operationIcon)}
+              <p slot="description">${operation.description}</p>
+            </canvas-featured-box>
+          `,
+        )}
+      </div>
     `
   })
 
