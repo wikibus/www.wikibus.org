@@ -45,8 +45,8 @@ export function portfolioSingleGallery<T extends HydraResource>(options: Options
             ${next(resource, scope.portfolioProperties, { except })}
           </ul>
 
-          ${next(resource, scope.portfolioOperationList)}
           ${next(resource, scope.portfolioSpecializedProperties, { except })}
+          ${next(resource, scope.operationSelector)}
         </div>
 
         <div class="clear"></div>
