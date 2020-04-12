@@ -12,7 +12,7 @@ interface Options<T> {
   primaryImage(resource: T): Image | null
 }
 
-const excludes = [schema.associatedMedia.value]
+const excludes = [schema.associatedMedia.value, schema.contributor.value]
 
 export function portfolioSingleGallery<T extends HydraResource>(options: Options<T>): RenderFunc {
   return (resource: T, next) => {
