@@ -79,13 +79,13 @@ ViewTemplates.default.when
       !!value[schema.contentUrl.value],
   )
   .renders(
-    (res, next) => html`
+    ({ value }, next) => html`
       <canvas-featured-box
-        title="${res[schema.name.value]}"
-        .href="${res[schema.contentUrl.value]}"
+        title="${value[schema.name.value]}"
+        .href="${value[schema.contentUrl.value]}"
       >
-        ${next(res, mediaTypeIcon)}
-        <p slot="description">${res[schema.contentSize.value]}</p>
+        ${next(value, mediaTypeIcon)}
+        <p slot="description">${value[schema.contentSize.value]}</p>
       </canvas-featured-box>
     `,
   )
