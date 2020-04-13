@@ -12610,3 +12610,7 @@ body:not(.no-transition) #wrapper,
 
 vaadin-combo-box-overlay {
   z-index: 2000; }
+
+vaadin-date-picker-overlay {
+  z-index: 10000;
+}
