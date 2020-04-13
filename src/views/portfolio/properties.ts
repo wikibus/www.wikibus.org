@@ -57,6 +57,29 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
+  .valueMatches((v: IResource) => typeof v === 'object' && v.types.contains(schema.Person.value))
+  .renders(
+    person =>
+      html`
+        <div class="testimonial" style="border: none; box-shadow: none">
+          <div class="testi-image">
+            <a href="javascript:void(0)"
+              ><img
+                src="${person[schema.image.value][schema.contentUrl.value].id}"
+                alt="${person[schema.name.value]} avatar"
+            /></a>
+          </div>
+          <div class="testi-content">
+            <div class="testi-meta">
+              ${person[schema.name.value]}
+            </div>
+          </div>
+        </div>
+      `,
+  )
+
+ViewTemplates.default.when
+  .scopeMatches(portfolioProperty)
   .valueMatches((v: IResource) => typeof v === 'object' && schema.name.value in v)
   .renders(
     v =>
@@ -64,7 +87,6 @@ ViewTemplates.default.when
         ${v[schema.name.value]}
       `,
   )
-
 ViewTemplates.default.when.scopeMatches(portfolioProperty).renders(
   v =>
     html`

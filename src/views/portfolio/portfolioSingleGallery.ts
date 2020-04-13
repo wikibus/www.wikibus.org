@@ -15,7 +15,9 @@ interface Options<T> {
 const excludes = [schema.associatedMedia.value, schema.contributor.value]
 
 export function portfolioSingleGallery<T extends HydraResource>(options: Options<T>): RenderFunc {
-  return (resource: T, next) => {
+  return (resource: T, next, s, { state }) => {
+    import('../../components/canvas-shell/canvas-sidebar-section')
+
     const except = [
       ...excludes,
       ...resource
@@ -37,15 +39,13 @@ export function portfolioSingleGallery<T extends HydraResource>(options: Options
         </div>
 
         <div class="col_one_third portfolio-single-content col_last nobottommargin">
-          <div class="fancy-title title-bottom-border">
-            <h2>${options.heading}</h2>
-          </div>
+          <canvas-sidebar-section heading="${options.heading}">
+            <ul class="portfolio-meta bottommargin">
+              ${next(resource, scope.portfolioProperties, { except })}
+            </ul>
+          </canvas-sidebar-section>
 
-          <ul class="portfolio-meta bottommargin">
-            ${next(resource, scope.portfolioProperties, { except })}
-          </ul>
-
-          ${next(resource, scope.portfolioSpecializedProperties, { except })}
+          ${next(resource, scope.portfolioSpecializedProperties, { except, state })}
           ${next(resource, scope.operationSelector)}
         </div>
 
