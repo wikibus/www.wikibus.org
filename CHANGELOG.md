@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.10](https://github.com/wikibus/www.wikibus.org/compare/v0.1.9...v0.1.10) (2020-04-13)
+
+
+### Features
+
+* display brochure's contributor on brochure page ([4fa8f99](https://github.com/wikibus/www.wikibus.org/commit/4fa8f992e0f6dad2d4999d1912c00d0cd673764a))
+* use proper date picker for brochure form ([cafcd6e](https://github.com/wikibus/www.wikibus.org/commit/cafcd6ed818309789903308af8fd93a4d55fd2a1))
+
+
+### Bug Fixes
+
+* broken layout on left sidebar with no operations ([8c994ca](https://github.com/wikibus/www.wikibus.org/commit/8c994cade63e7702e00893b1692659745fa79179))
+* hide authentication hint on next navigation ([eb7f380](https://github.com/wikibus/www.wikibus.org/commit/eb7f3804793353ba228f7b2c03d091e5011980d7))
+* incorrectly bound wishlist property view ([a269a7e](https://github.com/wikibus/www.wikibus.org/commit/a269a7e9487c794a8210296b34a0ac332528032f))
+* use consistent UI for all gallery operations ([3c501aa](https://github.com/wikibus/www.wikibus.org/commit/3c501aa420dcd5c06913229d3f7b5569c00017bf))
+
 ### [0.1.9](https://github.com/wikibus/www.wikibus.org/compare/v0.1.8...v0.1.9) (2020-04-05)
 
 
