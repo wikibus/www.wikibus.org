@@ -6,11 +6,16 @@ import * as gallery from './state/gallery'
 import * as pageTitle from './state/page-title'
 import * as menu from './state/menu'
 import * as auth from './state/auth'
+import * as resources from './state/resources'
 import { State } from './state/index'
 
 export { State } from './state/index'
 
-export type Actions = core.Actions & gallery.Actions & pageTitle.Actions & auth.Actions
+export type Actions = core.Actions &
+  gallery.Actions &
+  pageTitle.Actions &
+  auth.Actions &
+  resources.Actions
 
 const appMeiosis = {
   async Initial(): Promise<State> {
@@ -20,6 +25,7 @@ const appMeiosis = {
       pageTitle: pageTitle.Initial(),
       menu: menu.Initial(),
       auth: auth.Initial(),
+      resources: resources.Initial(),
     }
   },
   Actions(update: flyd.Stream<Partial<State>>): Actions {
@@ -28,6 +34,7 @@ const appMeiosis = {
       ...gallery.actions(update),
       ...pageTitle.actions(update),
       ...auth.actions(update),
+      ...resources.actions(update),
     }
   },
   acceptors: [...pageTitle.acceptors, ...menu.acceptors, ...gallery.acceptors, ...auth.acceptors],

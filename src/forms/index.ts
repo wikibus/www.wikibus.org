@@ -10,6 +10,22 @@ import { typeMatches } from './matchers'
 FieldTemplates.default.useComponents(CanvasComponents)
 
 FieldTemplates.default.when
+  .fieldMatches(field => field.type === xsd.date.value)
+  .renders((f, id, v, set) => {
+    import('@vaadin/vaadin-date-picker/vaadin-date-picker.js')
+
+    return html`
+      <vaadin-date-picker
+        id="${id}"
+        placeholder="YYYY-MM-DD"
+        .value="${v}"
+        @change="${(e: any) => set(e.target.value)}"
+        style="width: 100%"
+      ></vaadin-date-picker>
+    `
+  })
+
+FieldTemplates.default.when
   .fieldMatches(field => field.type === dcterms.language.value)
   .renders((f, id, v, set) => {
     import('multiselect-combo-box/multiselect-combo-box')

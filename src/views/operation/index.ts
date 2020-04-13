@@ -3,13 +3,7 @@ import { hydra, schema } from '@tpluscode/rdf-ns-builders'
 import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
 import { HydraResource, IOperation } from 'alcaeus/types/Resources'
-import {
-  operationSelector,
-  operationTrigger,
-  operationList,
-  portfolioOperationList,
-  operationIcon,
-} from '../scopes'
+import { operationSelector, operationTrigger, operationList, operationIcon } from '../scopes'
 import { app } from '../../lib/state'
 import './form'
 import './icons'
@@ -35,20 +29,6 @@ function findOperations(resource: HydraResource) {
     .filter(op => !op.target.isAnonymous)
 }
 
-ViewTemplates.default.when
-  .scopeMatches(operationSelector)
-  .valueMatches((resource: HydraResource) => !!resource && resource.findOperationsDeep().length > 0)
-  .renders(
-    (resource: HydraResource, next) => html`
-      <bs-dropdown>
-        <bs-button dropdown-toggle label="Operations" color="aqua" primary>Operations</bs-button>
-        <bs-dropdown-menu down x-placement="bottom-start">
-          ${next(resource, operationList)}
-        </bs-dropdown-menu>
-      </bs-dropdown>
-    `,
-  )
-
 ViewTemplates.default.when.scopeMatches(operationList).renders((resource: HydraResource, next) => {
   const operations = findOperations(resource)
 
@@ -64,26 +44,31 @@ ViewTemplates.default.when.scopeMatches(operationList).renders((resource: HydraR
 })
 
 ViewTemplates.default.when
-  .scopeMatches(portfolioOperationList)
+  .scopeMatches(operationSelector)
   .renders((resource: HydraResource, next) => {
     const operations = findOperations(resource)
+    if (!operations.length) {
+      return ''
+    }
 
     return html`
-      ${repeat(
-        operations,
-        operation => html`
-          <canvas-featured-box
-            light
-            effect
-            style="cursor: pointer"
-            title="${operation.title}"
-            @click="${openOperationForm({ operation, resource })}"
-          >
-            ${next(operation, operationIcon)}
-            <p slot="description">${operation.description}</p>
-          </canvas-featured-box>
-        `,
-      )}
+      <div class="widget clearfix">
+        ${repeat(
+          operations,
+          operation => html`
+            <canvas-featured-box
+              light
+              effect
+              style="cursor: pointer"
+              title="${operation.title}"
+              @click="${openOperationForm({ operation, resource })}"
+            >
+              ${next(operation, operationIcon)}
+              <p slot="description">${operation.description}</p>
+            </canvas-featured-box>
+          `,
+        )}
+      </div>
     `
   })
 
