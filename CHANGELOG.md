@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.12](https://github.com/wikibus/www.wikibus.org/compare/v0.1.11...v0.1.12) (2020-04-15)
+
+
+### Bug Fixes
+
+* on safari clip-path need prefix ([6a1526d](https://github.com/wikibus/www.wikibus.org/commit/6a1526d1982f24a4eaeacc5db57efef1251ff6e3))
+
 ### [0.1.11](https://github.com/wikibus/www.wikibus.org/compare/v0.1.10...v0.1.11) (2020-04-15)
 
 ### [0.1.10](https://github.com/wikibus/www.wikibus.org/compare/v0.1.9...v0.1.10) (2020-04-13)
