@@ -48,6 +48,7 @@ export class CanvasFeaturedBox extends CanvasShellBase(LitElement) {
         #icon::slotted(img) {
           height: 64px !important;
           clip-path: circle(50%);
+          -webkit-clip-path: circle(50%);
         }
 
         #icon::slotted(svg:not([fill='none'])) {
