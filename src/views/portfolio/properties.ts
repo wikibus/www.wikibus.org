@@ -61,20 +61,11 @@ ViewTemplates.default.when
   .renders(
     person =>
       html`
-        <div class="testimonial" style="border: none; box-shadow: none">
-          <div class="testi-image">
-            <a href="javascript:void(0)"
-              ><img
-                src="${person[schema.image.value][schema.contentUrl.value].id}"
-                alt="${person[schema.name.value]} avatar"
-            /></a>
-          </div>
-          <div class="testi-content">
-            <div class="testi-meta">
-              ${person[schema.name.value]}
-            </div>
-          </div>
-        </div>
+        <img
+          src="${person[schema.image.value][schema.contentUrl.value].id}"
+          alt="${person[schema.name.value]} avatar"
+        />
+        <p slot="description">${person[schema.name.value]}</p>
       `,
   )
 

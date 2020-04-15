@@ -6,6 +6,7 @@ import { HydraResource, SupportedProperty } from 'alcaeus/types/Resources'
 import { portfolioSpecializedProperties, mediaTypeIcon, portfolioProperty } from '../scopes'
 import '../../components/canvas-shell/canvas-featured-box'
 import { State, app } from '../../lib/state'
+import { User } from '../../components/icons'
 
 const portfolioSpecializedProperty = 'portfolioSpecializedProperty'
 
@@ -54,18 +55,25 @@ ViewTemplates.default.when
       load()
       contents = () => ''
     } else if (resourceState.isLoading) {
-      contents = () => 'Loading'
+      contents = () =>
+        html`
+          ${User(50)}
+          <p slot="description">Loading</p>
+        `
     } else if ('value' in resourceState) {
       contents = () => next(resourceState.value, portfolioProperty)
     } else {
       contents = () =>
         html`
-          Loading failed <a href="javascript:void(0)" @click="${load}">Try again</a>
+          ${User(50)}
+          <p slot="description">
+            Loading failed <a href="javascript:void(0)" @click="${load}">Try again</a>
+          </p>
         `
     }
 
     return html`
-      <canvas-sidebar-section heading="${property.title}">${contents()}</canvas-sidebar-section>
+      <canvas-featured-box title="${property.title}">${contents()}</canvas-featured-box>
     `
   })
 
