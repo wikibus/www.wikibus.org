@@ -7,6 +7,12 @@ import { ServiceParams, State } from './index'
 import * as App from '../state'
 import { Message } from '../../components/canvas-shell/canvas-message'
 
+import('@rdfjs/parser-n3').then(ParserN3 => {
+  ;(Hydra.mediaTypeProcessors.RDF as any).addParsers({
+    'text/turtle': ParserN3.default,
+  })
+})
+
 type StateModification = (s: Core) => Core | Promise<Core>
 
 export interface OperationFormState {
