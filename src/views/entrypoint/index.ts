@@ -4,14 +4,35 @@ import { IResource } from 'alcaeus/types/Resources/Resource'
 import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
 import { rdfType } from '../matchers'
-import { resourceMain } from '../scopes'
+import { resourceMain, cmsParts } from '../scopes'
 import { propertyIcon } from '../library/property-icons'
 import { wba } from '../../lib/ns'
+import { ViewParams } from '../index'
+
+function renderEntrypointLink(next: any) {
+  return (link: any, index: number) => {
+    const resource = link.resource as DocumentedResource
+
+    return html`
+      <canvas-featured-box
+        center
+        effect
+        outline
+        class="col_one_third ${index % 3 === 2 ? 'col_last' : ''}"
+        .title="${resource.title || link.supportedProperty.title}"
+        .description="${resource.description || link.supportedProperty.description}"
+        .resourceUrl="${link.resource.id}"
+      >
+        ${next(link.supportedProperty, propertyIcon)}
+      </canvas-featured-box>
+    `
+  }
+}
 
 ViewTemplates.default.when
   .scopeMatches(resourceMain)
   .valueMatches(rdfType(wba.EntryPoint))
-  .renders((value: HydraResource, next) => {
+  .renders((value: HydraResource, next, scope, { state }: ViewParams) => {
     import('../../components/canvas-shell/canvas-featured-box')
     import('../../components/canvas-shell/canvas-emphasis-title')
 
@@ -28,23 +49,9 @@ ViewTemplates.default.when
 
     return html`
       <div class="container clearfix">
-        ${repeat(links, (link, index) => {
-          const resource = link.resource as DocumentedResource
-
-          return html`
-            <canvas-featured-box
-              center
-              effect
-              outline
-              class="col_one_third ${index % 3 === 2 ? 'col_last' : ''}"
-              .title="${resource.title || link.supportedProperty.title}"
-              .description="${resource.description || link.supportedProperty.description}"
-              .resourceUrl="${link.resource.id}"
-            >
-              ${next(link.supportedProperty, propertyIcon)}
-            </canvas-featured-box>
-          `
-        })}
+        ${repeat(links, renderEntrypointLink(next))}
       </div>
+      <div class="divider divider-center"><i class="icon-circle"></i></div>
+      ${next(state, cmsParts)}
     `
   })
