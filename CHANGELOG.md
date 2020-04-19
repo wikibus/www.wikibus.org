@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.13](https://github.com/wikibus/www.wikibus.org/compare/v0.1.12...v0.1.13) (2020-04-19)
+
+
+### Features
+
+* rendering schema how to ([937f0e5](https://github.com/wikibus/www.wikibus.org/commit/937f0e5387429499756624f22d8af7dbeb4f1c45))
+
 ### [0.1.12](https://github.com/wikibus/www.wikibus.org/compare/v0.1.11...v0.1.12) (2020-04-15)
 
 
