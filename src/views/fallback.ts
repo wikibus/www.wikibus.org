@@ -1,6 +1,8 @@
 import { ViewTemplates } from '@lit-any/views'
 import { html } from 'lit-html'
 import { until } from 'lit-html/directives/until'
+import { schema } from '@tpluscode/rdf-ns-builders'
+import { HydraResource } from 'alcaeus/types/Resources'
 import { resourceMain, pageTitle, operationForm } from './scopes'
 import { State, app } from '../lib/state'
 
@@ -38,3 +40,19 @@ ViewTemplates.default.when
       )}
     `
   })
+
+ViewTemplates.default.when
+  .valueMatches(
+    (resource: HydraResource) =>
+      resource && resource.types && resource.types.contains(schema.ImageObject.value),
+  )
+  .valueMatches(
+    (image: HydraResource) =>
+      image[schema.contentUrl.value] && (image[schema.contentUrl.value] as any).id,
+  )
+  .renders(
+    (image: HydraResource) =>
+      html`
+        <img src=${(image[schema.contentUrl.value] as any).id} />
+      `,
+  )
