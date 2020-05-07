@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.14](https://github.com/wikibus/www.wikibus.org/compare/v0.1.13...v0.1.14) (2020-05-07)
+
+
+### Features
+
+* dropdown component to filter by users ([97d9c42](https://github.com/wikibus/www.wikibus.org/commit/97d9c425ca04a540c804bbbcacf12191bfbe0c47))
+
 ### [0.1.13](https://github.com/wikibus/www.wikibus.org/compare/v0.1.12...v0.1.13) (2020-04-19)
 
 
