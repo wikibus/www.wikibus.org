@@ -2,7 +2,7 @@ import { Gallery } from './State'
 
 export function Initial(): Gallery {
   return {
-    collectionId: '',
+    collectionId: null,
     resources: [],
     nextPage: null,
     prevPage: null,

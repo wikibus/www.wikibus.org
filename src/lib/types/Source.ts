@@ -1,6 +1,7 @@
-import { HydraResource } from 'alcaeus/types/Resources'
 import { dcterms, dtype, schema } from '@tpluscode/rdf-ns-builders'
-import { Image } from './Image'
+import { Constructor, property, RdfResource } from '@tpluscode/rdfine'
+import { HydraResource } from 'alcaeus'
+import { ImageMixin, Image } from './Image'
 import { wbo } from '../ns'
 
 export interface Source extends HydraResource {
@@ -9,28 +10,26 @@ export interface Source extends HydraResource {
   primaryImage: Image | null
 }
 
-type Constructor<T = {}> = new (...args: any[]) => HydraResource
-
-export function Mixin<B extends Constructor>(Base: B) {
-  return class extends Base implements Source {
-    public get title() {
-      return this.get<string>(dcterms.title.value)
-    }
+export function SourceMixin<B extends Constructor<HydraResource>>(Base: B) {
+  class SourceClass extends Base implements Source {
+    @property.literal({ path: dcterms.title })
+    public title!: string
 
     public get images() {
       return this.getArray<Image>(schema.image.value).sort((left, right) => {
-        const leftIndex = left.get<number>(dtype.orderIndex.value) || 0
-        const rightIndex = right.get<number>(dtype.orderIndex.value) || 0
+        const leftIndex = left.getNumber(dtype.orderIndex) || 0
+        const rightIndex = right.getNumber(dtype.orderIndex) || 0
 
         return leftIndex - rightIndex
       })
     }
 
-    public get primaryImage() {
-      return this.get<Image>(schema.primaryImageOfPage.value)
-    }
+    @property.resource({ path: schema.primaryImageOfPage, as: [ImageMixin] })
+    public primaryImage!: Image
   }
+
+  return SourceClass
 }
 
-export const shouldApply = (r: HydraResource) =>
-  r.types.contains(wbo.Book.value) || r.types.contains(wbo.Brochure.value)
+SourceMixin.shouldApply = (r: RdfResource) =>
+  r.types.has(wbo.Book.value) || r.types.has(wbo.Brochure)

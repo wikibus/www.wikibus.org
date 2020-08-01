@@ -1,10 +1,10 @@
 import { ViewTemplates } from '@lit-any/views'
-import { HydraResource } from 'alcaeus/types/Resources'
+import { HydraResource } from 'alcaeus'
 import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
-import { IResource } from 'alcaeus/types/Resources/Resource'
 import { until } from 'lit-html/directives/until'
 import { schema } from '@tpluscode/rdf-ns-builders'
+import { RdfResource } from '@tpluscode/rdfine'
 import { portfolioProperties, portfolioProperty } from '../scopes'
 
 interface PropertiesOptions {
@@ -17,7 +17,9 @@ ViewTemplates.default.when
     const properties = res
       .getProperties()
       .filter(prop => prop.objects.length > 0)
-      .filter(prop => !params.except || !params.except.includes(prop.supportedProperty.property.id))
+      .filter(
+        prop => !params.except || !params.except.includes(prop.supportedProperty.property.id.value),
+      )
 
     return html`
       ${repeat(
@@ -40,7 +42,7 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
-  .valueMatches((v: IResource) => typeof v === 'object' && /lexvo/.test(v.id))
+  .valueMatches((v: RdfResource) => typeof v === 'object' && /lexvo/.test(v.id.value))
   .renders(v => {
     const matches = /\/(\w+)$/[Symbol.match](v.id)
     if (!matches) return ''
@@ -57,7 +59,7 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
-  .valueMatches((v: IResource) => typeof v === 'object' && v.types.contains(schema.Person.value))
+  .valueMatches((v: RdfResource) => typeof v === 'object' && v.types.has(schema.Person))
   .renders(
     person =>
       html`
@@ -71,7 +73,7 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
-  .valueMatches((v: IResource) => typeof v === 'object' && schema.name.value in v)
+  .valueMatches((v: RdfResource) => typeof v === 'object' && schema.name.value in v)
   .renders(
     v =>
       html`

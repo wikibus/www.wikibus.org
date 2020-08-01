@@ -1,7 +1,8 @@
-import { IHydraResponse } from 'alcaeus/types/HydraResponse'
 import { customElement } from 'lit-element'
 import AlcaeusLoader from '@hydrofoil/alcaeus-loader'
 import { StateMapper } from 'ld-navigation'
+import { ResourceIdentifier } from '@tpluscode/rdfine'
+import { HydraResponse } from 'alcaeus'
 import { CanvasShell } from './canvas-shell'
 import { WikibusStateMapper } from '../lib/WikibusStateMapper'
 import { app } from '../lib/state'
@@ -11,10 +12,10 @@ import { Core } from '../lib/state/core'
 const knownApis = new Map<string, string>()
 knownApis.set(wba.library.value, 'library')
 
-function getKnownApis(state: Core): Record<string, string> {
+function getKnownApis(state: Core): Record<string, ResourceIdentifier> {
   return [...state.entrypoints.entries()].reduce(
     (apis, [sp, entrypoint]) => {
-      const linkId = knownApis.get(sp.property.id)
+      const linkId = knownApis.get(sp.property.id.value)
 
       if (linkId) {
         return { ...apis, [linkId]: entrypoint }
@@ -30,18 +31,19 @@ function getKnownApis(state: Core): Record<string, string> {
 
 @customElement('wikibus-shell')
 export class WikibusShell extends AlcaeusLoader(CanvasShell) {
-  private __apis: Record<string, string> = {}
+  private __apis: Record<string, ResourceIdentifier> = {}
 
-  private __rooUri = ''
+  private __rooUri: ResourceIdentifier | null = null
 
   public createStateMapper() {
     return app
       .then(({ states }) => {
+        this.Hydra = states.val.core.Hydra
         this.__apis = getKnownApis(states.val.core)
         this.__rooUri = states.val.core.homeEntrypoint.id
         return new WikibusStateMapper({
           useHashFragment: this.usesHashFragment,
-          baseUrl: this.__rooUri,
+          baseUrl: this.__rooUri.value,
           apis: this.__apis,
         })
       })
@@ -52,16 +54,16 @@ export class WikibusShell extends AlcaeusLoader(CanvasShell) {
       })
   }
 
-  protected async onResourceLoaded(resource: IHydraResponse) {
+  protected async onResourceLoaded({ response, representation }: HydraResponse) {
     const { actions } = await app
-    if (resource.root) {
-      actions.setResource(resource.root)
+    if (representation?.root) {
+      actions.setResource(representation?.root)
     }
 
     this.consoleState = {
       ...this.consoleState,
       lastResponse: {
-        status: resource.xhr.status,
+        status: response?.xhr.status || 0,
       },
     }
   }

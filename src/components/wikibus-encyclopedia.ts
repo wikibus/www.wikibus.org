@@ -18,9 +18,7 @@ export default class WikibusEncyclopedia extends LitElement {
   public actions!: Actions
 
   public async connectedCallback() {
-    if (super.connectedCallback) {
-      super.connectedCallback()
-    }
+    super.connectedCallback()
 
     const { states, actions } = await app
     this.actions = actions

@@ -1,23 +1,22 @@
-import { HydraResource } from 'alcaeus/types/Resources'
 import { schema } from '@tpluscode/rdf-ns-builders'
+import { Constructor, namespace, property, RdfResource } from '@tpluscode/rdfine'
 
-export interface Image extends HydraResource {
+export interface Image extends RdfResource {
   thumbnail: Image | null
   contentUrl: string
 }
 
-type Constructor<T = {}> = new (...args: any[]) => HydraResource
+export function ImageMixin<B extends Constructor>(Base: B) {
+  @namespace(schema)
+  class Image extends Base implements Image {
+    @property.literal()
+    public contentUrl!: string
 
-export function Mixin<B extends Constructor>(Base: B) {
-  return class extends Base implements Image {
-    public get contentUrl() {
-      return this.get<string>(schema.contentUrl.value) || ''
-    }
-
-    public get thumbnail() {
-      return this.get<Image>(schema.thumbnail.value)
-    }
+    @property.resource({ as: [ImageMixin] })
+    public thumbnail!: Image
   }
+
+  return Image
 }
 
-export const shouldApply = (r: HydraResource) => r.get(schema.contentUrl.value)
+ImageMixin.shouldApply = (r: RdfResource) => !!r.get(schema.contentUrl)

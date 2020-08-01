@@ -1,7 +1,7 @@
 import { ViewTemplates } from '@lit-any/views'
 import { html } from 'lit-html'
 import { unsafeHTML } from 'lit-html/directives/unsafe-html'
-import { HydraResource } from 'alcaeus/types/Resources'
+import { HydraResource } from 'alcaeus'
 import { State } from '../lib/state'
 
 function getReplacer() {
@@ -9,13 +9,13 @@ function getReplacer() {
 
   return function replacer(i: string, v: string | HydraResource) {
     if (typeof v === 'object' && !Array.isArray(v)) {
-      if (uris.has(v.id)) {
+      if (uris.has(v.id.value)) {
         return {
           '@id': v.id,
         }
       }
 
-      uris.set(v.id, 0)
+      uris.set(v.id.value, 0)
     }
 
     if (i === '@id' && typeof v === 'string') {

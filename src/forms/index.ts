@@ -1,13 +1,12 @@
-import { FieldTemplates } from '@lit-any/forms'
-import { checkbox } from '@lit-any/forms/components'
-import { FieldContract } from '@lit-any/forms/lib/formContract'
+import * as Shaperone from '@hydrofoil/shaperone-wc/configure'
 import { dcterms, schema, xsd } from '@tpluscode/rdf-ns-builders'
 import { html } from 'lit-html'
 import { until } from 'lit-html/directives/until'
 import * as CanvasComponents from './CanvasComponents'
 import { typeMatches } from './matchers'
 
-FieldTemplates.default.useComponents(CanvasComponents)
+Shaperone.components.pushComponents(CanvasComponents)
+Shaperone.editors.loadDash()
 
 FieldTemplates.default.when
   .fieldMatches(field => field.type === xsd.date.value)

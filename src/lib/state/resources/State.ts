@@ -1,4 +1,4 @@
-import { HydraResource } from 'alcaeus/types/Resources'
+import { HydraResource } from 'alcaeus'
 
 interface LoadedResource {
   isLoading: false

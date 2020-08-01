@@ -32,9 +32,7 @@ export class CanvasPortfolio extends CanvasShellBase(LitElement) {
   private fallbackImage = 'images/portfolio-gallery/book-stack.jpg'
 
   public connectedCallback() {
-    if (super.connectedCallback) {
-      super.connectedCallback()
-    }
+    super.connectedCallback()
 
     this.$(window).on('resize', () => {
       this.arrange()
@@ -146,6 +144,7 @@ export class CanvasPortfolio extends CanvasShellBase(LitElement) {
   private getContainer() {
     const containerElement = this.renderRoot.querySelector('#portfolio')
     if (containerElement == null) {
+      // eslint-disable-next-line no-console
       console.error('gridInit: Container element not found')
       return null
     }
@@ -164,6 +163,7 @@ export class CanvasPortfolio extends CanvasShellBase(LitElement) {
     if (!$container) return
 
     if (!this.$().isotope) {
+      // eslint-disable-next-line no-console
       console.log('gridInit: Isotope not Defined.')
       return
     }

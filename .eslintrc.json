@@ -12,13 +12,14 @@
     "project": "./tsconfig.json"
   },
   "plugins": [
-    "lit",
-    "import"
+    "lit"
   ],
   "globals": {
     "SEMICOLON": "readonly"
   },
   "rules": {
-    "array-callback-return": "off"
+    "array-callback-return": "off",
+    "import/no-cycle": "warn",
+    "wc/guard-super-call": "off"
   }
 }

@@ -1,7 +1,7 @@
 import { html } from 'lit-html'
 import { RenderFunc } from '@lit-any/views/lib'
 import { schema } from '@tpluscode/rdf-ns-builders'
-import { HydraResource } from 'alcaeus/types/Resources'
+import { HydraResource } from 'alcaeus'
 import { Image } from '../../lib/types/Image'
 import * as scope from '../scopes'
 

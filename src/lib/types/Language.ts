@@ -1,13 +1,11 @@
-import { HydraResource } from 'alcaeus/types/Resources'
 import codes from 'iso-639-1'
+import { Constructor, RdfResource } from '@tpluscode/rdfine'
 import { langIso } from '../ns'
 
-type Constructor<T = {}> = new (...args: any[]) => HydraResource
-
-export function Mixin<B extends Constructor>(Base: B) {
+export function LanguageMixin<B extends Constructor>(Base: B) {
   return class extends Base {
     get name() {
-      const matches = this.id.match(/\/([^/]+)$/)
+      const matches = this.id.value.match(/\/([^/]+)$/)
       if (!matches) {
         return this.id
       }
@@ -21,4 +19,4 @@ export function Mixin<B extends Constructor>(Base: B) {
   }
 }
 
-export const shouldApply = (r: HydraResource) => r.id.startsWith(langIso().value)
+LanguageMixin.shouldApply = (r: RdfResource) => r.id.value.startsWith(langIso().value)

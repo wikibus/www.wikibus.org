@@ -1,5 +1,5 @@
 import { ViewTemplates } from '@lit-any/views'
-import { HydraResource } from 'alcaeus/types/Resources'
+import { DocumentedResource, HydraResource } from 'alcaeus'
 import { html } from 'lit-html'
 import { ifDefined } from 'lit-html/directives/if-defined'
 import { until } from 'lit-html/directives/until'
@@ -35,7 +35,7 @@ ViewTemplates.default.when
   .scopeMatches(pageTitle)
   .valueMatches(rdfType(wba.Entrypoint))
   .renders(
-    (value: HydraResource, next, scope, { state }: { state: State }) => html`
+    (value: HydraResource & DocumentedResource, next, scope, { state }: { state: State }) => html`
       <canvas-emphasis-title
         background-image="${state.pageTitle.background}"
         heading="${ifDefined(value.title)}"

@@ -1,6 +1,7 @@
 import { customElement, html, LitElement, property } from 'lit-element'
 import { repeat } from 'lit-html/directives/repeat'
 import { until } from 'lit-html/directives/until'
+import { NamedNode, Term } from 'rdf-js'
 import { Menu, Search, User } from '../icons'
 import CanvasShellBase from './CanvasShellBase'
 import './canvas-view'
@@ -20,14 +21,14 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
   @property({ type: Boolean })
   public primaryMenuOpen = false
 
-  @property({ type: String })
-  public home = ''
+  @property({ type: Object })
+  public home!: Term
 
   @property({ type: String })
   public current = ''
 
   @property({ type: Object })
-  public menu: Record<string, any> = {}
+  public menu: Record<string, NamedNode> = {}
 
   @property({ type: Boolean })
   public authReady = false
@@ -38,9 +39,7 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
   }
 
   public connectedCallback() {
-    if (super.connectedCallback) {
-      super.connectedCallback()
-    }
+    super.connectedCallback()
 
     const bodyObserverConfig = { attributes: true, childList: false, subtree: false }
     const observer = new MutationObserver(list => {
@@ -77,10 +76,10 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
     SEMICOLON.widget.extras()
   }
 
-  private __renderMenuItem([label, url]: [string, string]) {
+  private __renderMenuItem([label, url]: [string, Term]) {
     return html`
       <li class="${label === this.current ? 'current' : ''}">
-        <ld-link resource-url="${url}">${label}</ld-link>
+        <ld-link resource-url="${url.value}">${label}</ld-link>
       </li>
     `
   }
@@ -114,12 +113,12 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
             <div id="primary-menu-trigger">${Menu(iconSize)}</div>
 
             <div id="logo">
-              <ld-link resource-url="${this.home}">
+              <ld-link resource-url="${this.home.value}">
                 <a href="/" class="standard-logo" data-dark-logo="/images/logo-dark.png"
                   ><img src="/images/logo.png" alt="Canvas Logo"
                 /></a>
               </ld-link>
-              <ld-link resource-url="${this.home}">
+              <ld-link resource-url="${this.home.value}">
                 <a href="/" class="retina-logo" data-dark-logo="/images/logo-dark@2x.png"
                   ><img src="/images/logo@2x.png" alt="Canvas Logo"
                 /></a>

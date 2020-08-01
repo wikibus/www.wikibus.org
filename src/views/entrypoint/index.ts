@@ -1,8 +1,8 @@
 import { ViewTemplates } from '@lit-any/views'
-import { DocumentedResource, HydraResource, SupportedProperty } from 'alcaeus/types/Resources'
-import { IResource } from 'alcaeus/types/Resources/Resource'
+import { DocumentedResource, HydraResource, SupportedProperty } from 'alcaeus'
 import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
+import { RdfResource } from '@tpluscode/rdfine'
 import { rdfType } from '../matchers'
 import { resourceMain, cmsParts } from '../scopes'
 import { propertyIcon } from '../library/property-icons'
@@ -21,7 +21,7 @@ function renderEntrypointLink(next: any) {
         class="col_one_third ${index % 3 === 2 ? 'col_last' : ''}"
         .title="${resource.title || link.supportedProperty.title}"
         .description="${resource.description || link.supportedProperty.description}"
-        .resourceUrl="${link.resource.id}"
+        .resourceUrl="${link.resource.id.value}"
       >
         ${next(link.supportedProperty, propertyIcon)}
       </canvas-featured-box>
@@ -44,7 +44,7 @@ ViewTemplates.default.when
           resource,
         })),
       ],
-      [] as { supportedProperty: SupportedProperty; resource: IResource }[],
+      [] as { supportedProperty: SupportedProperty; resource: RdfResource }[],
     )
 
     return html`

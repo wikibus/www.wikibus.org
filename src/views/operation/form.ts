@@ -1,7 +1,7 @@
 import { ViewTemplates } from '@lit-any/views'
 import { html } from 'lit-html'
 import { until } from 'lit-html/directives/until'
-import { IOperation } from 'alcaeus/types/Resources'
+import { Operation } from 'alcaeus'
 import { ifDefined } from 'lit-html/directives/if-defined'
 import { operationForm } from '../scopes'
 import { State, app } from '../../lib/state'
@@ -14,7 +14,7 @@ async function updateState() {
   actions.hideOperationForm()
 }
 
-function invokeOperation(operation: IOperation) {
+function invokeOperation(operation: Operation) {
   return async (e: CustomEvent) => {
     const { actions } = await app
     return actions.invokeOperation(operation, e.detail.value)

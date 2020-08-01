@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html'
-import { Collection, HydraResource, SupportedProperty } from 'alcaeus/types/Resources'
+import { Collection, HydraResource, SupportedProperty } from 'alcaeus'
 import { repeat } from 'lit-html/directives/repeat'
 import { collectionTableCell } from '../scopes'
 import { State } from '../../lib/state'

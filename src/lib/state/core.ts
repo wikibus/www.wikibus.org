@@ -1,31 +1,27 @@
-import { HydraResource, IOperation, SupportedProperty } from 'alcaeus/types/Resources'
-import { Hydra } from 'alcaeus'
+import { HydraClient } from 'alcaeus/alcaeus'
+import { create, Operation, ResourceIdentifier } from 'alcaeus'
+import { HydraResource, SupportedProperty } from 'alcaeus/Resources'
+import { parsers } from '@rdf-esm/formats-common'
 import O from 'patchinko/immutable'
-import { IHydraResponse } from 'alcaeus/types/HydraResponse'
 import { getRequestBody } from '../hydra/operation'
 import { ServiceParams, State } from './index'
 import * as App from '../state'
 import { Message } from '../../components/canvas-shell/canvas-message'
-
-import('@rdfjs/parser-n3').then(ParserN3 => {
-  ;(Hydra.mediaTypeProcessors.RDF as any).addParsers({
-    'text/turtle': ParserN3.default,
-  })
-})
 
 type StateModification = (s: Core) => Core | Promise<Core>
 
 export interface OperationFormState {
   opened: boolean
   invoking: boolean
-  operation?: IOperation
+  operation?: Operation
   value?: any
   error?: string
 }
 
 export interface Core<T extends HydraResource | null = HydraResource | null> {
+  Hydra: HydraClient
   debug: boolean
-  entrypoints: Map<SupportedProperty, string>
+  entrypoints: Map<SupportedProperty, ResourceIdentifier>
   resource: T
   resourceUrlOverride: string | null
   homeEntrypoint: HydraResource
@@ -42,28 +38,29 @@ export async function Initial(): Promise<Core> {
     throw new Error('Failed to initialize app. API_ROOT environment variable was not set')
   }
 
-  let response: IHydraResponse
-  try {
-    response = await Hydra.loadResource(rootUri)
-  } catch (e) {
-    throw new Error('Failed to initialize app. Could not fetch root entrypoint')
-  }
-  if (!response.root) {
+  const Hydra = create({ parsers })
+  Hydra.resources.factory.addMixin()
+
+  const response = await Hydra.loadResource(rootUri)
+  if (!response.representation?.root) {
     throw new Error('Failed to initialize app. Could not fetch root entrypoint')
   }
 
-  const entrypoints = response.root.getLinks().reduce((map, { supportedProperty, resources }) => {
-    map.set(supportedProperty, resources[0].id)
-    return map
-  }, new Map<SupportedProperty, string>())
+  const entrypoints = response.representation.root
+    .getLinks()
+    .reduce((map, { supportedProperty, resources }) => {
+      map.set(supportedProperty, resources[0].id)
+      return map
+    }, new Map<SupportedProperty, ResourceIdentifier>())
 
   return {
+    Hydra,
     debug: false,
     entrypoints,
     isLoading: false,
     resource: null,
     resourceUrlOverride: null,
-    homeEntrypoint: response.root,
+    homeEntrypoint: response.representation.root,
     operationForm: {
       invoking: false,
       opened: false,
@@ -86,7 +83,7 @@ export const services = [
         }),
       })
 
-      if (state.core.resource) {
+      if (state.core.resource && state.core.resource.load) {
         update({
           core: O<Core>({
             isLoading: true,
@@ -94,10 +91,10 @@ export const services = [
         })
         state.core.resource
           .load()
-          .then(resource => {
+          .then(({ representation }) => {
             update({
               core: O<Core>({
-                resource: resource.root,
+                resource: representation?.root,
                 isLoading: false,
               }),
             })
@@ -118,10 +115,9 @@ export interface Actions {
   toggleDebug(): void
   setResource(resource: HydraResource): void
   overrideResourceUrl(url: string): void
-  overrideResourceUrl(url: string): void
-  showOperationForm(operation: IOperation): void
+  showOperationForm(operation: Operation): void
   hideOperationForm(): void
-  invokeOperation(operation: IOperation, value?: object): void
+  invokeOperation(operation: Operation, value?: object): void
   showMessage(text: string, kind: Message['kind']): void
   reload(): void
   hideRefreshHint(): void
@@ -187,7 +183,7 @@ export function actions(update: (patch: Partial<State> | StateModification) => v
         }),
       })
     },
-    showOperationForm(this: Actions, operation: IOperation) {
+    showOperationForm(this: Actions, operation: Operation) {
       if (!operation.expects.supportedProperties.length) {
         this.invokeOperation(operation)
         return
@@ -214,7 +210,7 @@ export function actions(update: (patch: Partial<State> | StateModification) => v
         }),
       })
     },
-    invokeOperation(this: App.Actions, operation: IOperation, value?: object) {
+    invokeOperation(this: App.Actions, operation: Operation, value?: object) {
       update({
         core: O<Core>({
           operationForm: O<OperationFormState>({
@@ -228,8 +224,8 @@ export function actions(update: (patch: Partial<State> | StateModification) => v
       const body = getRequestBody(operation, value)
       return operation
         .invoke(body)
-        .then(response => {
-          if (response.xhr.ok) {
+        .then(({ response, representation }) => {
+          if (response?.xhr.ok) {
             this.showMessage('Operation complete', 'success')
 
             update({
@@ -240,11 +236,11 @@ export function actions(update: (patch: Partial<State> | StateModification) => v
               }),
             })
 
-            if (response.root) {
+            if (representation?.root) {
               update({
                 core: O<Core>({
-                  resource: response.root,
-                  resourceUrlOverride: response.root.id,
+                  resource: representation.root,
+                  resourceUrlOverride: representation.root.id.value,
                 }),
               })
             } else {
@@ -254,14 +250,14 @@ export function actions(update: (patch: Partial<State> | StateModification) => v
                 }),
               })
             }
-          } else if (response.xhr.status === 401) {
+          } else if (response?.xhr.status === 401) {
             this.login()
           } else {
-            this.showMessage(response.xhr.statusText, 'error')
+            this.showMessage(response?.xhr.statusText || 'Error', 'error')
             update({
               core: O<Core>({
                 operationForm: O<OperationFormState>({
-                  error: response.xhr.statusText,
+                  error: response?.xhr.statusText,
                 }),
               }),
             })

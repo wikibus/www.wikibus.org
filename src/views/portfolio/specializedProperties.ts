@@ -2,7 +2,7 @@ import { ViewTemplates } from '@lit-any/views'
 import { html, TemplateResult } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
 import { schema } from '@tpluscode/rdf-ns-builders'
-import { HydraResource, SupportedProperty } from 'alcaeus/types/Resources'
+import { HydraResource, SupportedProperty } from 'alcaeus'
 import { portfolioSpecializedProperties, mediaTypeIcon, portfolioProperty } from '../scopes'
 import '../../components/canvas-shell/canvas-featured-box'
 import { State, app } from '../../lib/state'
@@ -42,13 +42,13 @@ ViewTemplates.default.when
   })
 ViewTemplates.default.when
   .scopeMatches(portfolioSpecializedProperty)
-  .valueMatches<SpecializedPropertyModel>(
-    ({ property }) => property.property.id === schema.contributor.value,
+  .valueMatches<SpecializedPropertyModel>(({ property }) =>
+    property.property.id.equals(schema.contributor),
   )
   .renders(({ property, value, state }: SpecializedPropertyModel<HydraResource>, next) => {
     import('../../components/canvas-shell/canvas-sidebar-section')
     let contents: () => TemplateResult | string
-    const resourceState = state.resources[value.id]
+    const resourceState = state.resources[value.id.value]
     const load = () => app.then(({ actions }) => actions.loadResource(value))
 
     if (!resourceState) {
@@ -83,8 +83,8 @@ ViewTemplates.default.when
     ({ value }) =>
       typeof value === 'object' &&
       value &&
-      value.types.contains(schema.MediaObject.value) &&
-      !!value[schema.contentUrl.value],
+      value.types.has(schema.MediaObject) &&
+      !!value.get(schema.contentUrl),
   )
   .renders(
     ({ value }, next) => html`

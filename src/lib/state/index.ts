@@ -1,4 +1,4 @@
-import { HydraResource } from 'alcaeus/types/Resources'
+import { HydraResource } from 'alcaeus'
 import * as core from './core'
 import * as gallery from './gallery'
 import * as pageTitle from './page-title'
@@ -20,22 +20,4 @@ export interface ServiceParams {
   state: State
   update: (patch: Partial<State>) => void
   actions: Actions
-}
-
-export function onChange<T>(
-  selector: (state: State) => T,
-  acceptor: (state: State) => Partial<State>,
-) {
-  let previous: T | undefined
-
-  return (state: State) => {
-    let patch = {}
-    const current = selector(state)
-    if (previous !== current) {
-      patch = acceptor(state)
-    }
-
-    previous = current
-    return patch
-  }
 }

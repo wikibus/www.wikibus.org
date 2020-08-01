@@ -2,7 +2,7 @@ import { customElement, html, LitElement, property, queryAll, css } from 'lit-el
 import { repeat } from 'lit-html/directives/repeat'
 import { render } from 'lit-html'
 import { ifDefined } from 'lit-html/directives/if-defined'
-import { IOperation } from 'alcaeus/types/Resources'
+import { Operation } from 'alcaeus'
 import CanvasShellBase from './CanvasShellBase'
 import { Image } from '../../lib/types/Image'
 import CanvasLightboxMixin from './CanvasLightboxMixin'
@@ -62,7 +62,7 @@ export class CanvasFslider extends CanvasLightboxMixin(CanvasShellBase(LitElemen
   public thumbs = true
 
   @property({ type: Array })
-  private __menuOperations: IOperation[] = []
+  private __menuOperations: Operation[] = []
 
   public static get styles() {
     return [
@@ -76,7 +76,7 @@ export class CanvasFslider extends CanvasLightboxMixin(CanvasShellBase(LitElemen
   }
 
   public connectedCallback() {
-    if (super.connectedCallback) super.connectedCallback()
+    super.connectedCallback()
 
     import('@vaadin/vaadin-context-menu')
   }

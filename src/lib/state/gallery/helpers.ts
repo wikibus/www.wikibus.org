@@ -1,4 +1,4 @@
-import { Collection, HydraResource, PartialCollectionView } from 'alcaeus/types/Resources'
+import { Collection, HydraResource, PartialCollectionView } from 'alcaeus'
 
 export function getPage(resource: Collection, rel: 'next' | 'previous') {
   if (resource.views && resource.views.length > 0) {

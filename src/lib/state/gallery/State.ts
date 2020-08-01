@@ -1,7 +1,7 @@
-import { HydraResource } from 'alcaeus/types/Resources'
+import { HydraResource, ResourceIdentifier } from 'alcaeus'
 
 export interface Gallery {
-  collectionId: string
+  collectionId: ResourceIdentifier | null
   resources: any[]
   nextPage: HydraResource | null
   prevPage: HydraResource | null

@@ -1,5 +1,5 @@
 import { ViewTemplates } from '@lit-any/views'
-import { HydraResource } from 'alcaeus/types/Resources'
+import { HydraResource } from 'alcaeus'
 import { html } from 'lit-html'
 import { collectionTableCell } from '../scopes'
 
@@ -9,7 +9,7 @@ ViewTemplates.default.when
   .renders(
     v =>
       html`
-        <ld-link resource-url="${v.id}"><a>${v.title || v.id}</a></ld-link>
+        <ld-link resource-url="${v.id.value}"><a>${v.title || v.id}</a></ld-link>
       `,
   )
 

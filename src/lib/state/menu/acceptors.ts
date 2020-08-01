@@ -1,8 +1,7 @@
 import O from 'patchinko/immutable'
-import { hydra } from '@tpluscode/rdf-ns-builders'
-import { DocumentedResource } from 'alcaeus/types/Resources'
-import { onChange } from '../index'
-import { State } from '../../state'
+import { DocumentedResource } from 'alcaeus'
+import { onChange } from '../onChange'
+import { State } from '../index'
 
 const populateMenu = onChange(
   state => state.core.homeEntrypoint,
@@ -29,10 +28,10 @@ const populateMenu = onChange(
   },
 )
 
-const selectCurrentMenuItem = (state: State): Partial<State> => {
-  const resource = state.core.resource as any
-  if (!resource) return {}
+const selectCurrentMenuItem = (state: State): Partial<State> => ({})
 
+/*
+  const { resource } = state.core as any
   const currentLinkedEntrypoint = resource.apiDocumentation.valueOrThrow()[hydra.entrypoint.value]
     .id
   const currentMenuItem = Object.entries(state.menu.items).find(
@@ -44,6 +43,6 @@ const selectCurrentMenuItem = (state: State): Partial<State> => {
       current: currentMenuItem ? currentMenuItem[0] : '',
     }),
   }
-}
+  */
 
 export const acceptors = [populateMenu, selectCurrentMenuItem]

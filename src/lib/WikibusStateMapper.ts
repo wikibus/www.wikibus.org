@@ -1,10 +1,11 @@
 import { StateMapper } from 'ld-navigation'
+import { ResourceIdentifier } from '@tpluscode/rdfine'
 
 interface StateMapperOptions {
   baseUrl?: string
   useHashFragment?: boolean
   clientBasePath?: string
-  apis: Record<string, string | undefined>
+  apis: Record<string, ResourceIdentifier | undefined>
 }
 
 interface ApiStateMapping {
@@ -29,7 +30,7 @@ export class WikibusStateMapper extends StateMapper {
         pathRegex: new RegExp(`^/${api[0]}`),
         mapper: new StateMapper({
           ...o,
-          baseUrl: api[1],
+          baseUrl: api[1].value,
           clientBasePath: api[0],
         }),
       }

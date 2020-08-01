@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase,no-console */
-import { HydraResource } from 'alcaeus/types/Resources'
-import { State } from '../../state'
+import { HydraResource } from 'alcaeus'
+import { State } from '../index'
 
 type StateModification = (s: State) => State | Promise<State>
 

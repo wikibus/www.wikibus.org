@@ -1,5 +1,5 @@
 import O from 'patchinko/immutable'
-import { onChange } from '../index'
+import { onChange } from '../onChange'
 
 const setEmphasisBackground = onChange(
   state => (state.core.resource ? state.core.resource.id : ''),
@@ -7,7 +7,9 @@ const setEmphasisBackground = onChange(
     const { resource } = state.core
 
     if (resource) {
-      const fileName = Object.entries(state.menu.items).find(([, value]) => value === resource.id)
+      const fileName = Object.entries(state.menu.items).find(([, value]) =>
+        value.equals(resource.id),
+      )
 
       return O({
         pageTitle: O({

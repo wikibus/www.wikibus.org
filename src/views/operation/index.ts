@@ -2,7 +2,7 @@ import { ViewTemplates } from '@lit-any/views'
 import { hydra, schema } from '@tpluscode/rdf-ns-builders'
 import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
-import { HydraResource, IOperation } from 'alcaeus/types/Resources'
+import { HydraResource, Operation } from 'alcaeus'
 import { operationSelector, operationTrigger, operationList, operationIcon } from '../scopes'
 import { app } from '../../lib/state'
 import './form'
@@ -10,7 +10,7 @@ import './icons'
 
 interface OperationTriggerModel {
   resource?: HydraResource
-  operation: IOperation
+  operation: Operation
 }
 
 function openOperationForm(op: OperationTriggerModel) {

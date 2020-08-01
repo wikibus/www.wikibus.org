@@ -1,5 +1,5 @@
 import { ViewTemplates } from '@lit-any/views'
-import { HydraResource } from 'alcaeus/types/Resources'
+import { HydraResource } from 'alcaeus'
 import { schema } from '@tpluscode/rdf-ns-builders'
 import { html, TemplateResult } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
@@ -31,7 +31,7 @@ ViewTemplates.default.when
 ViewTemplates.default.when
   .scopeMatches(cmsScope)
   .valueMatches((resource: HydraResource) => resource.isAnonymous)
-  .valueMatches((r: HydraResource) => r.types.contains(schema.HowToStep.value))
+  .valueMatches((r: HydraResource) => r.types.has(schema.HowToStep))
   .renders((step: HydraResource, next, scope) => {
     const stepItems = step.getArray<HydraResource>(schema.itemListElement.value)
 
@@ -43,12 +43,12 @@ ViewTemplates.default.when
 ViewTemplates.default.when
   .scopeMatches(cmsScope)
   .valueMatches((resource: HydraResource) => resource.isAnonymous)
-  .valueMatches((r: HydraResource) => r.types.contains(schema.HowToDirection.value))
+  .valueMatches((r: HydraResource) => r.types.has(schema.HowToDirection))
   .renders((step: HydraResource, next) => {
     let image: string | TemplateResult = ''
 
-    if (step[schema.duringMedia.value]) {
-      image = next(step[schema.duringMedia.value])
+    if (step.get(schema.duringMedia)) {
+      image = next(step.get(schema.duringMedia))
     }
 
     return html`
@@ -62,7 +62,7 @@ ViewTemplates.default.when
   .valueMatches((resource: HydraResource) => !resource.isAnonymous)
   .renders((value: HydraResource, next, scope, { state }: ViewParams) => {
     let contents: () => TemplateResult | string
-    const resourceState = state.resources[value.id]
+    const resourceState = state.resources[value.id.value]
     const load = () => app.then(({ actions }) => actions.loadResource(value))
 
     if (!resourceState) {
@@ -91,9 +91,7 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(cmsScopeLoaded)
-  .valueMatches(
-    (resource: HydraResource) => resource && resource.types.contains(schema.HowTo.value),
-  )
+  .valueMatches((resource: HydraResource) => resource && resource.types.has(schema.HowTo))
   .renders((resource: HydraResource, next) => {
     import('../../components/canvas-shell/canvas-progress-steps')
 

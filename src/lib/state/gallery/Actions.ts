@@ -1,4 +1,4 @@
-import { Collection, HydraResource } from 'alcaeus/types/Resources'
+import { Collection, HydraResource } from 'alcaeus'
 import O from 'patchinko/immutable'
 import { State } from '../../state'
 import { getPage } from './helpers'
@@ -12,6 +12,8 @@ export interface Actions {
 export function actions(update: (patch: Partial<State>) => void): Actions {
   return {
     async appendToGallery(nextPage: HydraResource) {
+      if (!nextPage.load) return
+
       update(
         O({
           gallery: O<Gallery>({
@@ -19,28 +21,34 @@ export function actions(update: (patch: Partial<State>) => void): Actions {
           }),
         }),
       )
-      const nextPageResponse = (await nextPage.load()).root as Collection
+      const { representation } = (await nextPage.load()) as any
+      const collection: Collection = representation?.root
+      if (!collection) return
 
       update({
         gallery: O<Gallery>({
-          resources: O((current: any) => [...current, ...nextPageResponse.members]),
-          nextPage: getPage(nextPageResponse, 'next'),
+          resources: O((current: any) => [...current, ...collection.members]),
+          nextPage: getPage(collection, 'next'),
           nextPageLoading: false,
         }),
       })
     },
     async prependToGallery(prevPage: HydraResource) {
+      if (!prevPage.load) return
+
       update({
         gallery: O<Gallery>({
           prevPageLoading: true,
         }),
       })
-      const prevPageResponse = (await prevPage.load()).root as Collection
+      const { representation } = (await prevPage.load()) as any
+      const collection: Collection = representation?.root
+      if (!collection) return
 
       update({
         gallery: O<Gallery>({
-          resources: O((current: any) => [...prevPageResponse.members, ...current]),
-          prevPage: getPage(prevPageResponse, 'previous'),
+          resources: O((current: any) => [...collection.members, ...current]),
+          prevPage: getPage(collection, 'previous'),
           prevPageLoading: false,
         }),
       })

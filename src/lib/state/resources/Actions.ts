@@ -1,6 +1,6 @@
 import O from 'patchinko/immutable'
-import { HydraResource } from 'alcaeus/types/Resources'
-import { State } from '../../state'
+import { HydraResource } from 'alcaeus'
+import { State } from '../index'
 import { Resources } from './State'
 
 export interface Actions {
@@ -10,11 +10,13 @@ export interface Actions {
 export function actions(update: (patch: Partial<State>) => void): Actions {
   return {
     loadResource(resource: HydraResource) {
+      if (!resource.load) return
+
       const { id } = resource
 
       update({
         resources: O<Resources>({
-          [id]: {
+          [id.value]: {
             isLoading: true,
           },
         }),
@@ -22,22 +24,22 @@ export function actions(update: (patch: Partial<State>) => void): Actions {
 
       resource
         .load()
-        .then(response => {
-          const loaded = response.root
+        .then(({ response, representation }) => {
+          const loaded = representation?.root
 
           if (!loaded) {
             update({
               resources: O<Resources>({
-                [id]: {
+                [id.value]: {
                   isLoading: false,
-                  error: response.xhr.statusText,
+                  error: response?.xhr.statusText || 'Error',
                 },
               }),
             })
           } else {
             update({
               resources: O<Resources>({
-                [id]: {
+                [id.value]: {
                   isLoading: false,
                   value: loaded,
                 },
@@ -48,7 +50,7 @@ export function actions(update: (patch: Partial<State>) => void): Actions {
         .catch(e => {
           update({
             resources: O<Resources>({
-              [id]: {
+              [id.value]: {
                 isLoading: false,
                 error: e.message,
               },

@@ -1,14 +1,14 @@
-import { IOperation } from 'alcaeus/types/Resources'
+import { Operation } from 'alcaeus'
 import { schema } from '@tpluscode/rdf-ns-builders'
 
-export function getRequestBody(operation: IOperation, formValue: any) {
+export function getRequestBody(operation: Operation, formValue: any) {
   const fileProperties = operation.expects.supportedProperties
     .filter(sp => sp.writable)
     .filter(
       sp =>
         sp.property.range &&
-        (sp.property.range.id === schema.ImageObject.value ||
-          sp.property.range.id === schema.MediaObject.value),
+        (sp.property.range.id.equals(schema.ImageObject) ||
+          sp.property.range.id.equals(schema.MediaObject)),
     )
     .map(sp => sp.property)
 
@@ -18,13 +18,13 @@ export function getRequestBody(operation: IOperation, formValue: any) {
 
   const formData = new FormData()
   fileProperties.reduce((previousValue, property) => {
-    const files = formValue[property.id]
+    const files = formValue[property.id.value]
     // eslint-disable-next-line no-param-reassign
-    delete formValue[property.id]
+    delete formValue[property.id.value]
 
     if (files instanceof FileList) {
       for (let i = 0; i < files.length; i += 1) {
-        previousValue.append(property.id, files[i], files[i].name)
+        previousValue.append(property.id.value, files[i], files[i].name)
       }
     }
 

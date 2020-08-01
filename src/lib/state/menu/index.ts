@@ -1,7 +1,9 @@
+import { ResourceIdentifier } from '@tpluscode/rdfine'
+
 export { acceptors } from './acceptors'
 
 export interface Menu {
-  items: Record<string, string>
+  items: Record<string, ResourceIdentifier>
   current: string
 }
 

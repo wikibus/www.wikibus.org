@@ -1,6 +1,7 @@
 import { HydrofoilShell } from '@hydrofoil/hydrofoil-shell/hydrofoil-shell'
 import { ResourceScope, ReflectedInHistory } from 'ld-navigation'
 import { css, html, property } from 'lit-element'
+import { ResourceIdentifier } from '@tpluscode/rdfine'
 import './canvas-gototop.ts'
 import './canvas-footer.ts'
 import './canvas-view.ts'
@@ -11,11 +12,11 @@ import { Message } from './canvas-message'
 
 interface ConsoleState {
   menu: {
-    items: Record<string, string>
+    items: Record<string, ResourceIdentifier>
     current: string
   }
   isAuthenticated?: boolean
-  homeEntrypoint: string
+  homeEntrypoint: ResourceIdentifier | null
   lastResponse: {
     status: number
   }
@@ -41,7 +42,7 @@ export class CanvasShell extends CanvasShellBase(
 
   @property({ type: Object })
   public consoleState: ConsoleState = {
-    homeEntrypoint: '',
+    homeEntrypoint: null,
     lastResponse: {
       status: 0,
     },
@@ -61,7 +62,7 @@ export class CanvasShell extends CanvasShellBase(
   private __errorDetailsVisible = false
 
   public connectedCallback() {
-    if (super.connectedCallback) super.connectedCallback()
+    super.connectedCallback()
     import('@polymer/paper-progress/paper-progress')
     import('./canvas-button')
     import('./canvas-message')

@@ -1,23 +1,23 @@
 import { html } from 'lit-html'
-import { until } from 'lit-html/directives/until'
-import buttonFactory from '@lit-any/forms/lib/components/button'
-import textboxFactory from '@lit-any/forms/lib/components/textbox'
-import cbFactory from '@lit-any/forms/lib/components/checkbox'
-import { ifDefined } from 'lit-html/directives/if-defined'
+import { SingleEditorComponent } from '@hydrofoil/shaperone-wc'
+import { dash, sh } from '@tpluscode/rdf-ns-builders'
 
-export const textbox = textboxFactory(() => (f, id, v, set) => html`
+export const textbox: SingleEditorComponent = {
+  editor: dash.TextFieldEditor,
+  render({ value, property }, { update }) {
+    return html`
   <input
     type="text"
-    id="${id}"
-    name="${f.title}"
-    .value="${v || ''}"
-    class="form-control ${f.required ? 'required' : ''}"
-    placeholder="${f.description || ''}"
-    @input="${(e: any) => set(e.target.value)}"
-  />
-`)
+    name="${property.name}"
+    .value="${value.object.value}"
+    class="form-control required"
+    placeholder="${property.shape.getString(sh.description) || ''}"
+    @input="${(e: any) => update(e.target.value)}"
+  />`
+  },
+}
 
-export const button = buttonFactory(({ label, onClick }) => {
+/* export const button = buttonFactory(({ label, onClick }) => {
   const buttonImport = import('../components/canvas-shell/canvas-button').then(
     () =>
       html`
@@ -41,4 +41,4 @@ export const checkbox = cbFactory(() => (f, id, v, set) => html`
     />
     <label for="${id}" class="checkbox-style-2-label"></label>
   </div>
-`)
+`) */

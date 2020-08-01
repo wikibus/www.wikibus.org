@@ -1,5 +1,5 @@
 import { ViewTemplates } from '@lit-any/views'
-import { SupportedProperty } from 'alcaeus/types/Resources'
+import { SupportedProperty } from 'alcaeus'
 import { html } from 'lit-html'
 import { RenderFunc } from '@lit-any/views/lib'
 import { supportedProperty } from '../matchers'

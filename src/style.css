@@ -11,7 +11,7 @@
 
 -----------------------------------------------------------------------------------*/
 * {
-  --body-color: #999;
+  --body-color: #555;
   --theme-color: #64bfdb;
   --header-bg-color: #293650;
   --heading-color: #444;
@@ -796,8 +796,7 @@ body.stretched .container-fullwidth {
 -----------------------------------------------------------------*/
 #header {
   position: relative;
-  background-color: var(--header-bg-color);
-  border-bottom: 1px solid #F5F5F5; }
+  background-color: var(--header-bg-color); }
 
 #header .container {
   position: relative; }
@@ -11485,7 +11484,7 @@ blockquote {
 
 -----------------------------------------------------------------*/
 * {
-  --body-color: #999;
+  --body-color: #555;
   --theme-color: #64bfdb;
   --header-bg-color: #293650;
   --heading-color: #444;
@@ -12612,5 +12611,4 @@ vaadin-combo-box-overlay {
   z-index: 2000; }
 
 vaadin-date-picker-overlay {
-  z-index: 10000;
-}
+  z-index: 10000; }

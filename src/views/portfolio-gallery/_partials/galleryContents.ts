@@ -12,7 +12,7 @@ function loadPreviousPage(state: State) {
     const { actions } = await app
     if (state.gallery.prevPage && !state.gallery.prevPageLoading) {
       actions.prependToGallery(state.gallery.prevPage)
-      actions.overrideResourceUrl(state.gallery.prevPage.id)
+      actions.overrideResourceUrl(state.gallery.prevPage.id.value)
     }
   }
 }
@@ -22,7 +22,7 @@ function loadNextPage(state: State) {
     const { actions } = await app
     if (state.gallery.nextPage && !state.gallery.nextPageLoading) {
       actions.appendToGallery(state.gallery.nextPage)
-      actions.overrideResourceUrl(state.gallery.nextPage.id)
+      actions.overrideResourceUrl(state.gallery.nextPage.id.value)
     }
   }
 }
@@ -30,7 +30,7 @@ function loadNextPage(state: State) {
 export function galleryContents<T>(state: State, options: GalleryOptions<T>) {
   return html`
     <div class="center" ?hidden="${!state.gallery.prevPage}">
-      <ld-link resource-url="${state.gallery.prevPage && state.gallery.prevPage.id}" disabled>
+      <ld-link resource-url="${state.gallery.prevPage && state.gallery.prevPage.id.value}" disabled>
         <a
           @click="${loadPreviousPage(state)}"
           class="button button-full button-dark button-rounded load-next-portfolio"
@@ -41,7 +41,7 @@ export function galleryContents<T>(state: State, options: GalleryOptions<T>) {
     <canvas-portfolio .items="${state.gallery.resources.map(options.mapMember)}">
     </canvas-portfolio>
     <div class="center" ?hidden="${!state.gallery.nextPage}">
-      <ld-link resource-url="${state.gallery.nextPage && state.gallery.nextPage.id}" disabled>
+      <ld-link resource-url="${state.gallery.nextPage && state.gallery.nextPage.id.value}" disabled>
         <a
           @click="${loadNextPage(state)}"
           class="button button-full button-dark button-rounded load-next-portfolio"

@@ -1,5 +1,5 @@
 import { ViewTemplates } from '@lit-any/views'
-import { Collection, HydraResource } from 'alcaeus/types/Resources'
+import { Collection, DocumentedResource, HydraResource } from 'alcaeus'
 import { html } from 'lit-html'
 import { dcterms, schema, hydra } from '@tpluscode/rdf-ns-builders'
 import { resourceMain } from '../scopes'
@@ -9,13 +9,15 @@ import { galleryContents } from './_partials/galleryContents'
 import './sidebar.ts'
 import { wba } from '../../lib/ns'
 import { collectionTable } from '../collectionTable'
+import { PortfolioItem } from '../../components/canvas-shell/canvas-portfolio'
 
-function mapMember(resource: HydraResource) {
+function mapMember(resource: HydraResource & DocumentedResource): PortfolioItem {
   return {
-    image: resource[schema.primaryImageOfPage.value] || resource.getArray(schema.image.value)[0],
-    title: resource.title || resource[dcterms.title.value] || 'Item',
-    id: resource.id,
-  } as any
+    image: (resource.get(schema.primaryImageOfPage) ||
+      resource.getArray(schema.image.value)[0]) as any,
+    title: resource.title || resource.getString(dcterms.title) || 'Item',
+    id: resource.id.value,
+  }
 }
 ViewTemplates.default.when
   .scopeMatches(resourceMain)

@@ -1,6 +1,6 @@
 import O from 'patchinko/immutable'
-import { State } from '../../state'
 import { PageTitle } from './State'
+import { State } from '../index'
 
 export interface Actions {
   hidePageTitle(): void

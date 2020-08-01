@@ -33,7 +33,7 @@ export class CanvasModal extends CanvasShellBase(LitElement) {
   private __modalLoaded = false
 
   public connectedCallback() {
-    super.connectedCallback && super.connectedCallback()
+    super.connectedCallback()
 
     import('@lit-element-bootstrap/modal').then(() => {
       this.__modalLoaded = true
@@ -42,8 +42,8 @@ export class CanvasModal extends CanvasShellBase(LitElement) {
 
   protected updated(_changedProperties: Map<PropertyKey, unknown>): void {
     if (_changedProperties.has('opened')) {
-      if (this.opened) {
-        this.__modal && this.__modal.open()
+      if (this.opened && this.__modal) {
+        this.__modal.open()
       } else if (this.__modal && this.__modal.opened) {
         this.__modal.close()
       }
