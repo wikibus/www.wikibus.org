@@ -41,7 +41,7 @@ export function portfolioSingleGallery<T extends HydraResource>(options: Options
         <div class="col_one_third portfolio-single-content col_last nobottommargin">
           <canvas-sidebar-section heading="${options.heading}">
             <ul class="portfolio-meta bottommargin">
-              ${next(resource, scope.portfolioProperties, { except })}
+              ${next(resource, scope.portfolioProperties, { except, state })}
             </ul>
           </canvas-sidebar-section>
 

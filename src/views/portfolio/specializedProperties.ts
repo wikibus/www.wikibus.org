@@ -3,10 +3,11 @@ import { html, TemplateResult } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
 import { schema } from '@tpluscode/rdf-ns-builders'
 import { HydraResource, SupportedProperty } from 'alcaeus/types/Resources'
-import { portfolioSpecializedProperties, mediaTypeIcon, portfolioProperty } from '../scopes'
+import { portfolioSpecializedProperties, mediaTypeIcon } from '../scopes'
 import '../../components/canvas-shell/canvas-featured-box'
-import { State, app } from '../../lib/state'
+import { State } from '../../lib/state'
 import { User } from '../../components/icons'
+import { lazyResourceRender } from './lazyResourceRender'
 
 const portfolioSpecializedProperty = 'portfolioSpecializedProperty'
 
@@ -23,77 +24,68 @@ ViewTemplates.default.when
 
     return html`
       ${repeat(
-        properties,
-        ({ supportedProperty, objects }) =>
-          html`
+    properties,
+    ({ supportedProperty, objects }) =>
+      html`
             ${repeat(
-              objects,
-              value =>
-                html`
+    objects,
+    value =>
+      html`
                   ${next(
-                    { property: supportedProperty, value, state },
-                    portfolioSpecializedProperty,
-                  )}
+    { property: supportedProperty, value, state },
+    portfolioSpecializedProperty,
+  )}
                 `,
-            )}
+  )}
           `,
-      )}
+  )}
     `
   })
 ViewTemplates.default.when
   .scopeMatches(portfolioSpecializedProperty)
   .valueMatches<SpecializedPropertyModel>(
-    ({ property }) => property.property.id === schema.contributor.value,
-  )
+  ({ property }) => property.property.id === schema.contributor.value,
+)
   .renders(({ property, value, state }: SpecializedPropertyModel<HydraResource>, next) => {
     import('../../components/canvas-shell/canvas-sidebar-section')
-    let contents: () => TemplateResult | string
-    const resourceState = state.resources[value.id]
-    const load = () => app.then(({ actions }) => actions.loadResource(value))
 
-    if (!resourceState) {
-      load()
-      contents = () => ''
-    } else if (resourceState.isLoading) {
-      contents = () =>
-        html`
-          ${User(50)}
-          <p slot="description">Loading</p>
-        `
-    } else if ('value' in resourceState) {
-      contents = () => next(resourceState.value, portfolioProperty)
-    } else {
-      contents = () =>
-        html`
-          ${User(50)}
-          <p slot="description">
-            Loading failed <a href="javascript:void(0)" @click="${load}">Try again</a>
-          </p>
-        `
-    }
+    const userIcon = (c: TemplateResult | string) => html`${User(50)}<p slot="description">${c}</p>`
 
     return html`
-      <canvas-featured-box title="${property.title}">${contents()}</canvas-featured-box>
+      <canvas-featured-box title="${property.title}">
+        ${lazyResourceRender(value, state)({ next, wrapLoading: userIcon, wrapFailed: userIcon })}
+      </canvas-featured-box>
     `
   })
 
 ViewTemplates.default.when
   .scopeMatches(portfolioSpecializedProperty)
   .valueMatches<SpecializedPropertyModel<HydraResource>>(
-    ({ value }) =>
-      typeof value === 'object' &&
+  ({ value }) =>
+    typeof value === 'object' &&
       value &&
       value.types.contains(schema.MediaObject.value) &&
       !!value[schema.contentUrl.value],
-  )
+)
   .renders(
-    ({ value }, next) => html`
-      <canvas-featured-box
-        title="${value[schema.name.value]}"
-        .href="${value[schema.contentUrl.value]}"
-      >
-        ${next(value, mediaTypeIcon)}
-        <p slot="description">${value[schema.contentSize.value]}</p>
-      </canvas-featured-box>
-    `,
+    ({ value, property }, next) => {
+      const renderContentSize = () => {
+        const contentSize = value[schema.contentSize.value]
+        if (typeof contentSize === 'number') {
+          return `${Math.floor(contentSize / 1024 / 1024 * 100) / 100} MB`
+        }
+
+        return contentSize
+      }
+
+      return html`
+        <canvas-featured-box
+          title="${property.title}"
+          .href="${value[schema.contentUrl.value]}"
+        >
+          ${next(value, mediaTypeIcon)}
+          <p slot="description">${renderContentSize()}</p>
+        </canvas-featured-box>
+      `
+    },
   )

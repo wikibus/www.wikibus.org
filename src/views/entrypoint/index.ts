@@ -3,6 +3,7 @@ import { DocumentedResource, HydraResource, SupportedProperty } from 'alcaeus/ty
 import { IResource } from 'alcaeus/types/Resources/Resource'
 import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
+import { schema } from '@tpluscode/rdf-ns-builders'
 import { rdfType } from '../matchers'
 import { resourceMain, cmsParts } from '../scopes'
 import { propertyIcon } from '../library/property-icons'
@@ -55,3 +56,8 @@ ViewTemplates.default.when
       ${next(state, cmsParts)}
     `
   })
+
+ViewTemplates.default.when
+  .scopeMatches(resourceMain)
+  .valueMatches(rdfType(schema.WebPageElement))
+  .renders((value, next, scope, { state }: ViewParams) => html`${next(state, cmsParts)}`)
