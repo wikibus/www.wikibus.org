@@ -11,7 +11,13 @@ type Constructor<T = {}> = new (...args: any[]) => HydraResource
 export function Mixin<B extends Constructor>(Base: B) {
   return class extends Base implements Image {
     public get contentUrl() {
-      return this.get<string>(schema.contentUrl.value) || ''
+      const urlOrString: string | HydraResource | null = this.get<any>(schema.contentUrl.value)
+
+      if (typeof urlOrString === 'string') {
+        return urlOrString
+      }
+
+      return (urlOrString && urlOrString.id) || ''
     }
 
     public get thumbnail() {
