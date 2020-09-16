@@ -111,7 +111,7 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
-  .valueMatches(({ value }: PropertyModel) => typeof value === 'object' && value.types.contains(wbo.StorageContainer.value))
+  .valueMatches(({ value }: PropertyModel) => typeof value === 'object' && !!value.get(rdfs.label.value))
   .renders(
     ({ value }) => html`${value[rdfs.label.value]}`,
   )

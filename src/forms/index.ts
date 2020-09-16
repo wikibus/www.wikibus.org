@@ -86,7 +86,7 @@ FieldTemplates.default.when
   })
 
 FieldTemplates.default.when
-  .fieldMatches(field => field.type === dcterms.language.value)
+  .fieldMatches(field => field.property === dcterms.language.value)
   .renders((f, id, v, set) => {
     import('multiselect-combo-box/multiselect-combo-box')
 

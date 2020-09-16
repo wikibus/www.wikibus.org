@@ -3,7 +3,7 @@ import { html, TemplateResult } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
 import { schema } from '@tpluscode/rdf-ns-builders'
 import { HydraResource, SupportedProperty } from 'alcaeus/types/Resources'
-import { portfolioSpecializedProperties, mediaTypeIcon } from '../scopes'
+import { mediaTypeIcon, portfolioSpecializedProperties } from '../scopes'
 import '../../components/canvas-shell/canvas-featured-box'
 import { State } from '../../lib/state'
 import { User } from '../../components/icons'
@@ -78,10 +78,11 @@ ViewTemplates.default.when
         return contentSize
       }
 
+      const contentUrl = value[schema.contentUrl.value]
       return html`
         <canvas-featured-box
           title="${property.title}"
-          .href="${value[schema.contentUrl.value]}"
+          .href="${contentUrl.id || contentUrl}"
         >
           ${next(value, mediaTypeIcon)}
           <p slot="description">${renderContentSize()}</p>
