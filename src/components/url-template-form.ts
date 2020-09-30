@@ -1,26 +1,12 @@
 import { css, customElement, property, unsafeCSS } from 'lit-element'
 import go from 'ld-navigation/fireNavigation'
-import LitForm from '@lit-any/forms/lit-form'
+import { ShaperoneForm } from '@hydrofoil/shaperone-wc/ShaperoneForm'
 import radioCheckbox from '../css/components/radio-checkbox.css'
 import CanvasShellBase from './canvas-shell/CanvasShellBase'
 import '../forms/index.ts'
 
-const decorator = {
-  unwrap: (v: any) => {
-    let value = v
-    if (typeof v === 'object' && v !== null) {
-      value = v['@value']
-    }
-
-    return value || ''
-  },
-  wrap: (formValue: string) => ({
-    '@value': formValue,
-  }),
-}
-
 @customElement('url-template-form')
-export default class UrlTemplateForm extends CanvasShellBase(LitForm) {
+export default class UrlTemplateForm extends CanvasShellBase(ShaperoneForm) {
   public static get styles() {
     return [
       super.styles || [],
@@ -36,21 +22,21 @@ export default class UrlTemplateForm extends CanvasShellBase(LitForm) {
   public constructor() {
     super()
 
-    this.noResetButton = true
-    this.submitButtonLabel = 'Filter'
+    // this.noResetButton = true
+    // this.submitButtonLabel = 'Filter'
     this.addEventListener('submit', this.submit.bind(this))
   }
 
   protected updated(_changedProperties: Map<PropertyKey, unknown>): void {
     if (_changedProperties.has('template')) {
-      this.contract = {
+      /* this.contract = {
         fields: this.template.mappings.map((f: any) => ({
           property: f.property.id,
           title: f.property.title || f.variable,
           type: f.property.range,
           valueDecorator: decorator,
         })),
-      } as any
+      } as any */
     }
   }
 

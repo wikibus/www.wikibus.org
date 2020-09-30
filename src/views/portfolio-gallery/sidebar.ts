@@ -13,7 +13,6 @@ ViewTemplates.default.when.scopeMatches('collection-sidebar').renders(
           <h4>Search</h4>
           <url-template-form
             .template="${resource.get(hydra.search)}"
-            .value="${resource.get('http://hydra-ex.rest/vocab/currentMappings') || {}}"
           ></url-template-form>
         </div>
       </div>

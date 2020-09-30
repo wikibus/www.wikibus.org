@@ -1,7 +1,7 @@
 import { HydraClient } from 'alcaeus/alcaeus'
-import { create, Operation, ResourceIdentifier } from 'alcaeus'
+import { Hydra } from 'alcaeus/web'
+import { Operation, ResourceIdentifier, Class } from 'alcaeus'
 import { HydraResource, SupportedProperty } from 'alcaeus/Resources'
-import { parsers } from '@rdf-esm/formats-common'
 import O from 'patchinko/immutable'
 import { getRequestBody } from '../hydra/operation'
 import { ServiceParams, State } from './index'
@@ -37,9 +37,6 @@ export async function Initial(): Promise<Core> {
   if (!rootUri) {
     throw new Error('Failed to initialize app. API_ROOT environment variable was not set')
   }
-
-  const Hydra = create({ parsers })
-  Hydra.resources.factory.addMixin()
 
   const response = await Hydra.loadResource(rootUri)
   if (!response.representation?.root) {
@@ -184,7 +181,7 @@ export function actions(update: (patch: Partial<State> | StateModification) => v
       })
     },
     showOperationForm(this: Actions, operation: Operation) {
-      if (!operation.expects.supportedProperties.length) {
+      if (!(operation.expects[0] as Class).supportedProperties.length) {
         this.invokeOperation(operation)
         return
       }

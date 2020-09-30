@@ -23,8 +23,8 @@ function openOperationForm(op: OperationTriggerModel) {
 
 function findOperations(resource: HydraResource) {
   return resource
-    .findOperationsDeep({
-      excludedProperties: [hydra.member.value, schema.image.value],
+    .findOperations({
+      // excludedProperties: [hydra.member.value, schema.image.value],
     })
     .filter(op => !op.target.isAnonymous)
 }
@@ -54,8 +54,8 @@ ViewTemplates.default.when
     return html`
       <div class="widget clearfix">
         ${repeat(
-          operations,
-          operation => html`
+    operations,
+    operation => html`
             <canvas-featured-box
               light
               effect
@@ -67,7 +67,7 @@ ViewTemplates.default.when
               <p slot="description">${operation.description}</p>
             </canvas-featured-box>
           `,
-        )}
+  )}
       </div>
     `
   })

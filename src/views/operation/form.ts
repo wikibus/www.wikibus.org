@@ -46,10 +46,10 @@ ViewTemplates.default.when
       >
         ${op.error ? renderError(op.error) : html``} ${until(formLoaded, html``)}
         ${op.invoking
-          ? html`
+    ? html`
               <canvas-spinner size="30"></canvas-spinner> Please wait
             `
-          : html``}
+    : html``}
       </canvas-modal>
     `
   })
@@ -64,9 +64,7 @@ ViewTemplates.default.when.scopeMatches(formElement).renders((op: OperationFormS
       ?no-submit-button="${op.invoking}"
       ?no-reset-button="${op.invoking}"
       ?no-clear-button="${op.invoking}"
-      .operation="${op.operation}"
       @submit="${invokeOperation(op.operation)}"
-      .value="${ifDefined(op.value)}"
     ></canvas-operation-form>
   `
 })

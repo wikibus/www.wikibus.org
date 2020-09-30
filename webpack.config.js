@@ -29,7 +29,7 @@ module.exports = merge(config, {
     ]),
   ],
   resolve: {
-    extensions: ['.ts', '.js', '.json'],
+    extensions: ['.ts', '.mjs', '.js', '.json'],
   },
   module: {
     rules: [

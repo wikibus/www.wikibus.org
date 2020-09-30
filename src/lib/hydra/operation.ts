@@ -1,8 +1,8 @@
-import { Operation } from 'alcaeus'
+import { Class, Operation } from 'alcaeus'
 import { schema } from '@tpluscode/rdf-ns-builders'
 
 export function getRequestBody(operation: Operation, formValue: any) {
-  const fileProperties = operation.expects.supportedProperties
+  const fileProperties = (operation.expects[0] as Class).supportedProperties
     .filter(sp => sp.writable)
     .filter(
       sp =>

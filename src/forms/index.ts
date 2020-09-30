@@ -8,6 +8,7 @@ import { typeMatches } from './matchers'
 Shaperone.components.pushComponents(CanvasComponents)
 Shaperone.editors.loadDash()
 
+/*
 FieldTemplates.default.when
   .fieldMatches(field => field.type === xsd.date.value)
   .renders((f, id, v, set) => {
@@ -91,3 +92,4 @@ FieldTemplates.default.when
   )
 
 FieldTemplates.default.when.fieldMatches(typeMatches(xsd.boolean)).rendersComponent(checkbox())
+*/
