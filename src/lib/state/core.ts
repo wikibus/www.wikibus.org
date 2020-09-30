@@ -1,4 +1,3 @@
-import { HydraClient } from 'alcaeus/alcaeus'
 import { Hydra } from 'alcaeus/web'
 import { Operation, ResourceIdentifier, Class } from 'alcaeus'
 import { HydraResource, SupportedProperty } from 'alcaeus/Resources'
@@ -19,7 +18,6 @@ export interface OperationFormState {
 }
 
 export interface Core<T extends HydraResource | null = HydraResource | null> {
-  Hydra: HydraClient
   debug: boolean
   entrypoints: Map<SupportedProperty, ResourceIdentifier>
   resource: T
@@ -51,7 +49,6 @@ export async function Initial(): Promise<Core> {
     }, new Map<SupportedProperty, ResourceIdentifier>())
 
   return {
-    Hydra,
     debug: false,
     entrypoints,
     isLoading: false,

@@ -7,9 +7,9 @@ import * as pageTitle from './state/page-title'
 import * as menu from './state/menu'
 import * as auth from './state/auth'
 import * as resources from './state/resources'
-import { State } from './state/index'
+import type { State } from './state/index'
 
-export { State } from './state/index'
+export type { State } from './state/index'
 
 export type Actions = core.Actions &
   gallery.Actions &

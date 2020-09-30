@@ -2,12 +2,13 @@ import { ViewTemplates } from '@lit-any/views'
 import { DocumentedResource, HydraResource, SupportedProperty } from 'alcaeus'
 import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
+import { schema } from '@tpluscode/rdf-ns-builders'
 import { RdfResource } from '@tpluscode/rdfine'
 import { rdfType } from '../matchers'
 import { resourceMain, cmsParts } from '../scopes'
 import { propertyIcon } from '../library/property-icons'
 import { wba } from '../../lib/ns'
-import { ViewParams } from '../index'
+import type { ViewParams } from '../index'
 
 function renderEntrypointLink(next: any) {
   return (link: any, index: number) => {
@@ -55,3 +56,8 @@ ViewTemplates.default.when
       ${next(state, cmsParts)}
     `
   })
+
+ViewTemplates.default.when
+  .scopeMatches(resourceMain)
+  .valueMatches(rdfType(schema.WebPageElement))
+  .renders((value, next, scope, { state }: ViewParams) => html`${next(state, cmsParts)}`)

@@ -1,6 +1,7 @@
 import { html, TemplateResult } from 'lit-html'
 import { Collection, HydraResource, SupportedProperty } from 'alcaeus'
 import { repeat } from 'lit-html/directives/repeat'
+import { rdf } from '@tpluscode/rdf-ns-builders'
 import { collectionTableCell } from '../scopes'
 import { State } from '../../lib/state'
 
@@ -13,8 +14,11 @@ export function collectionTable(
   const collection = state.core.resource
 
   let properties: SupportedProperty[] = []
-  if (collection.manages[0].object) {
-    properties = collection.manages[0].object.supportedProperties
+  const managedClass = collection.manages.find(
+    mb => mb.property && mb.property.equals(rdf.type),
+  )
+  if (managedClass && managedClass.object) {
+    properties = managedClass.object.supportedProperties
   }
 
   const headerCell = (sp: SupportedProperty) =>

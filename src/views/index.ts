@@ -9,7 +9,7 @@ import './operation'
 import './library/media-type-icons'
 import './collectionTable'
 import './cms'
-import { State } from '../lib/state'
+import type { State } from '../lib/state'
 
 export interface ViewParams {
   state: State

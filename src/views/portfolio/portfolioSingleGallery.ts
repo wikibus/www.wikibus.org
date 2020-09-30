@@ -2,14 +2,14 @@ import { html } from 'lit-html'
 import { RenderFunc } from '@lit-any/views/lib'
 import { schema } from '@tpluscode/rdf-ns-builders'
 import { HydraResource } from 'alcaeus'
-import { Image } from '../../lib/types/Image'
+import { ImageObject } from '@rdfine/schema'
 import * as scope from '../scopes'
 
 interface Options<T> {
   heading: string
   title(resource: T): string | null
-  images(resource: T): Image[]
-  primaryImage(resource: T): Image | null
+  images(resource: T): ImageObject[]
+  primaryImage(resource: T): ImageObject | null
 }
 
 const excludes = [schema.associatedMedia.value, schema.contributor.value]
@@ -41,7 +41,7 @@ export function portfolioSingleGallery<T extends HydraResource>(options: Options
         <div class="col_one_third portfolio-single-content col_last nobottommargin">
           <canvas-sidebar-section heading="${options.heading}">
             <ul class="portfolio-meta bottommargin">
-              ${next(resource, scope.portfolioProperties, { except })}
+              ${next(resource, scope.portfolioProperties, { except, state })}
             </ul>
           </canvas-sidebar-section>
 

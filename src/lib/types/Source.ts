@@ -1,13 +1,13 @@
 import { dcterms, dtype, schema } from '@tpluscode/rdf-ns-builders'
 import { Constructor, property, RdfResource } from '@tpluscode/rdfine'
 import { HydraResource } from 'alcaeus'
-import { ImageMixin, Image } from './Image'
+import { ImageObject, ImageObjectMixin } from '@rdfine/schema'
 import { wbo } from '../ns'
 
 export interface Source extends HydraResource {
   title: string | null
-  images: Image[]
-  primaryImage: Image | null
+  images: ImageObject[]
+  primaryImage: ImageObject | null
 }
 
 export function SourceMixin<B extends Constructor<HydraResource>>(Base: B) {
@@ -16,7 +16,7 @@ export function SourceMixin<B extends Constructor<HydraResource>>(Base: B) {
     public title!: string
 
     public get images() {
-      return this.getArray<Image>(schema.image.value).sort((left, right) => {
+      return this.getArray<ImageObject>(schema.image.value).sort((left, right) => {
         const leftIndex = left.getNumber(dtype.orderIndex) || 0
         const rightIndex = right.getNumber(dtype.orderIndex) || 0
 
@@ -24,8 +24,8 @@ export function SourceMixin<B extends Constructor<HydraResource>>(Base: B) {
       })
     }
 
-    @property.resource({ path: schema.primaryImageOfPage, as: [ImageMixin] })
-    public primaryImage!: Image
+    @property.resource({ path: schema.primaryImageOfPage, as: [ImageObjectMixin] })
+    public primaryImage!: ImageObject
   }
 
   return SourceClass

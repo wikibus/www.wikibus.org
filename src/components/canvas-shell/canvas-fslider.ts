@@ -3,8 +3,8 @@ import { repeat } from 'lit-html/directives/repeat'
 import { render } from 'lit-html'
 import { ifDefined } from 'lit-html/directives/if-defined'
 import { Operation } from 'alcaeus'
+import type { ImageObject } from '@rdfine/schema'
 import CanvasShellBase from './CanvasShellBase'
-import { Image } from '../../lib/types/Image'
 import CanvasLightboxMixin from './CanvasLightboxMixin'
 import { operationList } from '../../views/scopes'
 
@@ -14,10 +14,10 @@ export class CanvasFslider extends CanvasLightboxMixin(CanvasShellBase(LitElemen
   private __flexslider?: HTMLDivElement[]
 
   @property({ type: Array })
-  public images: Image[] = []
+  public images: ImageObject[] = []
 
   @property({ type: Object })
-  public primaryImage: Image | null = null
+  public primaryImage: ImageObject | null = null
 
   @property()
   public animation = 'slide'
@@ -153,7 +153,7 @@ export class CanvasFslider extends CanvasLightboxMixin(CanvasShellBase(LitElemen
     `
   }
 
-  private static __slide(image: Image) {
+  private static __slide(image: ImageObject) {
     const thumbnailUrl = image.thumbnail ? image.thumbnail.contentUrl : undefined
 
     return html`
@@ -168,7 +168,7 @@ export class CanvasFslider extends CanvasLightboxMixin(CanvasShellBase(LitElemen
   private static __contextMenu(
     root: Element,
     contextMenu: Element,
-    context: { target: { _image: Image } },
+    context: { target: { _image: ImageObject } },
   ) {
     render(
       html`

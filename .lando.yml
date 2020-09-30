@@ -5,6 +5,7 @@ services:
     port: 8080
     ssl: true
     command: npm start -- --disable-host-check --host 0.0.0.0
+    ssl: true
 proxy:
   appserver:
     - wikibus.lndo.site:8080

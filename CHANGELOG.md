@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.14](https://github.com/wikibus/www.wikibus.org/compare/v0.1.13...v0.1.14) (2020-05-07)
+
+
+### Features
+
+* dropdown component to filter by users ([97d9c42](https://github.com/wikibus/www.wikibus.org/commit/97d9c425ca04a540c804bbbcacf12191bfbe0c47))
+
+### [0.1.13](https://github.com/wikibus/www.wikibus.org/compare/v0.1.12...v0.1.13) (2020-04-19)
+
+
+### Features
+
+* rendering schema how to ([937f0e5](https://github.com/wikibus/www.wikibus.org/commit/937f0e5387429499756624f22d8af7dbeb4f1c45))
+
+### [0.1.12](https://github.com/wikibus/www.wikibus.org/compare/v0.1.11...v0.1.12) (2020-04-15)
+
+
+### Bug Fixes
+
+* on safari clip-path need prefix ([6a1526d](https://github.com/wikibus/www.wikibus.org/commit/6a1526d1982f24a4eaeacc5db57efef1251ff6e3))
+
 ### [0.1.11](https://github.com/wikibus/www.wikibus.org/compare/v0.1.10...v0.1.11) (2020-04-15)
 
 ### [0.1.10](https://github.com/wikibus/www.wikibus.org/compare/v0.1.9...v0.1.10) (2020-04-13)

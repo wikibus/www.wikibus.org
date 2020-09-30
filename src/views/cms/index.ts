@@ -4,7 +4,7 @@ import { schema } from '@tpluscode/rdf-ns-builders'
 import { html, TemplateResult } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
 import { unsafeHTML } from 'lit-html/directives/unsafe-html'
-import { ViewParams } from '../index'
+import type { ViewParams } from '../index'
 import { app, State } from '../../lib/state'
 import { cmsParts } from '../scopes'
 

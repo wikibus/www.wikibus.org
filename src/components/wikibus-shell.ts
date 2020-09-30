@@ -3,6 +3,7 @@ import AlcaeusLoader from '@hydrofoil/alcaeus-loader'
 import { StateMapper } from 'ld-navigation'
 import { ResourceIdentifier } from '@tpluscode/rdfine'
 import { HydraResponse } from 'alcaeus'
+import { Hydra } from 'alcaeus/web'
 import { CanvasShell } from './canvas-shell'
 import { WikibusStateMapper } from '../lib/WikibusStateMapper'
 import { app } from '../lib/state'
@@ -38,7 +39,7 @@ export class WikibusShell extends AlcaeusLoader(CanvasShell) {
   public createStateMapper() {
     return app
       .then(({ states }) => {
-        this.Hydra = states.val.core.Hydra
+        this.Hydra = Hydra
         this.__apis = getKnownApis(states.val.core)
         this.__rooUri = states.val.core.homeEntrypoint.id
         return new WikibusStateMapper({

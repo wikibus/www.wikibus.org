@@ -1,7 +1,7 @@
 import O from 'patchinko/immutable'
 import { HydraResource } from 'alcaeus'
-import { State } from '../index'
-import { Resources } from './State'
+import type { State } from '../index'
+import type { Resources } from './State'
 
 export interface Actions {
   loadResource(resource: HydraResource): void

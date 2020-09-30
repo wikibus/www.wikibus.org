@@ -2,8 +2,8 @@ import * as Shaperone from '@hydrofoil/shaperone-wc/configure'
 import { dcterms, schema, xsd } from '@tpluscode/rdf-ns-builders'
 import { html, directive, PropertyPart, Part } from 'lit-html'
 import { until } from 'lit-html/directives/until'
-import { Hydra } from 'alcaeus'
-import { Collection } from 'alcaeus/types/Resources'
+import { Hydra } from 'alcaeus/web'
+import { Collection } from 'alcaeus'
 import * as CanvasComponents from './CanvasComponents'
 import { typeMatches } from './matchers'
 
@@ -88,7 +88,7 @@ FieldTemplates.default.when
   })
 
 FieldTemplates.default.when
-  .fieldMatches(field => field.type === dcterms.language.value)
+  .fieldMatches(field => field.property === dcterms.language.value)
   .renders((f, id, v, set) => {
     import('multiselect-combo-box/multiselect-combo-box')
 

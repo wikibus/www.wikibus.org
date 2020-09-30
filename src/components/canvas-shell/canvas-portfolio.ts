@@ -2,12 +2,12 @@ import { css, customElement, html, LitElement, property } from 'lit-element'
 import { repeat } from 'lit-html/directives/repeat'
 import CanvasShellBase from './CanvasShellBase'
 import { MoreHorizontal, ZoomIn } from '../icons'
-import { Image } from '../../lib/types/Image'
+import { ImageObject } from '@rdfine/schema'
 
 export interface PortfolioItem {
   id: string
   title: string
-  image: Image | null
+  image: ImageObject | null
 }
 
 @customElement('canvas-portfolio')
@@ -88,7 +88,7 @@ export class CanvasPortfolio extends CanvasShellBase(LitElement) {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private renderMagnifierLink(image: Image | null) {
+  private renderMagnifierLink(image: ImageObject | null) {
     if (!image) {
       return html``
     }

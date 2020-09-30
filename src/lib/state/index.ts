@@ -1,11 +1,11 @@
 import { HydraResource } from 'alcaeus'
-import * as core from './core'
-import * as gallery from './gallery'
-import * as pageTitle from './page-title'
-import * as menu from './menu'
-import * as auth from './auth'
-import * as resources from './resources'
-import { Actions } from '../state'
+import type * as core from './core'
+import type * as gallery from './gallery'
+import type * as pageTitle from './page-title'
+import type * as menu from './menu'
+import type * as auth from './auth'
+import type * as resources from './resources'
+import type { Actions } from '../state'
 
 export interface State<T extends HydraResource | null = HydraResource | null> {
   core: core.Core<T>
