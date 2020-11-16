@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/camelcase,no-console */
-import { HydraResource } from 'alcaeus'
+import { RdfResource } from 'alcaeus'
 import { State } from '../index'
 
 type StateModification = (s: State) => State | Promise<State>
 
 export interface Actions {
-  login(resource?: HydraResource): Promise<void>
+  login(resource?: RdfResource): Promise<void>
   logout(): Promise<void>
 }
 
 export function actions(update: (patch: Partial<State> | StateModification) => void): Actions {
   return {
-    async login(resource?: HydraResource) {
+    async login(resource?: RdfResource) {
       update(async (state: State) => {
         if (!state.auth.client) {
           return state

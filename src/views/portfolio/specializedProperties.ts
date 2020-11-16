@@ -2,7 +2,7 @@ import { ViewTemplates } from '@lit-any/views'
 import { html, TemplateResult } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
 import { schema } from '@tpluscode/rdf-ns-builders'
-import { HydraResource, SupportedProperty } from 'alcaeus'
+import { RdfResource, SupportedProperty } from 'alcaeus'
 import { mediaTypeIcon, portfolioSpecializedProperties } from '../scopes'
 import '../../components/canvas-shell/canvas-featured-box'
 import { State } from '../../lib/state'
@@ -19,7 +19,7 @@ interface SpecializedPropertyModel<T = unknown> {
 
 ViewTemplates.default.when
   .scopeMatches(portfolioSpecializedProperties)
-  .renders((res: HydraResource, next, scope, { state }) => {
+  .renders((res: RdfResource, next, scope, { state }) => {
     const properties = res.getProperties()
 
     return html`
@@ -43,10 +43,9 @@ ViewTemplates.default.when
   })
 ViewTemplates.default.when
   .scopeMatches(portfolioSpecializedProperty)
-  .valueMatches<SpecializedPropertyModel>(({ property }) =>
-    property.property.id.equals(schema.contributor),
+  .valueMatches<SpecializedPropertyModel>(({ property }) => property.property?.equals(schema.contributor) || false,
 )
-  .renders(({ property, value, state }: SpecializedPropertyModel<HydraResource>, next) => {
+  .renders(({ property, value, state }: SpecializedPropertyModel<RdfResource>, next) => {
     import('../../components/canvas-shell/canvas-sidebar-section')
 
     const userIcon = (c: TemplateResult | string) => html`${User(50)}<p slot="description">${c}</p>`
@@ -60,7 +59,7 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(portfolioSpecializedProperty)
-  .valueMatches<SpecializedPropertyModel<HydraResource>>(
+  .valueMatches<SpecializedPropertyModel<RdfResource>>(
   ({ value }) =>
     typeof value === 'object' &&
       value &&

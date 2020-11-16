@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html'
-import { Collection, HydraResource, SupportedProperty } from 'alcaeus'
+import { Collection, RdfResource, SupportedProperty } from 'alcaeus'
 import { repeat } from 'lit-html/directives/repeat'
 import { rdf } from '@tpluscode/rdf-ns-builders'
 import { collectionTableCell } from '../scopes'
@@ -18,14 +18,14 @@ export function collectionTable(
     mb => mb.property && mb.property.equals(rdf.type),
   )
   if (managedClass && managedClass.object) {
-    properties = managedClass.object.supportedProperties
+    properties = managedClass.object.supportedProperty
   }
 
   const headerCell = (sp: SupportedProperty) =>
     html`
       <th>${sp.title}</th>
     `
-  const memberRow = (member: HydraResource) => (sp: SupportedProperty) => {
+  const memberRow = (member: RdfResource) => (sp: SupportedProperty) => {
     const propertyValues = member.getProperties().find(p => p.supportedProperty.id === sp.id)
 
     let value: string | TemplateResult = ''
@@ -47,13 +47,13 @@ export function collectionTable(
       </thead>
       <tbody>
         ${repeat(
-          collection.members,
-          member => html`
+    collection.member,
+    member => html`
             <tr>
               ${repeat(properties, memberRow(member))}
             </tr>
           `,
-        )}
+  )}
       </tbody>
     </table>
   `

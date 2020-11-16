@@ -1,11 +1,11 @@
 import { ViewTemplates } from '@lit-any/views'
-import { HydraResource } from 'alcaeus'
+import { RdfResource } from 'alcaeus'
 import { html } from 'lit-html'
 import { collectionTableCell } from '../scopes'
 
 ViewTemplates.default.when
   .scopeMatches(collectionTableCell)
-  .valueMatches((v: HydraResource) => v && !!v.id)
+  .valueMatches((v: RdfResource) => v && !!v.id)
   .renders(
     v =>
       html`

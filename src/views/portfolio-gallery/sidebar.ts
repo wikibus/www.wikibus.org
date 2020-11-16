@@ -3,6 +3,7 @@ import { html } from 'lit-html'
 import { Collection } from 'alcaeus'
 import { hydra } from '@tpluscode/rdf-ns-builders'
 import { operationSelector } from '../scopes'
+import { query } from '../../lib/ns'
 
 ViewTemplates.default.when.scopeMatches('collection-sidebar').renders(
   (resource: Collection, next) => html`
@@ -13,6 +14,7 @@ ViewTemplates.default.when.scopeMatches('collection-sidebar').renders(
           <h4>Search</h4>
           <url-template-form
             .template="${resource.get(hydra.search)}"
+            .initial="${resource.get(query.templateMappings)}"
           ></url-template-form>
         </div>
       </div>

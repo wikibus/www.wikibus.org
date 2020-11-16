@@ -12,10 +12,10 @@ import type { State } from './state/index'
 export type { State } from './state/index'
 
 export type Actions = core.Actions &
-  gallery.Actions &
-  pageTitle.Actions &
-  auth.Actions &
-  resources.Actions
+gallery.Actions &
+pageTitle.Actions &
+auth.Actions &
+resources.Actions
 
 const appMeiosis = {
   async Initial(): Promise<State> {

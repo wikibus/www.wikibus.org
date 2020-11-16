@@ -15,7 +15,7 @@ const replaceGallery = onChange(
     return {
       gallery: O<Gallery>({
         collectionId: resource.id,
-        resources: collection.members,
+        resources: collection.member,
         prevPage: getPage(collection, 'previous'),
         nextPage: getPage(collection, 'next'),
       }),

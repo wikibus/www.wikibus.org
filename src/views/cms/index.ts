@@ -1,5 +1,5 @@
 import { ViewTemplates } from '@lit-any/views'
-import { HydraResource } from 'alcaeus'
+import { RdfResource, Resource } from 'alcaeus'
 import { schema } from '@tpluscode/rdf-ns-builders'
 import { html, TemplateResult } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
@@ -19,21 +19,21 @@ ViewTemplates.default.when
 
     return html`
       ${repeat(
-        parts,
-        part =>
-          html`
+    parts,
+    part =>
+      html`
             ${next(part, cmsScope, { state })}
           `,
-      )}
+  )}
     `
   })
 
 ViewTemplates.default.when
   .scopeMatches(cmsScope)
-  .valueMatches((resource: HydraResource) => resource.isAnonymous)
-  .valueMatches((r: HydraResource) => r.types.has(schema.HowToStep))
-  .renders((step: HydraResource, next, scope) => {
-    const stepItems = step.getArray<HydraResource>(schema.itemListElement.value)
+  .valueMatches((resource: RdfResource) => resource.isAnonymous)
+  .valueMatches((r: RdfResource) => r.types.has(schema.HowToStep))
+  .renders((step: RdfResource, next, scope) => {
+    const stepItems = step.getArray<RdfResource>(schema.itemListElement.value)
 
     return html`
       ${repeat(stepItems, item => next(item, scope))}
@@ -42,9 +42,9 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(cmsScope)
-  .valueMatches((resource: HydraResource) => resource.isAnonymous)
-  .valueMatches((r: HydraResource) => r.types.has(schema.HowToDirection))
-  .renders((step: HydraResource, next) => {
+  .valueMatches((resource: RdfResource) => resource.isAnonymous)
+  .valueMatches((r: RdfResource) => r.types.has(schema.HowToDirection))
+  .renders((step: RdfResource, next) => {
     let image: string | TemplateResult = ''
 
     if (step.get(schema.duringMedia)) {
@@ -59,8 +59,8 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(cmsScope)
-  .valueMatches((resource: HydraResource) => !resource.isAnonymous)
-  .renders((value: HydraResource, next, scope, { state }: ViewParams) => {
+  .valueMatches((resource: RdfResource) => !resource.isAnonymous)
+  .renders((value: Resource, next, scope, { state }: ViewParams) => {
     let contents: () => TemplateResult | string
     const resourceState = state.resources[value.id.value]
     const load = () => app.then(({ actions }) => actions.loadResource(value))
@@ -91,12 +91,12 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(cmsScopeLoaded)
-  .valueMatches((resource: HydraResource) => resource && resource.types.has(schema.HowTo))
-  .renders((resource: HydraResource, next) => {
+  .valueMatches((resource: RdfResource) => resource && resource.types.has(schema.HowTo))
+  .renders((resource: RdfResource, next) => {
     import('../../components/canvas-shell/canvas-progress-steps')
 
     const steps = resource
-      .getArray<HydraResource>(schema.step.value)
+      .getArray<RdfResource>(schema.step.value)
       .sort(
         (left, right) =>
           (left.getNumber(schema.position.value) || 0) -

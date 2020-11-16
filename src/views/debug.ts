@@ -1,13 +1,13 @@
 import { ViewTemplates } from '@lit-any/views'
 import { html } from 'lit-html'
 import { unsafeHTML } from 'lit-html/directives/unsafe-html'
-import { HydraResource } from 'alcaeus'
+import { RdfResource } from 'alcaeus'
 import { State } from '../lib/state'
 
 function getReplacer() {
   const uris = new Map<string, number>()
 
-  return function replacer(i: string, v: string | HydraResource) {
+  return function replacer(i: string, v: string | RdfResource) {
     if (typeof v === 'object' && !Array.isArray(v)) {
       if (uris.has(v.id.value)) {
         return {

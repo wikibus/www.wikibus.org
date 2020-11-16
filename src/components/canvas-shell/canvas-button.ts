@@ -56,7 +56,7 @@ export class CanvasButton extends BsButtonMixin(CanvasShellBase(LitElement)) {
           : ''} button-${this.color} ${this.__buttonLight}
         ${this.dropdownToggle ? 'dropdown-toggle' : ''}"
       >
-        ${this.icon()} ${this.label}
+        ${this.icon()} <slot>${this.label}</slot>
       </button>
     `
   }

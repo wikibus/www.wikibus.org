@@ -2,7 +2,7 @@ import { ViewTemplates } from '@lit-any/views'
 import { html } from 'lit-html'
 import { until } from 'lit-html/directives/until'
 import { schema } from '@tpluscode/rdf-ns-builders'
-import { HydraResource } from 'alcaeus'
+import { RdfResource } from 'alcaeus'
 import { resourceMain, pageTitle, operationForm } from './scopes'
 import { State, app } from '../lib/state'
 
@@ -43,12 +43,12 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .valueMatches(
-    (resource: HydraResource) =>
+    (resource: RdfResource) =>
       resource && resource.types && resource.types.has(schema.ImageObject),
   )
-  .valueMatches((image: HydraResource) => !!image.get(schema.contentUrl)?.id)
+  .valueMatches((image: RdfResource) => !!image.get(schema.contentUrl)?.id)
   .renders(
-    (image: HydraResource) =>
+    (image: RdfResource) =>
       html`
         <img src=${image.get(schema.contentUrl).id} />
       `,

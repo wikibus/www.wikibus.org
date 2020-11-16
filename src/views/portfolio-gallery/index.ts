@@ -1,5 +1,5 @@
 import { ViewTemplates } from '@lit-any/views'
-import { Collection, DocumentedResource, HydraResource } from 'alcaeus'
+import { Collection, Resource } from 'alcaeus'
 import { html } from 'lit-html'
 import { dcterms, schema, hydra } from '@tpluscode/rdf-ns-builders'
 import { resourceMain } from '../scopes'
@@ -11,7 +11,7 @@ import { wba } from '../../lib/ns'
 import { collectionTable } from '../collectionTable'
 import { PortfolioItem } from '../../components/canvas-shell/canvas-portfolio'
 
-function mapMember(resource: HydraResource & DocumentedResource): PortfolioItem {
+function mapMember(resource: Resource): PortfolioItem {
   return {
     image: (resource.get(schema.primaryImageOfPage) ||
       resource.getArray(schema.image.value)[0]) as any,

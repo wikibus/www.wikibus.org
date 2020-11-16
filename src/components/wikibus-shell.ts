@@ -16,10 +16,11 @@ knownApis.set(wba.library.value, 'library')
 function getKnownApis(state: Core): Record<string, ResourceIdentifier> {
   return [...state.entrypoints.entries()].reduce(
     (apis, [sp, entrypoint]) => {
-      const linkId = knownApis.get(sp.property.id.value)
-
-      if (linkId) {
-        return { ...apis, [linkId]: entrypoint }
+      if (sp.property) {
+        const linkId = knownApis.get(sp.property.id.value)
+        if (linkId) {
+          return { ...apis, [linkId]: entrypoint }
+        }
       }
 
       return apis
@@ -44,7 +45,7 @@ export class WikibusShell extends AlcaeusLoader(CanvasShell) {
         this.__rooUri = states.val.core.homeEntrypoint.id
         return new WikibusStateMapper({
           useHashFragment: this.usesHashFragment,
-          baseUrl: this.__rooUri.value,
+          baseUrl: this.__rooUri?.value,
           apis: this.__apis,
         })
       })

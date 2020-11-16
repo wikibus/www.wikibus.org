@@ -1,5 +1,5 @@
 import O from 'patchinko/immutable'
-import { DocumentedResource } from 'alcaeus'
+import { Resource } from 'alcaeus'
 import { onChange } from '../onChange'
 import { State } from '../index'
 
@@ -9,11 +9,15 @@ const populateMenu = onChange(
     const menu = state.core.homeEntrypoint
       .getLinks()
       .reduce((map, { supportedProperty, resources }) => {
-        const resource = resources[0] as DocumentedResource
+        const resource = resources[0] as Resource
+        const title = resource.title || supportedProperty.title
+        if (!title) {
+          return map
+        }
 
         return {
           ...map,
-          [resource.title || supportedProperty.title]: resources[0].id,
+          [title]: resources[0].id,
         }
       }, {})
 

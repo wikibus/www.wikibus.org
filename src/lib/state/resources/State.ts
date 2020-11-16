@@ -1,8 +1,9 @@
-import { HydraResource } from 'alcaeus'
+import { RdfResource } from 'alcaeus'
 
 interface LoadedResource {
   isLoading: false
-  value: HydraResource
+  resource: RdfResource
+  value: RdfResource
 }
 
 interface LoadingResource {

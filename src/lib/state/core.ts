@@ -1,28 +1,37 @@
 import { Hydra } from 'alcaeus/web'
-import { Operation, ResourceIdentifier, Class } from 'alcaeus'
-import { HydraResource, SupportedProperty } from 'alcaeus/Resources'
+import { ResourceIdentifier, Class, Resource, SupportedProperty, RuntimeOperation } from 'alcaeus'
 import O from 'patchinko/immutable'
+import { hydra, sh } from '@tpluscode/rdf-ns-builders'
 import { getRequestBody } from '../hydra/operation'
 import { ServiceParams, State } from './index'
 import * as App from '../state'
 import { Message } from '../../components/canvas-shell/canvas-message'
+import { wba } from '../ns'
+import { PageTitle } from './page-title'
 
 type StateModification = (s: Core) => Core | Promise<Core>
+
+const noReloadTypes = [sh.Shape, sh.NodeShape, hydra.ApiDocumentation, wba.EntryPoint]
+Hydra.cacheStrategy.shouldLoad = (previous): boolean => noReloadTypes.reduce<boolean>((shouldReload, type) => {
+  if (!shouldReload) return false
+
+  return !previous.representation.root?.types.has(type)
+}, true)
 
 export interface OperationFormState {
   opened: boolean
   invoking: boolean
-  operation?: Operation
+  operation?: RuntimeOperation
   value?: any
   error?: string
 }
 
-export interface Core<T extends HydraResource | null = HydraResource | null> {
+export interface Core<T extends Resource | null = Resource | null> {
   debug: boolean
   entrypoints: Map<SupportedProperty, ResourceIdentifier>
   resource: T
   resourceUrlOverride: string | null
-  homeEntrypoint: HydraResource
+  homeEntrypoint: Resource
   operationForm: OperationFormState
   requestRefresh?: boolean
   isLoading: boolean
@@ -107,11 +116,11 @@ export const services = [
 
 export interface Actions {
   toggleDebug(): void
-  setResource(resource: HydraResource): void
+  setResource(resource: Resource): void
   overrideResourceUrl(url: string): void
-  showOperationForm(operation: Operation): void
+  showOperationForm(operation: RuntimeOperation): void
   hideOperationForm(): void
-  invokeOperation(operation: Operation, value?: object): void
+  invokeOperation(operation: RuntimeOperation, value?: object): void
   showMessage(text: string, kind: Message['kind']): void
   reload(): void
   hideRefreshHint(): void
@@ -162,8 +171,11 @@ export function actions(update: (patch: Partial<State> | StateModification) => v
         }),
       })
     },
-    setResource(resource: HydraResource) {
+    setResource(resource: Resource) {
       update({
+        pageTitle: O<PageTitle>({
+          hidden: false,
+        }),
         core: O<Core>({
           resource,
           resourceUrlOverride: null,
@@ -177,8 +189,8 @@ export function actions(update: (patch: Partial<State> | StateModification) => v
         }),
       })
     },
-    showOperationForm(this: Actions, operation: Operation) {
-      if (!(operation.expects[0] as Class).supportedProperties.length) {
+    showOperationForm(this: Actions, operation: RuntimeOperation) {
+      if (!(operation.expects[0] as Class).supportedProperty.length) {
         this.invokeOperation(operation)
         return
       }
@@ -204,7 +216,7 @@ export function actions(update: (patch: Partial<State> | StateModification) => v
         }),
       })
     },
-    invokeOperation(this: App.Actions, operation: Operation, value?: object) {
+    invokeOperation(this: App.Actions, operation: RuntimeOperation, value?: object) {
       update({
         core: O<Core>({
           operationForm: O<OperationFormState>({

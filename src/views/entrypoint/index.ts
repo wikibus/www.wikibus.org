@@ -1,5 +1,5 @@
 import { ViewTemplates } from '@lit-any/views'
-import { DocumentedResource, HydraResource, SupportedProperty } from 'alcaeus'
+import { Resource, SupportedProperty } from 'alcaeus'
 import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
 import { schema } from '@tpluscode/rdf-ns-builders'
@@ -12,7 +12,7 @@ import type { ViewParams } from '../index'
 
 function renderEntrypointLink(next: any) {
   return (link: any, index: number) => {
-    const resource = link.resource as DocumentedResource
+    const resource = link.resource as Resource
 
     return html`
       <canvas-featured-box
@@ -33,7 +33,7 @@ function renderEntrypointLink(next: any) {
 ViewTemplates.default.when
   .scopeMatches(resourceMain)
   .valueMatches(rdfType(wba.EntryPoint))
-  .renders((value: HydraResource, next, scope, { state }: ViewParams) => {
+  .renders((value: RdfResource, next, scope, { state }: ViewParams) => {
     import('../../components/canvas-shell/canvas-featured-box')
     import('../../components/canvas-shell/canvas-emphasis-title')
 

@@ -1,10 +1,11 @@
 import { ViewTemplates } from '@lit-any/views'
-import { HydraResource, SupportedProperty } from 'alcaeus'
+import { SupportedProperty } from 'alcaeus'
 import { html, TemplateResult } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
 import { until } from 'lit-html/directives/until'
 import { dtype, schema, rdfs } from '@tpluscode/rdf-ns-builders'
 import { RdfResource } from '@tpluscode/rdfine'
+import { Person } from '@rdfine/schema'
 import { portfolioProperties, portfolioProperty } from '../scopes'
 import { wba, wbo } from '../../lib/ns'
 import { lazyResourceRender } from './lazyResourceRender'
@@ -15,33 +16,47 @@ interface PropertiesOptions {
   state: State
 }
 
-interface PropertyModel {
+interface PropertyModel<T extends RdfResource | undefined = RdfResource | undefined> {
   property?: SupportedProperty
-  value: RdfResource | number | string
+  literal?: number | string
+  resource: T
+  value: number | string | T
 }
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperties)
-  .renders((res: HydraResource, next, scope, { except = [], state }: PropertiesOptions) => {
+  .renders((res: RdfResource, next, scope, { except = [], state }: PropertiesOptions) => {
     const properties = res
       .getProperties()
       .filter(prop => prop.objects.length > 0)
       .filter(
-        prop => !except || !except.includes(prop.supportedProperty.property.id.value),
+        prop => !except || !except.includes(prop.supportedProperty.property?.id.value || ''),
       )
 
     return html`
       ${repeat(
     properties,
-    pair =>
-      html`
+    pair => html`
             <li>
               <span>${pair.supportedProperty.title}:</span> ${repeat(
   pair.objects,
-  (value, index) =>
-    html`
-                    ${next({ property: pair.supportedProperty, value }, portfolioProperty, { state })}${index < pair.objects.length - 1 ? ', ' : ''}
-                  `,
+  (value, index) => {
+    const model: PropertyModel = {
+      property: pair.supportedProperty,
+      resource: undefined,
+      value,
+    }
+
+    if (typeof value === 'object') {
+      model.resource = value
+    } else {
+      model.literal = value
+    }
+
+    return html`
+                    ${next(model, portfolioProperty, { state })}${index < pair.objects.length - 1 ? ', ' : ''}
+                  `
+  },
 )}
             </li>
           `,
@@ -51,9 +66,9 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
-  .valueMatches(({ value }: PropertyModel) => typeof value === 'object' && /lexvo/.test(value.id.value))
+  .valueMatches(({ resource }: PropertyModel) => !!resource && /lexvo/.test(resource.id.value))
   .renders(({ value }) => {
-    const matches = /\/(\w+)$/[Symbol.match](value.id)
+    const matches = /\/(\w+)$/[Symbol.match](value.id.value)
     if (!matches) return ''
 
     const countryCode = matches[1]
@@ -68,38 +83,38 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
-  .valueMatches(({ value }: PropertyModel) => typeof value === 'object' && value.types.has(schema.Person))
+  .valueMatches(({ resource }: PropertyModel) => resource?.types.has(schema.Person) || false)
   .renders(
-    ({ value }) =>
+    ({ resource }: PropertyModel<Person>) =>
       html`
         <img
-          src="${value[schema.image.value][schema.contentUrl.value].id}"
-          alt="${value[schema.name.value]} avatar"
+          src="${resource.image?.contentUrl?.value}"
+          alt="${resource.name} avatar"
         />
-        <p slot="description">${value[schema.name.value]}</p>
+        <p slot="description">${resource.name}</p>
       `,
   )
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
-  .valueMatches(({ value }: PropertyModel) => typeof value === 'object' && schema.name.value in value)
+  .valueMatches(({ resource }: PropertyModel) => !!resource && schema.name.value in resource)
   .renders(
-    ({ value }) =>
+    ({ resource }: PropertyModel<any>) =>
       html`
-        ${value[schema.name.value]}
+        ${resource.name}
       `,
   )
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
-  .valueMatches(({ property }: PropertyModel) => !!property && property.property.equals(wba.storageLocation))
+  .valueMatches(({ property }: PropertyModel) => !!property?.property && property.property.equals(wba.storageLocation))
   .renders(
     ({ value }, next, _, { state }) => lazyResourceRender(value, state)({ next }),
   )
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
-  .valueMatches(({ value }: PropertyModel) => typeof value === 'object' && value.types.has(wbo.StorageLocation))
+  .valueMatches(({ resource }: PropertyModel) => resource?.types.has(wbo.StorageLocation) || false)
   .renders(
     ({ value }, next, _, { state }) => {
       const params = {
@@ -113,9 +128,9 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
-  .valueMatches(({ value }: PropertyModel) => typeof value === 'object' && !!value.get(rdfs.label.value))
+  .valueMatches(({ resource }: PropertyModel) => !!resource?.get(rdfs.label.value))
   .renders(
-    ({ value }) => html`${value[rdfs.label.value]}`,
+    ({ resource }) => html`${resource[rdfs.label.value]}`,
   )
 
 ViewTemplates.default.when.scopeMatches(portfolioProperty).renders(

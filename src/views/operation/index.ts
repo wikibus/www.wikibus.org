@@ -1,16 +1,16 @@
 import { ViewTemplates } from '@lit-any/views'
-import { hydra, schema } from '@tpluscode/rdf-ns-builders'
 import { html } from 'lit-html'
 import { repeat } from 'lit-html/directives/repeat'
-import { HydraResource, Operation } from 'alcaeus'
+import { RdfResource, RuntimeOperation } from 'alcaeus'
 import { operationSelector, operationTrigger, operationList, operationIcon } from '../scopes'
 import { app } from '../../lib/state'
 import './form'
 import './icons'
+import { wba } from '../../lib/ns'
 
 interface OperationTriggerModel {
-  resource?: HydraResource
-  operation: Operation
+  resource?: RdfResource
+  operation: RuntimeOperation
 }
 
 function openOperationForm(op: OperationTriggerModel) {
@@ -21,15 +21,15 @@ function openOperationForm(op: OperationTriggerModel) {
   }
 }
 
-function findOperations(resource: HydraResource) {
+function findOperations(resource: RdfResource) {
   return resource
-    .findOperations({
-      // excludedProperties: [hydra.member.value, schema.image.value],
+    .findOperationsDeep({
+      namespaces: [wba],
     })
     .filter(op => !op.target.isAnonymous)
 }
 
-ViewTemplates.default.when.scopeMatches(operationList).renders((resource: HydraResource, next) => {
+ViewTemplates.default.when.scopeMatches(operationList).renders((resource: RdfResource, next) => {
   const operations = findOperations(resource)
 
   if (operations.length === 0) {
@@ -45,7 +45,7 @@ ViewTemplates.default.when.scopeMatches(operationList).renders((resource: HydraR
 
 ViewTemplates.default.when
   .scopeMatches(operationSelector)
-  .renders((resource: HydraResource, next) => {
+  .renders((resource: RdfResource, next) => {
     const operations = findOperations(resource)
     if (!operations.length) {
       return ''

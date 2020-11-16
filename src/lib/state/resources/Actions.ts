@@ -1,15 +1,15 @@
 import O from 'patchinko/immutable'
-import { HydraResource } from 'alcaeus'
+import { RdfResource } from 'alcaeus'
 import type { State } from '../index'
 import type { Resources } from './State'
 
 export interface Actions {
-  loadResource(resource: HydraResource): void
+  loadResource(resource: RdfResource): void
 }
 
 export function actions(update: (patch: Partial<State>) => void): Actions {
   return {
-    loadResource(resource: HydraResource) {
+    loadResource(resource: RdfResource) {
       if (!resource.load) return
 
       const { id } = resource
@@ -42,6 +42,7 @@ export function actions(update: (patch: Partial<State>) => void): Actions {
                 [id.value]: {
                   isLoading: false,
                   value: loaded,
+                  resource: loaded,
                 },
               }),
             })

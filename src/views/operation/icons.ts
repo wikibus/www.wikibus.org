@@ -1,6 +1,6 @@
 import { ViewTemplates } from '@lit-any/views'
 import { html } from 'lit-html'
-import { Operation } from 'alcaeus'
+import { RuntimeOperation } from 'alcaeus'
 import { NamedNode } from 'rdf-js'
 import { schema } from '@tpluscode/rdf-ns-builders'
 import { operationIcon } from '../scopes'
@@ -10,7 +10,7 @@ import { wba } from '../../lib/ns'
 const iconSize = 40
 
 function operationTyped(type: NamedNode) {
-  return (op: Operation) => op && op.supportedOperation.types.has(type.value)
+  return (op: RuntimeOperation) => op && op.supportedOperation.types.has(type.value)
 }
 
 ViewTemplates.default.when

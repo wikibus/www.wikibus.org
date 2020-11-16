@@ -1,17 +1,17 @@
-import { Collection, HydraResource } from 'alcaeus'
+import { Collection, RdfResource, Resource } from 'alcaeus'
 import O from 'patchinko/immutable'
 import { State } from '../../state'
 import { getPage } from './helpers'
 import { Gallery } from './State'
 
 export interface Actions {
-  appendToGallery(nextPage: HydraResource): Promise<void>
-  prependToGallery(prevPage: HydraResource): Promise<void>
+  appendToGallery(nextPage: RdfResource): Promise<void>
+  prependToGallery(prevPage: RdfResource): Promise<void>
 }
 
 export function actions(update: (patch: Partial<State>) => void): Actions {
   return {
-    async appendToGallery(nextPage: HydraResource) {
+    async appendToGallery(nextPage: Resource) {
       if (!nextPage.load) return
 
       update(
@@ -21,19 +21,19 @@ export function actions(update: (patch: Partial<State>) => void): Actions {
           }),
         }),
       )
-      const { representation } = (await nextPage.load()) as any
-      const collection: Collection = representation?.root
-      if (!collection) return
-
-      update({
-        gallery: O<Gallery>({
-          resources: O((current: any) => [...current, ...collection.members]),
-          nextPage: getPage(collection, 'next'),
-          nextPageLoading: false,
-        }),
-      })
+      const { representation } = await nextPage.load<Collection>()
+      const collection = representation?.root
+      if (collection && 'manages' in collection) {
+        update({
+          gallery: O<Gallery>({
+            resources: O((current: any) => [...current, ...collection.member]),
+            nextPage: getPage(collection, 'next'),
+            nextPageLoading: false,
+          }),
+        })
+      }
     },
-    async prependToGallery(prevPage: HydraResource) {
+    async prependToGallery(prevPage: Resource) {
       if (!prevPage.load) return
 
       update({
@@ -41,17 +41,17 @@ export function actions(update: (patch: Partial<State>) => void): Actions {
           prevPageLoading: true,
         }),
       })
-      const { representation } = (await prevPage.load()) as any
-      const collection: Collection = representation?.root
-      if (!collection) return
-
-      update({
-        gallery: O<Gallery>({
-          resources: O((current: any) => [...collection.members, ...current]),
-          prevPage: getPage(collection, 'previous'),
-          prevPageLoading: false,
-        }),
-      })
+      const { representation } = await prevPage.load<Collection>()
+      const collection = representation?.root
+      if (collection && 'manages' in collection) {
+        update({
+          gallery: O<Gallery>({
+            resources: O((current: any) => [...collection.member, ...current]),
+            prevPage: getPage(collection, 'previous'),
+            prevPageLoading: false,
+          }),
+        })
+      }
     },
   }
 }

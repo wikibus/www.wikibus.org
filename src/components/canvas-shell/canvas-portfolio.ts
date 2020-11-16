@@ -1,8 +1,8 @@
 import { css, customElement, html, LitElement, property } from 'lit-element'
 import { repeat } from 'lit-html/directives/repeat'
+import { ImageObject } from '@rdfine/schema'
 import CanvasShellBase from './CanvasShellBase'
 import { MoreHorizontal, ZoomIn } from '../icons'
-import { ImageObject } from '@rdfine/schema'
 
 export interface PortfolioItem {
   id: string
@@ -94,7 +94,7 @@ export class CanvasPortfolio extends CanvasShellBase(LitElement) {
     }
 
     return html`
-      <a href="${image.contentUrl}" class="left-icon" data-lightbox="image" target="_blank">
+      <a href="${image.contentUrl?.value}" class="left-icon" data-lightbox="image" target="_blank">
         ${ZoomIn()}
       </a>
     `
@@ -108,8 +108,7 @@ export class CanvasPortfolio extends CanvasShellBase(LitElement) {
             <a>
               <img
                 @load="${this.layout}"
-                src="${(item.image && item.image.thumbnail && item.image.thumbnail.contentUrl) ||
-                  this.fallbackImage}"
+                src="${item.image?.thumbnail?.contentUrl?.value || this.fallbackImage}"
                 alt="${item.title}"
               />
             </a>

@@ -1,7 +1,7 @@
 import { html } from 'lit-html'
 import { RenderFunc } from '@lit-any/views/lib'
 import { schema } from '@tpluscode/rdf-ns-builders'
-import { HydraResource } from 'alcaeus'
+import { RdfResource } from 'alcaeus'
 import { ImageObject } from '@rdfine/schema'
 import * as scope from '../scopes'
 
@@ -14,7 +14,7 @@ interface Options<T> {
 
 const excludes = [schema.associatedMedia.value, schema.contributor.value]
 
-export function portfolioSingleGallery<T extends HydraResource>(options: Options<T>): RenderFunc {
+export function portfolioSingleGallery<T extends RdfResource>(options: Options<T>): RenderFunc {
   return (resource: T, next, s, { state }) => {
     import('../../components/canvas-shell/canvas-sidebar-section')
 
@@ -23,7 +23,7 @@ export function portfolioSingleGallery<T extends HydraResource>(options: Options
       ...resource
         .getProperties()
         .filter(prop => !prop.supportedProperty.readable)
-        .map(prop => prop.supportedProperty.property.id),
+        .map(prop => prop.supportedProperty.property?.id),
     ]
 
     return html`

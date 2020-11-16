@@ -1,16 +1,15 @@
 import { dcterms, dtype, schema } from '@tpluscode/rdf-ns-builders'
 import { Constructor, property, RdfResource } from '@tpluscode/rdfine'
-import { HydraResource } from 'alcaeus'
 import { ImageObject, ImageObjectMixin } from '@rdfine/schema'
 import { wbo } from '../ns'
 
-export interface Source extends HydraResource {
+export interface Source extends RdfResource {
   title: string | null
   images: ImageObject[]
   primaryImage: ImageObject | null
 }
 
-export function SourceMixin<B extends Constructor<HydraResource>>(Base: B) {
+export function SourceMixin<B extends Constructor<RdfResource>>(Base: B) {
   class SourceClass extends Base implements Source {
     @property.literal({ path: dcterms.title })
     public title!: string

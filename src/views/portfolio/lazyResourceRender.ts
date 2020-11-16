@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html'
-import { HydraResource } from 'alcaeus'
+import { RdfResource, Resource } from 'alcaeus'
 import { app, State } from '../../lib/state'
 import { portfolioProperty } from '../scopes'
 
@@ -14,7 +14,7 @@ function noWrap(c: TemplateResult | string) {
   return html`${c}`
 }
 
-export function lazyResourceRender(value: HydraResource, state: State): (params: LazyRendererParams) => TemplateResult | string {
+export function lazyResourceRender(value: RdfResource, state: State): (params: LazyRendererParams) => TemplateResult | string {
   const resourceState = state.resources[value.id.value]
   const load = () => app.then(({ actions }) => actions.loadResource(value))
 

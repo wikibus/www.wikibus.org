@@ -154,12 +154,12 @@ export class CanvasFslider extends CanvasLightboxMixin(CanvasShellBase(LitElemen
   }
 
   private static __slide(image: ImageObject) {
-    const thumbnailUrl = image.thumbnail ? image.thumbnail.contentUrl : undefined
+    const thumbnailUrl = image.thumbnail?.contentUrl?.value
 
     return html`
       <div class="slide" data-thumb="${ifDefined(thumbnailUrl)}">
-        <a data-lightbox="gallery-item" href="${image.contentUrl}"
-          ><img src="${image.contentUrl}" alt="" ._image="${image}"
+        <a data-lightbox="gallery-item" href="${image.contentUrl?.value}"
+          ><img src="${image.contentUrl?.value}" alt="" ._image="${image}"
         /></a>
       </div>
     `
