@@ -16,5 +16,5 @@
     "noImplicitAny": true,
     "skipLibCheck": true
   },
-  "include": ["src", "typings"]
+  "include": ["src", "typings", "webpack.config.js"]
 }

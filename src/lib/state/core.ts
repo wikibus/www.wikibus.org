@@ -12,11 +12,12 @@ import { PageTitle } from './page-title'
 type StateModification = (s: Core) => Core | Promise<Core>
 
 const noReloadTypes = [sh.Shape, sh.NodeShape, hydra.ApiDocumentation, wba.EntryPoint]
-Hydra.cacheStrategy.shouldLoad = (previous): boolean => noReloadTypes.reduce<boolean>((shouldReload, type) => {
-  if (!shouldReload) return false
+Hydra.cacheStrategy.shouldLoad = (previous): boolean =>
+  noReloadTypes.reduce<boolean>((shouldReload, type) => {
+    if (!shouldReload) return false
 
-  return !previous.representation.root?.types.has(type)
-}, true)
+    return !previous.representation.root?.types.has(type)
+  }, true)
 
 export interface OperationFormState {
   opened: boolean

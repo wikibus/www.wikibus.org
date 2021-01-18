@@ -49,9 +49,7 @@ ViewTemplates.default.when
     )
 
     return html`
-      <div class="container clearfix">
-        ${repeat(links, renderEntrypointLink(next))}
-      </div>
+      <div class="container clearfix">${repeat(links, renderEntrypointLink(next))}</div>
       <div class="divider divider-center"><i class="icon-circle"></i></div>
       ${next(state, cmsParts)}
     `

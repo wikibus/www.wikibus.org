@@ -1,6 +1,6 @@
 import { dcterms, dtype, schema } from '@tpluscode/rdf-ns-builders'
 import { Constructor, property, RdfResource } from '@tpluscode/rdfine'
-import { ImageObject, ImageObjectMixin } from '@rdfine/schema'
+import { ImageObject, ImageObjectMixin } from '@rdfine/schema/lib/ImageObject'
 import { wbo } from '../ns'
 
 export interface Source extends RdfResource {

@@ -28,9 +28,7 @@ ViewTemplates.default.when
     return html`
       <div class="container clearfix">
         ${next(resource, 'collection-sidebar')}
-        <div class="postcontent nobottommargin col_last">
-          ${collectionTable(state, next)}
-        </div>
+        <div class="postcontent nobottommargin col_last">${collectionTable(state, next)}</div>
       </div>
     `
   })

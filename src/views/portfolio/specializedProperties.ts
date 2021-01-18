@@ -24,31 +24,34 @@ ViewTemplates.default.when
 
     return html`
       ${repeat(
-    properties,
-    ({ supportedProperty, objects }) =>
-      html`
+        properties,
+        ({ supportedProperty, objects }) =>
+          html`
             ${repeat(
-    objects,
-    value =>
-      html`
+              objects,
+              value =>
+                html`
                   ${next(
-    { property: supportedProperty, value, state },
-    portfolioSpecializedProperty,
-  )}
+                    { property: supportedProperty, value, state },
+                    portfolioSpecializedProperty,
+                  )}
                 `,
-  )}
+            )}
           `,
-  )}
+      )}
     `
   })
 ViewTemplates.default.when
   .scopeMatches(portfolioSpecializedProperty)
-  .valueMatches<SpecializedPropertyModel>(({ property }) => property.property?.equals(schema.contributor) || false,
-)
+  .valueMatches<SpecializedPropertyModel>(
+    ({ property }) => property.property?.equals(schema.contributor) || false,
+  )
   .renders(({ property, value, state }: SpecializedPropertyModel<RdfResource>, next) => {
     import('../../components/canvas-shell/canvas-sidebar-section')
 
-    const userIcon = (c: TemplateResult | string) => html`${User(50)}<p slot="description">${c}</p>`
+    const userIcon = (c: TemplateResult | string) =>
+      html`${User(50)}
+        <p slot="description">${c}</p>`
 
     return html`
       <canvas-featured-box title="${property.title}">
@@ -60,32 +63,27 @@ ViewTemplates.default.when
 ViewTemplates.default.when
   .scopeMatches(portfolioSpecializedProperty)
   .valueMatches<SpecializedPropertyModel<RdfResource>>(
-  ({ value }) =>
-    typeof value === 'object' &&
+    ({ value }) =>
+      typeof value === 'object' &&
       value &&
       value.types.has(schema.MediaObject) &&
       !!value.get(schema.contentUrl),
-)
-  .renders(
-    ({ value, property }, next) => {
-      const renderContentSize = () => {
-        const contentSize = value[schema.contentSize.value]
-        if (typeof contentSize === 'number') {
-          return `${Math.floor(contentSize / 1024 / 1024 * 100) / 100} MB`
-        }
-
-        return contentSize
+  )
+  .renders(({ value, property }, next) => {
+    const renderContentSize = () => {
+      const contentSize = value[schema.contentSize.value]
+      if (typeof contentSize === 'number') {
+        return `${Math.floor((contentSize / 1024 / 1024) * 100) / 100} MB`
       }
 
-      const contentUrl = value[schema.contentUrl.value]
-      return html`
-        <canvas-featured-box
-          title="${property.title}"
-          .href="${contentUrl.id || contentUrl}"
-        >
-          ${next(value, mediaTypeIcon)}
-          <p slot="description">${renderContentSize()}</p>
-        </canvas-featured-box>
-      `
-    },
-  )
+      return contentSize
+    }
+
+    const contentUrl = value[schema.contentUrl.value]
+    return html`
+      <canvas-featured-box title="${property.title}" .href="${contentUrl.id || contentUrl}">
+        ${next(value, mediaTypeIcon)}
+        <p slot="description">${renderContentSize()}</p>
+      </canvas-featured-box>
+    `
+  })

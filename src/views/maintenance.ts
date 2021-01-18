@@ -14,9 +14,7 @@ export const template = html`
 
         <div class="col_one_third topmargin">
           <div class="feature-box fbox-center fbox-light fbox-plain">
-            <div class="fbox-icon">
-              ${AlertTriangle(size)}
-            </div>
+            <div class="fbox-icon">${AlertTriangle(size)}</div>
             <h3>Why am I seeing this?</h3>
             <p>Not all features of this website are implemented yet.</p>
           </div>
@@ -24,9 +22,7 @@ export const template = html`
 
         <div class="col_one_third topmargin">
           <div class="feature-box fbox-center fbox-light fbox-plain">
-            <div class="fbox-icon">
-              ${Clock(size)}
-            </div>
+            <div class="fbox-icon">${Clock(size)}</div>
             <h3>How long will it take?</h3>
             <p>Hard to tell. I'm working on it.</p>
           </div>
@@ -34,9 +30,7 @@ export const template = html`
 
         <div class="col_one_third topmargin col_last">
           <div class="feature-box fbox-center fbox-light fbox-plain">
-            <div class="fbox-icon">
-              ${Share2(size)}
-            </div>
+            <div class="fbox-icon">${Share2(size)}</div>
             <h3>What can I do now?</h3>
             <p>In the mean time visit our social links below ${CornerRightDown()}</p>
           </div>

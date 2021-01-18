@@ -17,9 +17,7 @@ ViewTemplates.default.when
       `
     })
 
-    return html`
-      ${until(profileMenu, html``)}
-    `
+    return html` ${until(profileMenu, html``)} `
   })
 
 ViewTemplates.default.when
@@ -35,7 +33,5 @@ ViewTemplates.default.when
           ></bs-dropdown-item-button>
         `,
     )
-    return html`
-      ${until(profileMenu, html``)}
-    `
+    return html` ${until(profileMenu, html``)} `
   })

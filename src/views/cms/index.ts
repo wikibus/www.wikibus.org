@@ -17,15 +17,7 @@ ViewTemplates.default.when
   .renders((state: State, next) => {
     const parts = state.core.resource!.getArray(schema.hasPart.value)
 
-    return html`
-      ${repeat(
-    parts,
-    part =>
-      html`
-            ${next(part, cmsScope, { state })}
-          `,
-  )}
-    `
+    return html` ${repeat(parts, part => html` ${next(part, cmsScope, { state })} `)} `
   })
 
 ViewTemplates.default.when
@@ -35,9 +27,7 @@ ViewTemplates.default.when
   .renders((step: RdfResource, next, scope) => {
     const stepItems = step.getArray<RdfResource>(schema.itemListElement.value)
 
-    return html`
-      ${repeat(stepItems, item => next(item, scope))}
-    `
+    return html` ${repeat(stepItems, item => next(item, scope))} `
   })
 
 ViewTemplates.default.when
@@ -69,10 +59,7 @@ ViewTemplates.default.when
       load()
       contents = () => ''
     } else if (resourceState.isLoading) {
-      contents = () =>
-        html`
-          <div class="container clearfix">Loading</div>
-        `
+      contents = () => html` <div class="container clearfix">Loading</div> `
     } else if ('value' in resourceState) {
       contents = () => next(resourceState.value, cmsScopeLoaded)
     } else {
@@ -84,9 +71,7 @@ ViewTemplates.default.when
         `
     }
 
-    return html`
-      <div class="container clearfix">${contents()}</div>
-    `
+    return html` <div class="container clearfix">${contents()}</div> `
   })
 
 ViewTemplates.default.when
@@ -104,10 +89,7 @@ ViewTemplates.default.when
       )
       .map((step, i) => ({
         heading: step.getString(schema.name.value),
-        content: () =>
-          html`
-            <div slot="step-${i}">${next(step, cmsScope)}</div>
-          `,
+        content: () => html` <div slot="step-${i}">${next(step, cmsScope)}</div> `,
       }))
 
     return html`

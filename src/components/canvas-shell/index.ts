@@ -92,13 +92,7 @@ export class CanvasShell extends CanvasShellBase(
       ></canvas-message>
       <slot name="messages"></slot>
 
-      <section id="content">
-        ${this.isLoading
-          ? html`
-              <slot></slot>
-            `
-          : super.render()}
-      </section>
+      <section id="content">${this.isLoading ? html` <slot></slot> ` : super.render()}</section>
 
       <canvas-footer></canvas-footer>
 

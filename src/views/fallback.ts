@@ -14,9 +14,7 @@ ViewTemplates.default.when
       ${next(state.core.operationForm, operationForm, { state })}
       ${next(state.core.resource, pageTitle, { state })}
       <section id="content">
-        <div class="content-wrap">
-          ${next(state.core.resource, resourceMain, { state })}
-        </div>
+        <div class="content-wrap">${next(state.core.resource, resourceMain, { state })}</div>
       </section>
     `,
   )
@@ -43,13 +41,7 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .valueMatches(
-    (resource: RdfResource) =>
-      resource && resource.types && resource.types.has(schema.ImageObject),
+    (resource: RdfResource) => resource && resource.types && resource.types.has(schema.ImageObject),
   )
   .valueMatches((image: RdfResource) => !!image.get(schema.contentUrl)?.id)
-  .renders(
-    (image: RdfResource) =>
-      html`
-        <img src=${image.get(schema.contentUrl).id} />
-      `,
-  )
+  .renders((image: RdfResource) => html` <img src=${image.get(schema.contentUrl).id} /> `)

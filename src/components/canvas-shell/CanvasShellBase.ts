@@ -17,7 +17,9 @@ export default function mixin<B extends ShellConstructor>(Base: B): B & ReturnCo
     private _$: JQueryStatic | null = null
 
     public static get styles() {
-      return css`${unsafeCSS(bootstrap)} ${unsafeCSS(style)} ${unsafeCSS(dark)} ${unsafeCSS(rs)}`
+      return css`
+        ${unsafeCSS(bootstrap)} ${unsafeCSS(style)} ${unsafeCSS(dark)} ${unsafeCSS(rs)}
+      `
     }
 
     public get $(): JQueryStatic {

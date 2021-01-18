@@ -6,14 +6,15 @@ export const textbox: SingleEditorComponent = {
   editor: dash.TextFieldEditor,
   render({ value, property }, { update }) {
     return html`
-  <input
-    type="text"
-    name="${property.name}"
-    .value="${value.object.value}"
-    class="form-control required"
-    placeholder="${property.shape.getString(sh.description) || ''}"
-    @input="${(e: any) => update(e.target.value)}"
-  />`
+      <input
+        type="text"
+        name="${property.name}"
+        .value="${value.object?.value || ''}"
+        class="form-control required"
+        placeholder="${property.shape.getString(sh.description) || ''}"
+        @input="${(e: any) => update(e.target.value)}"
+      />
+    `
   },
 }
 

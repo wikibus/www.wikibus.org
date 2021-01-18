@@ -28,27 +28,26 @@ ViewTemplates.default.when
   .scopeMatches(pageTitle)
   .valueMatches(v => typeof v === 'object')
   .renders((resource: RdfResource & ResourceIndexer) => {
-    const title = resource.getString(hydra.title, { strict: false }) || resource.getString(rdfs.label, { strict: false }) || resource.id.value
-    const description = resource.getString(hydra.description, { strict: false }) || resource.getString(rdfs.comment, { strict: false })
+    const title =
+      resource.getString(hydra.title, { strict: false }) ||
+      resource.getString(rdfs.label, { strict: false }) ||
+      resource.id.value
+    const description =
+      resource.getString(hydra.description, { strict: false }) ||
+      resource.getString(rdfs.comment, { strict: false })
 
     const appResolved = app.then(
       ({ states }) => html`
-      <section id="page-title" ?hidden="${states.val.pageTitle.hidden}">
-        <div class="container clearfix">
-          <h1>${title}</h1>
-          ${description
-    ? html`
-                <span>${description}</span>
-              `
-    : ''}
-        </div>
-      </section>
-    `,
+        <section id="page-title" ?hidden="${states.val.pageTitle.hidden}">
+          <div class="container clearfix">
+            <h1>${title}</h1>
+            ${description ? html` <span>${description}</span> ` : ''}
+          </div>
+        </section>
+      `,
     )
 
-    return html`
-    ${until(appResolved, '')}
-  `
+    return html` ${until(appResolved, '')} `
   })
 
 ViewTemplates.default.when

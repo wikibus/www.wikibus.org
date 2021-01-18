@@ -14,17 +14,12 @@ export function collectionTable(
   const collection = state.core.resource
 
   let properties: SupportedProperty[] = []
-  const managedClass = collection.manages.find(
-    mb => mb.property && mb.property.equals(rdf.type),
-  )
+  const managedClass = collection.manages.find(mb => mb.property && mb.property.equals(rdf.type))
   if (managedClass && managedClass.object) {
     properties = managedClass.object.supportedProperty
   }
 
-  const headerCell = (sp: SupportedProperty) =>
-    html`
-      <th>${sp.title}</th>
-    `
+  const headerCell = (sp: SupportedProperty) => html` <th>${sp.title}</th> `
   const memberRow = (member: RdfResource) => (sp: SupportedProperty) => {
     const propertyValues = member.getProperties().find(p => p.supportedProperty.id === sp.id)
 
@@ -33,9 +28,7 @@ export function collectionTable(
       value = next(propertyValues.objects[0], collectionTableCell)
     }
 
-    return html`
-      <td>${value}</td>
-    `
+    return html` <td>${value}</td> `
   }
 
   return html`
@@ -47,13 +40,13 @@ export function collectionTable(
       </thead>
       <tbody>
         ${repeat(
-    collection.member,
-    member => html`
+          collection.member,
+          member => html`
             <tr>
               ${repeat(properties, memberRow(member))}
             </tr>
           `,
-  )}
+        )}
       </tbody>
     </table>
   `

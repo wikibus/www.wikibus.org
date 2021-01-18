@@ -36,15 +36,10 @@ export default function mixin<B extends ShellConstructor>(Base: B): B & ReturnCo
       }
 
       if ($lightboxGalleryEl.length > 0) {
-        $lightboxGalleryEl.each(function() {
+        $lightboxGalleryEl.each(function () {
           const element = jq(this)
 
-          if (
-            element
-              .find('a[data-lightbox="gallery-item"]')
-              .parent('.clone')
-              .hasClass('clone')
-          ) {
+          if (element.find('a[data-lightbox="gallery-item"]').parent('.clone').hasClass('clone')) {
             element
               .find('a[data-lightbox="gallery-item"]')
               .parent('.clone')
@@ -53,10 +48,7 @@ export default function mixin<B extends ShellConstructor>(Base: B): B & ReturnCo
           }
 
           if (
-            element
-              .find('a[data-lightbox="gallery-item"]')
-              .parents('.cloned')
-              .hasClass('cloned')
+            element.find('a[data-lightbox="gallery-item"]').parents('.cloned').hasClass('cloned')
           ) {
             element
               .find('a[data-lightbox="gallery-item"]')

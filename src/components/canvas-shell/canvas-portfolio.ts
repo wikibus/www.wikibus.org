@@ -1,6 +1,6 @@
 import { css, customElement, html, LitElement, property } from 'lit-element'
 import { repeat } from 'lit-html/directives/repeat'
-import { ImageObject } from '@rdfine/schema'
+import type { ImageObject } from '@rdfine/schema'
 import CanvasShellBase from './CanvasShellBase'
 import { MoreHorizontal, ZoomIn } from '../icons'
 

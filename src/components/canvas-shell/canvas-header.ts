@@ -90,9 +90,7 @@ export class CanvasHeader extends CanvasShellBase(LitElement) {
         <bs-button small secondary dropdown-toggle ?disabled="${!this.authReady}">
           ${this.authReady
             ? User(iconSize)
-            : html`
-                <canvas-spinner .size="${iconSize}"></canvas-spinner>
-              `}
+            : html` <canvas-spinner .size="${iconSize}"></canvas-spinner> `}
         </bs-button>
         <bs-dropdown-menu down x-placement="bottom">
           <slot name="profile-menu"></slot>

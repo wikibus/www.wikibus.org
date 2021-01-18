@@ -14,10 +14,12 @@ async function updateState() {
   actions.hideOperationForm()
 }
 
-function invokeOperation(operation: RuntimeOperation) {
+function invokeOperation(operation: RuntimeOperation | undefined) {
   return async (e: CustomEvent) => {
+    if (!operation) return
+
     const { actions } = await app
-    return actions.invokeOperation(operation, e.detail.value)
+    actions.invokeOperation(operation, e.detail.value)
   }
 }
 
@@ -41,18 +43,22 @@ ViewTemplates.default.when
     function renderDialog(root: Element) {
       const div = root.firstElementChild || document.createElement('div')
 
-      render(html`<span @click="${updateState}">foo</span> ${op.error ? renderError(op.error) : html``} ${until(formLoaded, html`<canvas-spinner size="30"></canvas-spinner> Form loading`)}
-        ${op.invoking
-    ? html`
-              <canvas-spinner size="30"></canvas-spinner> Please wait
-            `
-    : html``}`, div)
+      render(
+        html`
+          <span @click="${updateState}">foo</span> ${op.error ? renderError(op.error) : html``}
+          ${until(formLoaded, html` <canvas-spinner size="30"></canvas-spinner> Form loading `)}
+          ${op.invoking ? html` <canvas-spinner size="30"></canvas-spinner> Please wait ` : html``}
+        `,
+        div,
+      )
 
       root.appendChild(div)
     }
 
     return html`
-      <vaadin-dialog no-close-on-outside-click style="width: 50%"
+      <vaadin-dialog
+        no-close-on-outside-click
+        style="width: 50%"
         heading="${ifDefined(op.operation && op.operation.title)}"
         ?opened="${state.core.operationForm.opened}"
         .renderer="${renderDialog}"
@@ -61,12 +67,16 @@ ViewTemplates.default.when
     `
   })
 
-ViewTemplates.default.when.scopeMatches(formElement).renders((op: OperationFormState) => html`
-    <canvas-operation-form
-      .operation="${op.operation}"
-      ?no-submit-button="${op.invoking}"
-      ?no-reset-button="${op.invoking}"
-      ?no-clear-button="${op.invoking}"
-      @submit="${invokeOperation(op.operation)}"
-    ></canvas-operation-form>
-  `)
+ViewTemplates.default.when
+  .scopeMatches(formElement)
+  .renders(
+    (op: OperationFormState) => html`
+      <canvas-operation-form
+        .operation="${op.operation}"
+        ?no-submit-button="${op.invoking}"
+        ?no-reset-button="${op.invoking}"
+        ?no-clear-button="${op.invoking}"
+        @submit="${invokeOperation(op.operation)}"
+      ></canvas-operation-form>
+    `,
+  )

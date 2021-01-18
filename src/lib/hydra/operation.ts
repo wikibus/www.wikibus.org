@@ -7,7 +7,8 @@ export function getRequestBody(operation: RuntimeOperation, formValue: any) {
     .filter(
       sp =>
         sp.property?.range?.equals(schema.ImageObject) ||
-          sp.property?.range?.equals(schema.MediaObject) || false,
+        sp.property?.range?.equals(schema.MediaObject) ||
+        false,
     )
     .map(sp => sp.property)
 

@@ -33,14 +33,10 @@ ViewTemplates.default.when.scopeMatches(operationList).renders((resource: RdfRes
   const operations = findOperations(resource)
 
   if (operations.length === 0) {
-    return html`
-      <bs-dropdown-item-text>Nothing to do</bs-dropdown-item-text>
-    `
+    return html` <bs-dropdown-item-text>Nothing to do</bs-dropdown-item-text> `
   }
 
-  return html`
-    ${repeat(operations, operation => next({ resource, operation }, operationTrigger))}
-  `
+  return html` ${repeat(operations, operation => next({ resource, operation }, operationTrigger))} `
 })
 
 ViewTemplates.default.when
@@ -54,8 +50,8 @@ ViewTemplates.default.when
     return html`
       <div class="widget clearfix">
         ${repeat(
-    operations,
-    operation => html`
+          operations,
+          operation => html`
             <canvas-featured-box
               light
               effect
@@ -67,17 +63,19 @@ ViewTemplates.default.when
               <p slot="description">${operation.description}</p>
             </canvas-featured-box>
           `,
-  )}
+        )}
       </div>
     `
   })
 
-ViewTemplates.default.when.scopeMatches(operationTrigger).renders(
-  (v: OperationTriggerModel) =>
-    html`
-      <bs-dropdown-item-button
-        title="${v.operation.title}"
-        @bs-dropdown-item-click="${openOperationForm(v)}"
-      ></bs-dropdown-item-button>
-    `,
-)
+ViewTemplates.default.when
+  .scopeMatches(operationTrigger)
+  .renders(
+    (v: OperationTriggerModel) =>
+      html`
+        <bs-dropdown-item-button
+          title="${v.operation.title}"
+          @bs-dropdown-item-click="${openOperationForm(v)}"
+        ></bs-dropdown-item-button>
+      `,
+  )

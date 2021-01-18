@@ -61,9 +61,7 @@ export class CanvasGototop extends CanvasShellBase(LitElement) {
   }
 
   public render() {
-    return html`
-      <div id="gotoTop" ?visible="${this.visible}">${ChevronUp()}</div>
-    `
+    return html` <div id="gotoTop" ?visible="${this.visible}">${ChevronUp()}</div> `
   }
 
   protected firstUpdated(): void {
@@ -75,15 +73,13 @@ export class CanvasGototop extends CanvasShellBase(LitElement) {
     const elementScrollEasing = this.goToTopEl.attr('data-easing') || 'easeOutQuad'
 
     this.goToTopEl.off('click').on('click', () => {
-      this.$('body,html')
-        .stop(true)
-        .animate(
-          {
-            scrollTop: 0,
-          },
-          Number(elementScrollSpeed),
-          elementScrollEasing,
-        )
+      this.$('body,html').stop(true).animate(
+        {
+          scrollTop: 0,
+        },
+        Number(elementScrollSpeed),
+        elementScrollEasing,
+      )
       return false
     })
   }

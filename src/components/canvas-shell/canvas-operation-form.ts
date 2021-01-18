@@ -13,16 +13,27 @@ export class CanvasOperationForm extends CanvasShellBase(ShaperoneForm) {
   [Operation]: RuntimeOperation | undefined
 
   static get styles() {
-    return css`
-      ${super.styles}
-      :host {
-        width: 500px
-      }
-      
-      button {
-        position: sticky;
-        bottom: 0px;
-      }`
+    return [
+      css`
+        ${super.styles as any}
+        :host {
+          width: 500px;
+          display: block;
+        }
+
+        button {
+          position: sticky;
+          bottom: 0px;
+        }
+      `,
+    ]
+  }
+
+  async connectedCallback() {
+    await super.connectedCallback()
+    if (this.operation) {
+      this.__loadShape(this.operation)
+    }
   }
 
   get operation(): RuntimeOperation | undefined {
@@ -39,11 +50,12 @@ export class CanvasOperationForm extends CanvasShellBase(ShaperoneForm) {
 
   render() {
     return html`
-        <div></div>
-        ${super.render()}
-        <div>
-            <canvas-button label="Submit"></canvas-button>
-        </div>`
+      <div></div>
+      ${super.render()}
+      <div>
+        <canvas-button label="Submit"></canvas-button>
+      </div>
+    `
   }
 
   async __loadShape(operation: RuntimeOperation) {

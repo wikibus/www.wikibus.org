@@ -2,7 +2,7 @@ import { html } from 'lit-html'
 import { RenderFunc } from '@lit-any/views/lib'
 import { schema } from '@tpluscode/rdf-ns-builders'
 import { RdfResource } from 'alcaeus'
-import { ImageObject } from '@rdfine/schema'
+import type { ImageObject } from '@rdfine/schema'
 import * as scope from '../scopes'
 
 interface Options<T> {

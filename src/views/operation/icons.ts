@@ -10,62 +10,32 @@ import { wba } from '../../lib/ns'
 const iconSize = 40
 
 function operationTyped(type: NamedNode) {
-  return (op: RuntimeOperation) => op && op.supportedOperation.types.has(type.value)
+  return (op: RuntimeOperation) => op && op.types.has(type.value)
 }
 
 ViewTemplates.default.when
   .scopeMatches(operationIcon)
   .valueMatches(operationTyped(wba.AddToWishlistAction))
-  .renders(
-    () =>
-      html`
-        ${Pdf}
-      `,
-  )
+  .renders(() => html` ${Pdf} `)
 
 ViewTemplates.default.when
   .scopeMatches(operationIcon)
   .valueMatches(operationTyped(schema.CreateAction))
-  .renders(
-    () =>
-      html`
-        ${PlusCircle(iconSize)}
-      `,
-  )
+  .renders(() => html` ${PlusCircle(iconSize)} `)
 
 ViewTemplates.default.when
   .scopeMatches(operationIcon)
   .valueMatches(operationTyped(schema.UpdateAction))
-  .renders(
-    () =>
-      html`
-        ${Edit(iconSize)}
-      `,
-  )
+  .renders(() => html` ${Edit(iconSize)} `)
 
 ViewTemplates.default.when
   .scopeMatches(operationIcon)
   .valueMatches(operationTyped(schema.DeleteAction))
-  .renders(
-    () =>
-      html`
-        ${MinusCircle(iconSize)}
-      `,
-  )
+  .renders(() => html` ${MinusCircle(iconSize)} `)
 
 ViewTemplates.default.when
   .scopeMatches(operationIcon)
   .valueMatches(operationTyped(schema.TransferAction))
-  .renders(
-    () =>
-      html`
-        ${UploadCloud(iconSize)}
-      `,
-  )
+  .renders(() => html` ${UploadCloud(iconSize)} `)
 
-ViewTemplates.default.when.scopeMatches(operationIcon).renders(
-  () =>
-    html`
-      ${Command(iconSize)}
-    `,
-)
+ViewTemplates.default.when.scopeMatches(operationIcon).renders(() => html` ${Command(iconSize)} `)

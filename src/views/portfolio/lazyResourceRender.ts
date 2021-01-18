@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-html'
-import { RdfResource, Resource } from 'alcaeus'
+import { RdfResource } from 'alcaeus'
 import { app, State } from '../../lib/state'
 import { portfolioProperty } from '../scopes'
 
@@ -14,7 +14,10 @@ function noWrap(c: TemplateResult | string) {
   return html`${c}`
 }
 
-export function lazyResourceRender(value: RdfResource, state: State): (params: LazyRendererParams) => TemplateResult | string {
+export function lazyResourceRender(
+  value: RdfResource,
+  state: State,
+): (params: LazyRendererParams) => TemplateResult | string {
   const resourceState = state.resources[value.id.value]
   const load = () => app.then(({ actions }) => actions.loadResource(value))
 
@@ -24,18 +27,18 @@ export function lazyResourceRender(value: RdfResource, state: State): (params: L
   }
 
   if (resourceState.isLoading) {
-    return ({ wrapLoading = noWrap }) =>
-      html`
-          ${wrapLoading('Loading')}
-        `
+    return ({ wrapLoading = noWrap }) => html` ${wrapLoading('Loading')} `
   }
 
   if ('value' in resourceState) {
-    return ({ wrapLoaded = noWrap, next }) => html`${wrapLoaded(next(resourceState, portfolioProperty, { state }))}`
+    return ({ wrapLoaded = noWrap, next }) =>
+      html`${wrapLoaded(next(resourceState, portfolioProperty, { state }))}`
   }
 
   return ({ wrapFailed = noWrap }) =>
     html`
-      ${wrapFailed(html`Loading failed <a href="javascript:void(0)" @click="${load}">Try again</a>`)}
+      ${wrapFailed(
+        html`Loading failed <a href="javascript:void(0)" @click="${load}">Try again</a>`,
+      )}
     `
 }

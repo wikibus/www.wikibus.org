@@ -8,9 +8,4 @@ import { mediaTypeIcon } from '../scopes'
 ViewTemplates.default.when
   .scopeMatches(mediaTypeIcon)
   .valueMatches((res: RdfResource) => res.getString(schema.encodingFormat) === 'application/pdf')
-  .renders(
-    () =>
-      html`
-        ${Pdf}
-      `,
-  )
+  .renders(() => html` ${Pdf} `)

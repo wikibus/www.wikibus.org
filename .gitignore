@@ -7,3 +7,4 @@ src/sass/**/*.css
 .css.map
 *.d.ts
 !/typings/**/*.d.ts
+coverage/

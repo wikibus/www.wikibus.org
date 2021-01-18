@@ -20,9 +20,7 @@ export const Twitter = wrap(icons.Twitter)
 export const GitHub = wrap(icons.GitHub)
 export const Linkedin = wrap(icons.Linkedin)
 export const BookOpen = wrap(icons.BookOpen)
-export const Pinterest = html`
-  ${unsafeHTML(SimplePinterest.svg)}
-`
+export const Pinterest = html` ${unsafeHTML(SimplePinterest.svg)} `
 export const Box = wrap(icons.Box)
 export const Instagram = wrap(icons.Instagram)
 export const FileText = wrap(icons.FileText)
@@ -36,9 +34,7 @@ export const CornerRightDown = wrap(icons.CornerRightDown)
 export const User = wrap(icons.User)
 export const Loader = wrap(icons.Loader)
 export const ShoppingCart = wrap(icons.ShoppingCart)
-export const Pdf = html`
-  ${unsafeHTML(SimplePdf.svg)}
-`
+export const Pdf = html` ${unsafeHTML(SimplePdf.svg)} `
 export const Command = wrap(icons.Command)
 export const PlusCircle = wrap(icons.PlusCircle)
 export const MinusCircle = wrap(icons.MinusCircle)

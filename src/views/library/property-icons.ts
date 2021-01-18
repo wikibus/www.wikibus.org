@@ -15,9 +15,7 @@ interface IconOptions {
 
 function renderIcon(icon: IconFunction): RenderFunc {
   return (sp: SupportedProperty, next, scope, props: IconOptions) =>
-    html`
-      ${icon(props.size || defaultSize)}
-    `
+    html` ${icon(props.size || defaultSize)} `
 }
 
 ViewTemplates.default.when

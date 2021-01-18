@@ -72,22 +72,14 @@ export class CanvasFeaturedBox extends CanvasShellBase(LitElement) {
   }
 
   public render() {
-    let link = html`
-      <i><slot id="icon">${Box(50)}</slot></i>
-    `
+    let link = html` <i><slot id="icon">${Box(50)}</slot></i> `
 
     if (this.href || this.resourceUrl) {
-      link = html`
-        <a href="${this.href}" target="_blank">${link}</a>
-      `
+      link = html` <a href="${this.href}" target="_blank">${link}</a> `
     }
 
     if (this.resourceUrl) {
-      link = html`
-        <ld-link resource-url="${this.resourceUrl}">
-          ${link}
-        </ld-link>
-      `
+      link = html` <ld-link resource-url="${this.resourceUrl}"> ${link} </ld-link> `
     }
 
     return html`
@@ -98,9 +90,7 @@ export class CanvasFeaturedBox extends CanvasShellBase(LitElement) {
           ? 'fbox-dark'
           : ''}"
       >
-        <div class="fbox-icon">
-          ${link}
-        </div>
+        <div class="fbox-icon">${link}</div>
         <h3>${this.title}</h3>
         <slot name="description"><p>${this.description}</p></slot>
       </div>
