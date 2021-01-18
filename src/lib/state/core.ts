@@ -2,6 +2,7 @@ import { Hydra } from 'alcaeus/web'
 import { ResourceIdentifier, Class, Resource, SupportedProperty, RuntimeOperation } from 'alcaeus'
 import O from 'patchinko/immutable'
 import { hydra, sh } from '@tpluscode/rdf-ns-builders'
+import { namedNode } from '@rdf-esm/data-model'
 import { getRequestBody } from '../hydra/operation'
 import { ServiceParams, State } from './index'
 import * as App from '../state'
@@ -18,6 +19,8 @@ Hydra.cacheStrategy.shouldLoad = (previous): boolean =>
 
     return !previous.representation.root?.types.has(type)
   }, true)
+
+Hydra.rootSelectors.push(['decoded', (response) => namedNode(decodeURI(response.effectiveUri))])
 
 export interface OperationFormState {
   opened: boolean

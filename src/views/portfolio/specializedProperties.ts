@@ -24,28 +24,28 @@ ViewTemplates.default.when
 
     return html`
       ${repeat(
-        properties,
-        ({ supportedProperty, objects }) =>
-          html`
+    properties,
+    ({ supportedProperty, objects }) =>
+      html`
             ${repeat(
-              objects,
-              value =>
-                html`
+    objects,
+    value =>
+      html`
                   ${next(
-                    { property: supportedProperty, value, state },
-                    portfolioSpecializedProperty,
-                  )}
+    { property: supportedProperty, value, state },
+    portfolioSpecializedProperty,
+  )}
                 `,
-            )}
+  )}
           `,
-      )}
+  )}
     `
   })
 ViewTemplates.default.when
   .scopeMatches(portfolioSpecializedProperty)
   .valueMatches<SpecializedPropertyModel>(
-    ({ property }) => property.property?.equals(schema.contributor) || false,
-  )
+  ({ property }) => property.property?.equals(schema.contributor) || false,
+)
   .renders(({ property, value, state }: SpecializedPropertyModel<RdfResource>, next) => {
     import('../../components/canvas-shell/canvas-sidebar-section')
 
@@ -63,12 +63,12 @@ ViewTemplates.default.when
 ViewTemplates.default.when
   .scopeMatches(portfolioSpecializedProperty)
   .valueMatches<SpecializedPropertyModel<RdfResource>>(
-    ({ value }) =>
-      typeof value === 'object' &&
+  ({ value }) =>
+    typeof value === 'object' &&
       value &&
       value.types.has(schema.MediaObject) &&
       !!value.get(schema.contentUrl),
-  )
+)
   .renders(({ value, property }, next) => {
     const renderContentSize = () => {
       const contentSize = value[schema.contentSize.value]

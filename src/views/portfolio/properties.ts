@@ -33,31 +33,31 @@ ViewTemplates.default.when
 
     return html`
       ${repeat(
-        properties,
-        pair => html`
+    properties,
+    pair => html`
           <li>
             <span>${pair.supportedProperty.title}:</span> ${repeat(pair.objects, (value, index) => {
-              const model: PropertyModel = {
-                property: pair.supportedProperty,
-                resource: undefined,
-                value,
-              }
+  const model: PropertyModel = {
+    property: pair.supportedProperty,
+    resource: undefined,
+    value,
+  }
 
-              if (typeof value === 'object') {
-                model.resource = value
-              } else {
-                model.literal = value
-              }
+  if (typeof value === 'object') {
+    model.resource = value
+  } else {
+    model.literal = value
+  }
 
-              return html`
+  return html`
                 ${next(model, portfolioProperty, { state })}${index < pair.objects.length - 1
-                  ? ', '
-                  : ''}
+  ? ', '
+  : ''}
               `
-            })}
+})}
           </li>
         `,
-      )}
+  )}
     `
   })
 
@@ -80,8 +80,7 @@ ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
   .valueMatches(({ resource }: PropertyModel) => resource?.types.has(schema.Person) || false)
   .renders(
-    ({ resource }: PropertyModel<Person>) =>
-      html`
+    ({ resource }: PropertyModel<Person>) => html`
         <img src="${resource.image?.contentUrl?.value}" alt="${resource.name} avatar" />
         <p slot="description">${resource.name}</p>
       `,

@@ -39,6 +39,7 @@
     "@lit-element-bootstrap/dropdown": "1.0.0-alpha.4",
     "@polymer/iron-dropdown": "^3.0.1",
     "@polymer/paper-progress": "^3.0.1",
+    "@rdf-esm/data-model": "^0.5.4",
     "@rdf-esm/dataset": "^0.5.1",
     "@rdf-esm/formats-common": "^0.5.3",
     "@rdf-esm/namespace": "^0.5.1",
