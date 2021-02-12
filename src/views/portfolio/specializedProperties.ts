@@ -66,6 +66,7 @@ ViewTemplates.default.when
   ({ value }) =>
     typeof value === 'object' &&
       value &&
+      'id' in value &&
       value.types.has(schema.MediaObject) &&
       !!value.get(schema.contentUrl),
 )

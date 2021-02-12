@@ -43,7 +43,7 @@ ViewTemplates.default.when
     value,
   }
 
-  if (typeof value === 'object') {
+  if (typeof value === 'object' && 'id' in value) {
     model.resource = value
   } else {
     model.literal = value
@@ -63,7 +63,10 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
-  .valueMatches(({ resource }: PropertyModel) => !!resource && /lexvo/.test(resource.id.value))
+  .valueMatches(({ resource }: PropertyModel) =>
+    // foo
+    !!resource && /lexvo/.test(resource.id.value),
+  )
   .renders(({ value }) => {
     const matches = /\/(\w+)$/[Symbol.match](value.id.value)
     if (!matches) return ''
@@ -78,12 +81,15 @@ ViewTemplates.default.when
 
 ViewTemplates.default.when
   .scopeMatches(portfolioProperty)
-  .valueMatches(({ resource }: PropertyModel) => resource?.types.has(schema.Person) || false)
+  .valueMatches(({ resource }: PropertyModel) =>
+  // foo
+     resource?.types.has(schema.Person) || false,
+  )
   .renders(
     ({ resource }: PropertyModel<Person>) => html`
-        <img src="${resource.image?.contentUrl?.value}" alt="${resource.name} avatar" />
-        <p slot="description">${resource.name}</p>
-      `,
+      <img src="${resource.image?.contentUrl?.value}" alt="${resource.name} avatar" />
+      <p slot="description">${resource.name}</p>
+    `,
   )
 
 ViewTemplates.default.when
@@ -116,4 +122,7 @@ ViewTemplates.default.when
   .valueMatches(({ resource }: PropertyModel) => !!resource?.get(rdfs.label.value))
   .renders(({ resource }) => html`${resource[rdfs.label.value]}`)
 
-ViewTemplates.default.when.scopeMatches(portfolioProperty).renders(({ value }) => html` ${value} `)
+ViewTemplates.default.when.scopeMatches(portfolioProperty).renders(({ value }) =>
+  // debugger
+  html` ${value.value} `,
+)

@@ -131,7 +131,7 @@
   },
   "lint-staged": {
     "*.{ts,js}": [
-      "eslint --fix --quiet --ignore-path .gitignore --quiet",
+      "eslint --fix --quiet --ignore-path .gitignore --ignore-path .eslintignore --quiet",
       "prettier --write"
     ]
   },
