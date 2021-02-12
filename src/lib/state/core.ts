@@ -20,7 +20,7 @@ Hydra.cacheStrategy.shouldLoad = (previous): boolean =>
     return !previous.representation.root?.types.has(type)
   }, true)
 
-Hydra.rootSelectors.push(['decoded', (response) => namedNode(decodeURI(response.effectiveUri))])
+Hydra.rootSelectors.push(['decoded', response => namedNode(decodeURI(response.effectiveUri))])
 
 export interface OperationFormState {
   opened: boolean
