@@ -11,5 +11,5 @@
   AUTH0_CLIENT_ID = "A4j5Tdmq1zskLpmawVgB6OABUQr4A9fu"
 
 [context.master.environment]
-  API_ROOT = "https://wikibus-bff-production.herokuapp.com/"
+  API_ROOT = "https://bff.wikibus.org/"
   AUTH0_CLIENT_ID = "Goc6AyTupeYzcatX3Xdrt0lLphv1OTW1"
